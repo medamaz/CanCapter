@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanCapter", "CanCapter\CanCapter.csproj", "{0D86F370-3A0D-4079-87E5-588D5844C3FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA08670A-807A-4BED-B915-D03834485A29}
+	EndGlobalSection
+EndGlobal
