@@ -16,23 +16,15 @@
           <Property Name="telephone_P" Type="int" Nullable="false" />
           <Property Name="telephone_M" Type="int" Nullable="false" />
           <Property Name="date_I" Type="date" Nullable="false" />
-          <Property Name="id_F" Type="int" />
+          <Property Name="id_F" Type="int" Nullable="false" />
+          <Property Name="Matiers" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Filier">
           <Key>
             <PropertyRef Name="Id_F" />
           </Key>
-          <Property Name="Id_F" Type="int" Nullable="false" />
+          <Property Name="Id_F" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nom" Type="varchar(max)" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CANCAPTERDATABASE.MDF.dbo.Matier_Etudient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Matier_Etudient">
-          <Key>
-            <PropertyRef Name="id_E" />
-          </Key>
-          <Property Name="id_E" Type="int" Nullable="false" />
-          <Property Name="id_M" Type="int" />
         </EntityType>
         <EntityType Name="Matiere">
           <Key>
@@ -61,8 +53,8 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           <Property Name="id_M" Type="int" Nullable="false" />
           <Property Name="id_F" Type="int" />
         </EntityType>
-        <Association Name="FK__Etudiant__id_F__5CD6CB2B">
-          <End Role="Filier" Type="Self.Filier" Multiplicity="0..1" />
+        <Association Name="FK__Etudiant__id_F__01142BA1">
+          <End Role="Filier" Type="Self.Filier" Multiplicity="1" />
           <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Filier">
@@ -70,30 +62,6 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             </Principal>
             <Dependent Role="Etudiant">
               <PropertyRef Name="id_F" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Matier_Etu__id_E__60A75C0F">
-          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
-          <End Role="Matier_Etudient" Type="Self.Matier_Etudient" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Etudiant">
-              <PropertyRef Name="Id_E" />
-            </Principal>
-            <Dependent Role="Matier_Etudient">
-              <PropertyRef Name="id_E" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Matier_Etu__id_M__619B8048">
-          <End Role="Matiere" Type="Self.Matiere" Multiplicity="0..1" />
-          <End Role="Matier_Etudient" Type="Self.Matier_Etudient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Matiere">
-              <PropertyRef Name="Id_M" />
-            </Principal>
-            <Dependent Role="Matier_Etudient">
-              <PropertyRef Name="id_M" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -121,7 +89,7 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tarif__id_F__5EBF139D">
+        <Association Name="FK__Tarif__id_F__70DDC3D8">
           <End Role="Filier" Type="Self.Filier" Multiplicity="0..1" />
           <End Role="Tarif" Type="Self.Tarif" Multiplicity="*" />
           <ReferentialConstraint>
@@ -151,23 +119,9 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           <EntitySet Name="Matiere" EntityType="Self.Matiere" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarif" EntityType="Self.Tarif" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Matier_Etudient" EntityType="Self.Matier_Etudient" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Matier_Etudient].[id_E] AS [id_E], 
-    [Matier_Etudient].[id_M] AS [id_M]
-    FROM [dbo].[Matier_Etudient] AS [Matier_Etudient]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Etudiant__id_F__5CD6CB2B" Association="Self.FK__Etudiant__id_F__5CD6CB2B">
+          <AssociationSet Name="FK__Etudiant__id_F__01142BA1" Association="Self.FK__Etudiant__id_F__01142BA1">
             <End Role="Filier" EntitySet="Filier" />
             <End Role="Etudiant" EntitySet="Etudiant" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Matier_Etu__id_E__60A75C0F" Association="Self.FK__Matier_Etu__id_E__60A75C0F">
-            <End Role="Etudiant" EntitySet="Etudiant" />
-            <End Role="Matier_Etudient" EntitySet="Matier_Etudient" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Matier_Etu__id_M__619B8048" Association="Self.FK__Matier_Etu__id_M__619B8048">
-            <End Role="Matiere" EntitySet="Matiere" />
-            <End Role="Matier_Etudient" EntitySet="Matier_Etudient" />
           </AssociationSet>
           <AssociationSet Name="FK__Paiement__id_E__571DF1D5" Association="Self.FK__Paiement__id_E__571DF1D5">
             <End Role="Etudiant" EntitySet="Etudiant" />
@@ -177,7 +131,7 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             <End Role="Tarif" EntitySet="Tarif" />
             <End Role="Paiement" EntitySet="Paiement" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tarif__id_F__5EBF139D" Association="Self.FK__Tarif__id_F__5EBF139D">
+          <AssociationSet Name="FK__Tarif__id_F__70DDC3D8" Association="Self.FK__Tarif__id_F__70DDC3D8">
             <End Role="Filier" EntitySet="Filier" />
             <End Role="Tarif" EntitySet="Tarif" />
           </AssociationSet>
@@ -202,19 +156,19 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           <Property Name="telephone_P" Type="Int32" Nullable="false" />
           <Property Name="telephone_M" Type="Int32" Nullable="false" />
           <Property Name="date_I" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id_F" Type="Int32" />
-          <NavigationProperty Name="Filier" Relationship="Self.FK__Etudiant__id_F__5CD6CB2B" FromRole="Etudiant" ToRole="Filier" />
-          <NavigationProperty Name="Matier_Etudient" Relationship="Self.FK__Matier_Etu__id_E__60A75C0F" FromRole="Etudiant" ToRole="Matier_Etudient" />
+          <Property Name="id_F" Type="Int32" Nullable="false" />
+          <Property Name="Matiers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Filier" Relationship="Self.FK__Etudiant__id_F__01142BA1" FromRole="Etudiant" ToRole="Filier" />
           <NavigationProperty Name="Paiements" Relationship="Self.FK__Paiement__id_E__571DF1D5" FromRole="Etudiant" ToRole="Paiement" />
         </EntityType>
         <EntityType Name="Filier">
           <Key>
             <PropertyRef Name="Id_F" />
           </Key>
-          <Property Name="Id_F" Type="Int32" Nullable="false" />
+          <Property Name="Id_F" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Etudiants" Relationship="Self.FK__Etudiant__id_F__5CD6CB2B" FromRole="Filier" ToRole="Etudiant" />
-          <NavigationProperty Name="Tarifs" Relationship="Self.FK__Tarif__id_F__5EBF139D" FromRole="Filier" ToRole="Tarif" />
+          <NavigationProperty Name="Etudiants" Relationship="Self.FK__Etudiant__id_F__01142BA1" FromRole="Filier" ToRole="Etudiant" />
+          <NavigationProperty Name="Tarifs" Relationship="Self.FK__Tarif__id_F__70DDC3D8" FromRole="Filier" ToRole="Tarif" />
         </EntityType>
         <EntityType Name="Matiere">
           <Key>
@@ -222,7 +176,6 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           </Key>
           <Property Name="Id_M" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Matier_Etudient" Relationship="Self.FK__Matier_Etu__id_M__619B8048" FromRole="Matiere" ToRole="Matier_Etudient" />
           <NavigationProperty Name="Tarifs" Relationship="Self.FK__Tarif__id_M__5165187F" FromRole="Matiere" ToRole="Tarif" />
         </EntityType>
         <EntityType Name="Paiement">
@@ -246,21 +199,12 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           <Property Name="Prix" Type="Double" Nullable="false" />
           <Property Name="id_M" Type="Int32" Nullable="false" />
           <Property Name="id_F" Type="Int32" />
-          <NavigationProperty Name="Filier" Relationship="Self.FK__Tarif__id_F__5EBF139D" FromRole="Tarif" ToRole="Filier" />
+          <NavigationProperty Name="Filier" Relationship="Self.FK__Tarif__id_F__70DDC3D8" FromRole="Tarif" ToRole="Filier" />
           <NavigationProperty Name="Matiere" Relationship="Self.FK__Tarif__id_M__5165187F" FromRole="Tarif" ToRole="Matiere" />
           <NavigationProperty Name="Paiements" Relationship="Self.FK__Paiement__id_T__5812160E" FromRole="Tarif" ToRole="Paiement" />
         </EntityType>
-        <EntityType Name="Matier_Etudient">
-          <Key>
-            <PropertyRef Name="id_E" />
-          </Key>
-          <Property Name="id_E" Type="Int32" Nullable="false" />
-          <Property Name="id_M" Type="Int32" />
-          <NavigationProperty Name="Etudiant" Relationship="Self.FK__Matier_Etu__id_E__60A75C0F" FromRole="Matier_Etudient" ToRole="Etudiant" />
-          <NavigationProperty Name="Matiere" Relationship="Self.FK__Matier_Etu__id_M__619B8048" FromRole="Matier_Etudient" ToRole="Matiere" />
-        </EntityType>
-        <Association Name="FK__Etudiant__id_F__5CD6CB2B">
-          <End Role="Filier" Type="Self.Filier" Multiplicity="0..1" />
+        <Association Name="FK__Etudiant__id_F__01142BA1">
+          <End Role="Filier" Type="Self.Filier" Multiplicity="1" />
           <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Filier">
@@ -268,18 +212,6 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             </Principal>
             <Dependent Role="Etudiant">
               <PropertyRef Name="id_F" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Matier_Etu__id_E__60A75C0F">
-          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
-          <End Role="Matier_Etudient" Type="Self.Matier_Etudient" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Etudiant">
-              <PropertyRef Name="Id_E" />
-            </Principal>
-            <Dependent Role="Matier_Etudient">
-              <PropertyRef Name="id_E" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -295,7 +227,7 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tarif__id_F__5EBF139D">
+        <Association Name="FK__Tarif__id_F__70DDC3D8">
           <End Role="Filier" Type="Self.Filier" Multiplicity="0..1" />
           <End Role="Tarif" Type="Self.Tarif" Multiplicity="*" />
           <ReferentialConstraint>
@@ -304,18 +236,6 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
             </Principal>
             <Dependent Role="Tarif">
               <PropertyRef Name="id_F" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Matier_Etu__id_M__619B8048">
-          <End Role="Matiere" Type="Self.Matiere" Multiplicity="0..1" />
-          <End Role="Matier_Etudient" Type="Self.Matier_Etudient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Matiere">
-              <PropertyRef Name="Id_M" />
-            </Principal>
-            <Dependent Role="Matier_Etudient">
-              <PropertyRef Name="id_M" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,26 +269,17 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
           <EntitySet Name="Matieres" EntityType="Self.Matiere" />
           <EntitySet Name="Paiements" EntityType="Self.Paiement" />
           <EntitySet Name="Tarifs" EntityType="Self.Tarif" />
-          <EntitySet Name="Matier_Etudient" EntityType="Self.Matier_Etudient" />
-          <AssociationSet Name="FK__Etudiant__id_F__5CD6CB2B" Association="Self.FK__Etudiant__id_F__5CD6CB2B">
+          <AssociationSet Name="FK__Etudiant__id_F__01142BA1" Association="Self.FK__Etudiant__id_F__01142BA1">
             <End Role="Filier" EntitySet="Filiers" />
             <End Role="Etudiant" EntitySet="Etudiants" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Matier_Etu__id_E__60A75C0F" Association="Self.FK__Matier_Etu__id_E__60A75C0F">
-            <End Role="Etudiant" EntitySet="Etudiants" />
-            <End Role="Matier_Etudient" EntitySet="Matier_Etudient" />
           </AssociationSet>
           <AssociationSet Name="FK__Paiement__id_E__571DF1D5" Association="Self.FK__Paiement__id_E__571DF1D5">
             <End Role="Etudiant" EntitySet="Etudiants" />
             <End Role="Paiement" EntitySet="Paiements" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tarif__id_F__5EBF139D" Association="Self.FK__Tarif__id_F__5EBF139D">
+          <AssociationSet Name="FK__Tarif__id_F__70DDC3D8" Association="Self.FK__Tarif__id_F__70DDC3D8">
             <End Role="Filier" EntitySet="Filiers" />
             <End Role="Tarif" EntitySet="Tarifs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Matier_Etu__id_M__619B8048" Association="Self.FK__Matier_Etu__id_M__619B8048">
-            <End Role="Matiere" EntitySet="Matieres" />
-            <End Role="Matier_Etudient" EntitySet="Matier_Etudient" />
           </AssociationSet>
           <AssociationSet Name="FK__Tarif__id_M__5165187F" Association="Self.FK__Tarif__id_M__5165187F">
             <End Role="Matiere" EntitySet="Matieres" />
@@ -396,6 +307,7 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
                 <ScalarProperty Name="telephone_M" ColumnName="telephone_M" />
                 <ScalarProperty Name="date_I" ColumnName="date_I" />
                 <ScalarProperty Name="id_F" ColumnName="id_F" />
+                <ScalarProperty Name="Matiers" ColumnName="Matiers" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -434,14 +346,6 @@ warning 6002: The table/view 'C:\USERS\MOAMI\SOURCE\REPOS\CANCAPTER\CANCAPTER\CA
                 <ScalarProperty Name="Prix" ColumnName="Prix" />
                 <ScalarProperty Name="id_M" ColumnName="id_M" />
                 <ScalarProperty Name="id_F" ColumnName="id_F" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Matier_Etudient">
-            <EntityTypeMapping TypeName="CanCapterDataBaseModel.Matier_Etudient">
-              <MappingFragment StoreEntitySet="Matier_Etudient">
-                <ScalarProperty Name="id_E" ColumnName="id_E" />
-                <ScalarProperty Name="id_M" ColumnName="id_M" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

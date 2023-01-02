@@ -27,10 +27,10 @@ namespace CanCapter
         public int telephone_P { get; set; }
         public int telephone_M { get; set; }
         public System.DateTime date_I { get; set; }
-        public Nullable<int> id_F { get; set; }
+        public int id_F { get; set; }
+        public string Matiers { get; set; }
     
         public virtual Filier Filier { get; set; }
-        public virtual Matier_Etudient Matier_Etudient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paiement> Paiements { get; set; }
     }

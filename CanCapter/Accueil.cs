@@ -44,5 +44,12 @@ namespace CanCapter
             f.Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form f = new EtudientGs(this);
+            f.Show();
+            this.Hide();
+        }
     }
 }

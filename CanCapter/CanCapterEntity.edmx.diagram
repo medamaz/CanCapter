@@ -4,18 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f6108a9b47f41ee9ddf9b108d74fcf3" Name="Diagram1">
+      <Diagram DiagramId="7b0626dcb65c4ee0866cb04a4b724f1f" Name="Diagram1">
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Filier" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Paiement" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Tarif" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matier_Etudient" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
-        <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant__id_F__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="CanCapterDataBaseModel.FK__Matier_Etu__id_E__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant__id_F__01142BA1" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Paiement__id_E__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="CanCapterDataBaseModel.FK__Tarif__id_F__5EBF139D" ManuallyRouted="false" />
-        <AssociationConnector Association="CanCapterDataBaseModel.FK__Matier_Etu__id_M__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="CanCapterDataBaseModel.FK__Tarif__id_F__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Tarif__id_M__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Paiement__id_T__5812160E" ManuallyRouted="false" />
       </Diagram>

@@ -17,15 +17,12 @@ namespace CanCapter
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Matiere()
         {
-            this.Matier_Etudient = new HashSet<Matier_Etudient>();
             this.Tarifs = new HashSet<Tarif>();
         }
     
         public int Id_M { get; set; }
         public string nom { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Matier_Etudient> Matier_Etudient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarif> Tarifs { get; set; }
     }

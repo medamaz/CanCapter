@@ -94,6 +94,12 @@
     <Compile Include="Etudiant.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="EtudientGs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EtudientGs.Designer.cs">
+      <DependentUpon>EtudientGs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filier.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
@@ -112,9 +118,6 @@
     <Compile Include="MatierGs.Designer.cs">
       <DependentUpon>MatierGs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Matier_Etudient.cs">
-      <DependentUpon>CanCapterEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Paiement.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
@@ -131,6 +134,9 @@
     </Compile>
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtudientGs.resx">
+      <DependentUpon>EtudientGs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FilierGs.resx">
       <DependentUpon>FilierGs.cs</DependentUpon>

@@ -48,7 +48,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Location = new System.Drawing.Point(373, 12);
+            this.panel2.Location = new System.Drawing.Point(484, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(398, 385);
             this.panel2.TabIndex = 36;
@@ -61,6 +61,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(398, 385);
             this.dataGridView1.TabIndex = 27;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // panel1
             // 
@@ -75,18 +76,19 @@
             this.panel1.Controls.Add(this.Prix);
             this.panel1.Location = new System.Drawing.Point(12, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(355, 219);
+            this.panel1.Size = new System.Drawing.Size(466, 219);
             this.panel1.TabIndex = 35;
             // 
             // Matiere
             // 
+            this.Matiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Matiere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Matiere.FormattingEnabled = true;
             this.Matiere.Items.AddRange(new object[] {
             ""});
             this.Matiere.Location = new System.Drawing.Point(158, 66);
             this.Matiere.Name = "Matiere";
-            this.Matiere.Size = new System.Drawing.Size(179, 28);
+            this.Matiere.Size = new System.Drawing.Size(293, 28);
             this.Matiere.TabIndex = 28;
             // 
             // label4
@@ -101,13 +103,15 @@
             // 
             // Filier
             // 
+            this.Filier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Filier.DropDownWidth = 300;
             this.Filier.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Filier.FormattingEnabled = true;
             this.Filier.Items.AddRange(new object[] {
             ""});
             this.Filier.Location = new System.Drawing.Point(158, 13);
             this.Filier.Name = "Filier";
-            this.Filier.Size = new System.Drawing.Size(179, 28);
+            this.Filier.Size = new System.Drawing.Size(293, 28);
             this.Filier.TabIndex = 26;
             // 
             // label1
@@ -124,27 +128,29 @@
             // 
             this.Enregistrer.Cursor = System.Windows.Forms.Cursors.Default;
             this.Enregistrer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Enregistrer.Location = new System.Drawing.Point(237, 173);
+            this.Enregistrer.Location = new System.Drawing.Point(306, 178);
             this.Enregistrer.Name = "Enregistrer";
             this.Enregistrer.Size = new System.Drawing.Size(107, 38);
             this.Enregistrer.TabIndex = 22;
             this.Enregistrer.Text = "Enregistrer";
             this.Enregistrer.UseVisualStyleBackColor = true;
+            this.Enregistrer.Click += new System.EventHandler(this.Enregistrer_Click);
             // 
             // Supprimer
             // 
             this.Supprimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Supprimer.Location = new System.Drawing.Point(124, 173);
+            this.Supprimer.Location = new System.Drawing.Point(193, 178);
             this.Supprimer.Name = "Supprimer";
             this.Supprimer.Size = new System.Drawing.Size(107, 38);
             this.Supprimer.TabIndex = 21;
             this.Supprimer.Text = "Supprimer";
             this.Supprimer.UseVisualStyleBackColor = true;
+            this.Supprimer.Click += new System.EventHandler(this.Supprimer_Click);
             // 
             // Ajouter
             // 
             this.Ajouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Ajouter.Location = new System.Drawing.Point(11, 173);
+            this.Ajouter.Location = new System.Drawing.Point(80, 178);
             this.Ajouter.Name = "Ajouter";
             this.Ajouter.Size = new System.Drawing.Size(107, 38);
             this.Ajouter.TabIndex = 20;
@@ -167,14 +173,14 @@
             this.Prix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Prix.Location = new System.Drawing.Point(158, 120);
             this.Prix.Name = "Prix";
-            this.Prix.Size = new System.Drawing.Size(179, 26);
+            this.Prix.Size = new System.Drawing.Size(293, 26);
             this.Prix.TabIndex = 5;
             // 
             // TarifGs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(894, 413);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "TarifGs";
@@ -199,9 +205,9 @@
         private System.Windows.Forms.Button Ajouter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Prix;
-        private System.Windows.Forms.ComboBox Matiere;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox Filier;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox Matiere;
     }
 }
