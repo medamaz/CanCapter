@@ -1,34 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CanCapter
 {
-    public partial class EtudientGs : Form
+    public partial class UserControlForEtudient : UserControl
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
         DataTable gridViewDataSource;
         List<Matiere> listBoxDataSource;
         DataTable FilierDataSource;
-        Form Accueil;
-        public EtudientGs(Form Accueil)
-        {
-            try
-            {
-                InitializeComponent();
-                this.Accueil = Accueil;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        public EtudientGs()
+        public UserControlForEtudient()
         {
             InitializeComponent();
         }
@@ -80,7 +69,7 @@ namespace CanCapter
                            Matiere = ed.Matiers
                        }).ToList());
             });
-            
+
         }
 
         Task loadListBox()
@@ -90,15 +79,17 @@ namespace CanCapter
 
         Task loadFilier()
         {
-            
+
             return Task.Run(() => { FilierDataSource = ToDataTable(cancapter.Filiers.ToList()); });
         }
-        async private void EtudientGs_Load(object sender, EventArgs e)
+
+        private async void UserControlForEtudient_Load(object sender, EventArgs e)
         {
             try
             {
+               
                 await loadDataGridView();
-                dataGridView1.DataSource= gridViewDataSource;
+                dataGridView1.DataSource = gridViewDataSource;
                 await loadListBox();
                 ((ListBox)checkedListBox1).DataSource = listBoxDataSource;
                 ((ListBox)checkedListBox1).DisplayMember = "nom";
@@ -109,6 +100,8 @@ namespace CanCapter
                 Filier.DataSource = FilierDataSource;
                 dataGridView1.Columns["id"].Visible = false;
                 dataGridView1.Columns["id_F"].Visible = false;
+                dataGridView1.Columns["Matiere"].Visible = false;
+
             }
             catch (Exception ex)
             {
@@ -116,14 +109,14 @@ namespace CanCapter
             }
         }
 
-        private async void Ajouter_Click(object sender, EventArgs e)
+        private async void Ajouter_Click_1(object sender, EventArgs e)
         {
             try
             {
 
                 if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "" && Tel.Text != "" && Tel_M.Text != "" && Tel_p.Text != "")
                 {
-                    if(checkedListBox1.CheckedItems.Count > 0)
+                    if (checkedListBox1.CheckedItems.Count > 0)
                     {
                         Etudiant ed = new Etudiant();
                         ed.nom = Nom.Text;
@@ -132,6 +125,7 @@ namespace CanCapter
                         ed.telephone_M = Convert.ToInt32(Tel_M.Text);
                         ed.telephone_P = Convert.ToInt32(Tel_p.Text);
                         ed.id_F = Convert.ToInt32(Filier.SelectedValue);
+                        ed.date_I= DateTime.Now;
                         foreach (Matiere m in checkedListBox1.CheckedItems)
                         {
                             ed.Matiers += m.Id_M.ToString() + ",";
@@ -152,23 +146,6 @@ namespace CanCapter
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void EtudientGs_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                Accueil.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void Enregistrer_Click(object sender, EventArgs e)
-        {
-           
         }
     }
 }

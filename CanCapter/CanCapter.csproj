@@ -132,6 +132,12 @@
     <Compile Include="TarifGs.Designer.cs">
       <DependentUpon>TarifGs.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlForEtudient.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlForEtudient.Designer.cs">
+      <DependentUpon>UserControlForEtudient.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +161,9 @@
     </Compile>
     <EmbeddedResource Include="TarifGs.resx">
       <DependentUpon>TarifGs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlForEtudient.resx">
+      <DependentUpon>UserControlForEtudient.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="CanCapterEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
