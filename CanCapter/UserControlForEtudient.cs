@@ -147,5 +147,12 @@ namespace CanCapter
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+      
     }
 }
