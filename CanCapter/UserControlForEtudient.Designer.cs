@@ -42,7 +42,7 @@
             this.Tel = new System.Windows.Forms.TextBox();
             this.Tel_p = new System.Windows.Forms.TextBox();
             this.Tel_M = new System.Windows.Forms.TextBox();
-            this.Filier = new System.Windows.Forms.ComboBox();
+            this.FilierBox = new System.Windows.Forms.ComboBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -99,7 +99,7 @@
             this.tableLayoutPanel1.Controls.Add(this.Tel, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.Tel_p, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.Tel_M, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.Filier, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.FilierBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.checkedListBox1, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -240,19 +240,19 @@
             this.Tel_M.Size = new System.Drawing.Size(216, 26);
             this.Tel_M.TabIndex = 35;
             // 
-            // Filier
+            // FilierBox
             // 
-            this.Filier.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Filier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Filier.DropDownWidth = 300;
-            this.Filier.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Filier.FormattingEnabled = true;
-            this.Filier.Items.AddRange(new object[] {
+            this.FilierBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FilierBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FilierBox.DropDownWidth = 300;
+            this.FilierBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FilierBox.FormattingEnabled = true;
+            this.FilierBox.Items.AddRange(new object[] {
             ""});
-            this.Filier.Location = new System.Drawing.Point(151, 179);
-            this.Filier.Name = "Filier";
-            this.Filier.Size = new System.Drawing.Size(216, 28);
-            this.Filier.TabIndex = 36;
+            this.FilierBox.Location = new System.Drawing.Point(151, 179);
+            this.FilierBox.Name = "FilierBox";
+            this.FilierBox.Size = new System.Drawing.Size(216, 28);
+            this.FilierBox.TabIndex = 36;
             // 
             // checkedListBox1
             // 
@@ -305,6 +305,7 @@
             this.Rechercher.TabIndex = 25;
             this.Rechercher.Text = "Rechercher";
             this.Rechercher.UseVisualStyleBackColor = true;
+            this.Rechercher.Click += new System.EventHandler(this.Rechercher_Click);
             // 
             // Ajouter
             // 
@@ -326,6 +327,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(15, 15);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(30);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(366, 570);
             this.dataGridView1.TabIndex = 28;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
@@ -364,7 +366,7 @@
         private System.Windows.Forms.TextBox Tel;
         private System.Windows.Forms.TextBox Tel_p;
         private System.Windows.Forms.TextBox Tel_M;
-        private System.Windows.Forms.ComboBox Filier;
+        private System.Windows.Forms.ComboBox FilierBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;

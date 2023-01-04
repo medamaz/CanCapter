@@ -11,7 +11,9 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    using System.Data.SqlClient;
+
     public partial class Filier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +25,29 @@ namespace CanCapter
     
         public int Id_F { get; set; }
         public string nom { get; set; }
-    
+        public static string cntStr { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Etudiant> Etudiants { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarif> Tarifs { get; set; }
+        public static DataTable afficherAllFilier()
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                adapter = new SqlDataAdapter("select * from Filier", cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

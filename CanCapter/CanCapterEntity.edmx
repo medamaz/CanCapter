@@ -17,7 +17,14 @@
           <Property Name="telephone_M" Type="int" Nullable="false" />
           <Property Name="date_I" Type="date" Nullable="false" />
           <Property Name="id_F" Type="int" Nullable="false" />
-          <Property Name="Matiers" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Etudiant_Matiere">
+          <Key>
+            <PropertyRef Name="Id_EM" />
+          </Key>
+          <Property Name="Id_EM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_E" Type="int" Nullable="false" />
+          <Property Name="id_M" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Filier">
           <Key>
@@ -62,6 +69,30 @@
             </Principal>
             <Dependent Role="Etudiant">
               <PropertyRef Name="id_F" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Etudiant_M__id_E__3C34F16F">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+          <End Role="Etudiant_Matiere" Type="Self.Etudiant_Matiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="Id_E" />
+            </Principal>
+            <Dependent Role="Etudiant_Matiere">
+              <PropertyRef Name="id_E" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Etudiant_M__id_M__3D2915A8">
+          <End Role="Matiere" Type="Self.Matiere" Multiplicity="1" />
+          <End Role="Etudiant_Matiere" Type="Self.Etudiant_Matiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matiere">
+              <PropertyRef Name="Id_M" />
+            </Principal>
+            <Dependent Role="Etudiant_Matiere">
+              <PropertyRef Name="id_M" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -115,6 +146,7 @@
         </Association>
         <EntityContainer Name="CanCapterDataBaseModelStoreContainer">
           <EntitySet Name="Etudiant" EntityType="Self.Etudiant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Etudiant_Matiere" EntityType="Self.Etudiant_Matiere" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Filier" EntityType="Self.Filier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matiere" EntityType="Self.Matiere" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
@@ -122,6 +154,14 @@
           <AssociationSet Name="FK__Etudiant__id_F__01142BA1" Association="Self.FK__Etudiant__id_F__01142BA1">
             <End Role="Filier" EntitySet="Filier" />
             <End Role="Etudiant" EntitySet="Etudiant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Etudiant_M__id_E__3C34F16F" Association="Self.FK__Etudiant_M__id_E__3C34F16F">
+            <End Role="Etudiant" EntitySet="Etudiant" />
+            <End Role="Etudiant_Matiere" EntitySet="Etudiant_Matiere" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Etudiant_M__id_M__3D2915A8" Association="Self.FK__Etudiant_M__id_M__3D2915A8">
+            <End Role="Matiere" EntitySet="Matiere" />
+            <End Role="Etudiant_Matiere" EntitySet="Etudiant_Matiere" />
           </AssociationSet>
           <AssociationSet Name="FK__Paiement__id_E__571DF1D5" Association="Self.FK__Paiement__id_E__571DF1D5">
             <End Role="Etudiant" EntitySet="Etudiant" />
@@ -157,9 +197,19 @@
           <Property Name="telephone_M" Type="Int32" Nullable="false" />
           <Property Name="date_I" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_F" Type="Int32" Nullable="false" />
-          <Property Name="Matiers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Filier" Relationship="Self.FK__Etudiant__id_F__01142BA1" FromRole="Etudiant" ToRole="Filier" />
+          <NavigationProperty Name="Etudiant_Matiere" Relationship="Self.FK__Etudiant_M__id_E__3C34F16F" FromRole="Etudiant" ToRole="Etudiant_Matiere" />
           <NavigationProperty Name="Paiements" Relationship="Self.FK__Paiement__id_E__571DF1D5" FromRole="Etudiant" ToRole="Paiement" />
+        </EntityType>
+        <EntityType Name="Etudiant_Matiere">
+          <Key>
+            <PropertyRef Name="Id_EM" />
+          </Key>
+          <Property Name="Id_EM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_E" Type="Int32" Nullable="false" />
+          <Property Name="id_M" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Etudiant" Relationship="Self.FK__Etudiant_M__id_E__3C34F16F" FromRole="Etudiant_Matiere" ToRole="Etudiant" />
+          <NavigationProperty Name="Matiere" Relationship="Self.FK__Etudiant_M__id_M__3D2915A8" FromRole="Etudiant_Matiere" ToRole="Matiere" />
         </EntityType>
         <EntityType Name="Filier">
           <Key>
@@ -176,6 +226,7 @@
           </Key>
           <Property Name="Id_M" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Etudiant_Matiere" Relationship="Self.FK__Etudiant_M__id_M__3D2915A8" FromRole="Matiere" ToRole="Etudiant_Matiere" />
           <NavigationProperty Name="Tarifs" Relationship="Self.FK__Tarif__id_M__5165187F" FromRole="Matiere" ToRole="Tarif" />
         </EntityType>
         <EntityType Name="Paiement">
@@ -215,6 +266,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Etudiant_M__id_E__3C34F16F">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+          <End Role="Etudiant_Matiere" Type="Self.Etudiant_Matiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="Id_E" />
+            </Principal>
+            <Dependent Role="Etudiant_Matiere">
+              <PropertyRef Name="id_E" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Paiement__id_E__571DF1D5">
           <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="0..1" />
           <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
@@ -224,6 +287,18 @@
             </Principal>
             <Dependent Role="Paiement">
               <PropertyRef Name="id_E" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Etudiant_M__id_M__3D2915A8">
+          <End Role="Matiere" Type="Self.Matiere" Multiplicity="1" />
+          <End Role="Etudiant_Matiere" Type="Self.Etudiant_Matiere" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matiere">
+              <PropertyRef Name="Id_M" />
+            </Principal>
+            <Dependent Role="Etudiant_Matiere">
+              <PropertyRef Name="id_M" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -265,6 +340,7 @@
         </Association>
         <EntityContainer Name="CanCapterDataBaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Etudiants" EntityType="Self.Etudiant" />
+          <EntitySet Name="Etudiant_Matiere" EntityType="Self.Etudiant_Matiere" />
           <EntitySet Name="Filiers" EntityType="Self.Filier" />
           <EntitySet Name="Matieres" EntityType="Self.Matiere" />
           <EntitySet Name="Paiements" EntityType="Self.Paiement" />
@@ -273,9 +349,17 @@
             <End Role="Filier" EntitySet="Filiers" />
             <End Role="Etudiant" EntitySet="Etudiants" />
           </AssociationSet>
+          <AssociationSet Name="FK__Etudiant_M__id_E__3C34F16F" Association="Self.FK__Etudiant_M__id_E__3C34F16F">
+            <End Role="Etudiant" EntitySet="Etudiants" />
+            <End Role="Etudiant_Matiere" EntitySet="Etudiant_Matiere" />
+          </AssociationSet>
           <AssociationSet Name="FK__Paiement__id_E__571DF1D5" Association="Self.FK__Paiement__id_E__571DF1D5">
             <End Role="Etudiant" EntitySet="Etudiants" />
             <End Role="Paiement" EntitySet="Paiements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Etudiant_M__id_M__3D2915A8" Association="Self.FK__Etudiant_M__id_M__3D2915A8">
+            <End Role="Matiere" EntitySet="Matieres" />
+            <End Role="Etudiant_Matiere" EntitySet="Etudiant_Matiere" />
           </AssociationSet>
           <AssociationSet Name="FK__Tarif__id_F__70DDC3D8" Association="Self.FK__Tarif__id_F__70DDC3D8">
             <End Role="Filier" EntitySet="Filiers" />
@@ -307,7 +391,15 @@
                 <ScalarProperty Name="telephone_M" ColumnName="telephone_M" />
                 <ScalarProperty Name="date_I" ColumnName="date_I" />
                 <ScalarProperty Name="id_F" ColumnName="id_F" />
-                <ScalarProperty Name="Matiers" ColumnName="Matiers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Etudiant_Matiere">
+            <EntityTypeMapping TypeName="CanCapterDataBaseModel.Etudiant_Matiere">
+              <MappingFragment StoreEntitySet="Etudiant_Matiere">
+                <ScalarProperty Name="Id_EM" ColumnName="Id_EM" />
+                <ScalarProperty Name="id_E" ColumnName="id_E" />
+                <ScalarProperty Name="id_M" ColumnName="id_M" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

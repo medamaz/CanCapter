@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,7 +17,7 @@ namespace CanCapter
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
         DataTable gridViewDataSource;
-        List<Matiere> listBoxDataSource;
+        DataTable listBoxDataSource;
         DataTable FilierDataSource;
         public UserControlForEtudient()
         {
@@ -52,35 +54,27 @@ namespace CanCapter
         Task loadDataGridView()
         {
             return Task.Run(() => {
-                this.gridViewDataSource = ToDataTable(cancapter.Etudiants.ToList().Join(
-                       cancapter.Filiers,
-                       ed => ed.id_F,
-                       fl => fl.Id_F,
-                       (ed, fl) => new
-                       {
-                           id = ed.id_F,
-                           id_F = fl.Id_F,
-                           Nom = ed.nom,
-                           Prenom = ed.prenom,
-                           Telephone = ed.telephone,
-                           Telephone_Pere = ed.telephone_P,
-                           Telephone_Mere = ed.telephone_M,
-                           Filier = fl.nom,
-                           Matiere = ed.Matiers
-                       }).ToList());
+                Etudiant.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+ Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+                this.gridViewDataSource = Etudiant.afficherAllEtudiant();
             });
 
         }
 
         Task loadListBox()
         {
-            return Task.Run(() => { listBoxDataSource = cancapter.Matieres.ToList(); });
+            return Task.Run(() => {
+                Matiere.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+                listBoxDataSource = Matiere.afficherAllMatiere();
+            });
         }
 
         Task loadFilier()
         {
 
-            return Task.Run(() => { FilierDataSource = ToDataTable(cancapter.Filiers.ToList()); });
+            return Task.Run(() => {
+                Filier.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+                FilierDataSource = Filier.afficherAllFilier();
+                });
         }
 
         private async void UserControlForEtudient_Load(object sender, EventArgs e)
@@ -94,13 +88,12 @@ namespace CanCapter
                 ((ListBox)checkedListBox1).DataSource = listBoxDataSource;
                 ((ListBox)checkedListBox1).DisplayMember = "nom";
                 ((ListBox)checkedListBox1).ValueMember = "id_M";
-                Filier.DisplayMember = "nom";
-                Filier.ValueMember = "id_F";
+                FilierBox.DisplayMember = "nom";
+                FilierBox.ValueMember = "id_F";
                 await loadFilier();
-                Filier.DataSource = FilierDataSource;
-                dataGridView1.Columns["id"].Visible = false;
-                dataGridView1.Columns["id_F"].Visible = false;
-                dataGridView1.Columns["Matiere"].Visible = false;
+                FilierBox.DataSource = FilierDataSource;
+                dataGridView1.Columns["id_E"].Visible = false;
+
 
             }
             catch (Exception ex)
@@ -111,8 +104,8 @@ namespace CanCapter
 
         private async void Ajouter_Click_1(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
                 if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "" && Tel.Text != "" && Tel_M.Text != "" && Tel_p.Text != "")
                 {
@@ -124,13 +117,19 @@ namespace CanCapter
                         ed.telephone = Convert.ToInt32(Tel.Text);
                         ed.telephone_M = Convert.ToInt32(Tel_M.Text);
                         ed.telephone_P = Convert.ToInt32(Tel_p.Text);
-                        ed.id_F = Convert.ToInt32(Filier.SelectedValue);
-                        ed.date_I= DateTime.Now;
-                        foreach (Matiere m in checkedListBox1.CheckedItems)
-                        {
-                            ed.Matiers += m.Id_M.ToString() + ",";
-                        }
+                        ed.id_F = Convert.ToInt32(FilierBox.SelectedValue);
+                        ed.date_I = DateTime.Now.Date;
                         cancapter.Etudiants.Add(ed);
+                        cancapter.SaveChanges();
+
+
+                        foreach (DataRowView m in checkedListBox1.CheckedItems)
+                        {
+                            Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
+                            etudiant_matiere.id_M = Convert.ToInt32(m.Row[0].ToString());
+                            etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
+                            cancapter.Etudiant_Matiere.Add(etudiant_matiere);
+                        }
                         cancapter.SaveChanges();
                         await loadDataGridView();
                         dataGridView1.DataSource = gridViewDataSource;
@@ -141,11 +140,11 @@ namespace CanCapter
                 }
                 MessageBox.Show("Veuillez entrer une valeur valide");
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -153,6 +152,19 @@ namespace CanCapter
 
         }
 
-      
+        private void Rechercher_Click(object sender, EventArgs e)
+        {
+            foreach (DataRowView m in checkedListBox1.CheckedItems)
+            {
+                MessageBox.Show(m.Row[0].ToString());
+                
+                //Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
+                //etudiant_matiere.id_M = Convert.ToInt32(m..ToString());
+                //etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
+                //cancapter.Etudiant_Matiere.Add(etudiant_matiere);
+                //ed.Paiements.Add(new Paiement());
+                //ed.Matiers += m.Id_M.ToString() + ",";
+            }
+        }
     }
 }

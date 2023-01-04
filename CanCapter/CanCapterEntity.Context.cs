@@ -26,6 +26,7 @@ namespace CanCapter
         }
     
         public virtual DbSet<Etudiant> Etudiants { get; set; }
+        public virtual DbSet<Etudiant_Matiere> Etudiant_Matiere { get; set; }
         public virtual DbSet<Filier> Filiers { get; set; }
         public virtual DbSet<Matiere> Matieres { get; set; }
         public virtual DbSet<Paiement> Paiements { get; set; }

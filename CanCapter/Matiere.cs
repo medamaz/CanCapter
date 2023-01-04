@@ -11,19 +11,44 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    using System.Data.SqlClient;
+
     public partial class Matiere
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Matiere()
         {
+            this.Etudiant_Matiere = new HashSet<Etudiant_Matiere>();
             this.Tarifs = new HashSet<Tarif>();
         }
     
         public int Id_M { get; set; }
         public string nom { get; set; }
-    
+        public static string cntStr { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Etudiant_Matiere> Etudiant_Matiere { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarif> Tarifs { get; set; }
+
+        public static DataTable afficherAllMatiere()
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                adapter = new SqlDataAdapter("select * from Matiere", cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

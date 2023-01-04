@@ -11,7 +11,9 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    using System.Data.SqlClient;
+
     public partial class Tarif
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,10 +26,30 @@ namespace CanCapter
         public double Prix { get; set; }
         public int id_M { get; set; }
         public Nullable<int> id_F { get; set; }
-    
+        public static string cntStr { get; set; }
         public virtual Filier Filier { get; set; }
         public virtual Matiere Matiere { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paiement> Paiements { get; set; }
+
+        public static DataTable afficherAllTarif()
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                adapter = new SqlDataAdapter("select * from Tarif", cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

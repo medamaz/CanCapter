@@ -15,19 +15,6 @@ namespace CanCapter
         DataTable gridViewDataSource;
         List<Matiere> listBoxDataSource;
         DataTable FilierDataSource;
-        Form Accueil;
-        public EtudientGs(Form Accueil)
-        {
-            try
-            {
-                InitializeComponent();
-                this.Accueil = Accueil;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         public EtudientGs()
         {
             InitializeComponent();
@@ -77,7 +64,6 @@ namespace CanCapter
                            Telephone_Pere = ed.telephone_P,
                            Telephone_Mere = ed.telephone_M,
                            Filier = fl.nom,
-                           Matiere = ed.Matiers
                        }).ToList());
             });
             
@@ -132,10 +118,7 @@ namespace CanCapter
                         ed.telephone_M = Convert.ToInt32(Tel_M.Text);
                         ed.telephone_P = Convert.ToInt32(Tel_p.Text);
                         ed.id_F = Convert.ToInt32(Filier.SelectedValue);
-                        foreach (Matiere m in checkedListBox1.CheckedItems)
-                        {
-                            ed.Matiers += m.Id_M.ToString() + ",";
-                        }
+                       
                         cancapter.Etudiants.Add(ed);
                         cancapter.SaveChanges();
                         await loadDataGridView();
@@ -156,14 +139,7 @@ namespace CanCapter
 
         private void EtudientGs_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
-                Accueil.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
 
         private void Enregistrer_Click(object sender, EventArgs e)

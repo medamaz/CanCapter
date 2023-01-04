@@ -11,12 +11,15 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    using System.Data.SqlClient;
+
     public partial class Etudiant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Etudiant()
         {
+            this.Etudiant_Matiere = new HashSet<Etudiant_Matiere>();
             this.Paiements = new HashSet<Paiement>();
         }
     
@@ -28,10 +31,33 @@ namespace CanCapter
         public int telephone_M { get; set; }
         public System.DateTime date_I { get; set; }
         public int id_F { get; set; }
-        public string Matiers { get; set; }
-    
+
+        public static string cntStr { get; set; }
+
         public virtual Filier Filier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Etudiant_Matiere> Etudiant_Matiere { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paiement> Paiements { get; set; }
+
+        public static DataTable afficherAllEtudiant()
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P, E.telephone_M, E.date_I, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
