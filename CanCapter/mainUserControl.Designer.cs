@@ -1,13 +1,13 @@
 ﻿namespace CanCapter
 {
-    partial class Accueil
+    partial class mainUserControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,21 +20,21 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Accueil));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainUserControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.GsT = new System.Windows.Forms.Button();
             this.GsM = new System.Windows.Forms.Button();
             this.GsF = new System.Windows.Forms.Button();
-            this.GsT = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.main = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,7 +58,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -70,46 +69,6 @@
             this.label1.Size = new System.Drawing.Size(432, 110);
             this.label1.TabIndex = 1;
             this.label1.Text = "Gestion De \r\nCentre CanCapter";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // GsM
-            // 
-            this.GsM.BackColor = System.Drawing.Color.LightGray;
-            this.GsM.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GsM.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsM.Location = new System.Drawing.Point(3, 3);
-            this.GsM.Name = "GsM";
-            this.GsM.Size = new System.Drawing.Size(367, 66);
-            this.GsM.TabIndex = 32;
-            this.GsM.Text = "Gestion Matiers";
-            this.GsM.UseVisualStyleBackColor = false;
-            this.GsM.Click += new System.EventHandler(this.GsM_Click);
-            // 
-            // GsF
-            // 
-            this.GsF.BackColor = System.Drawing.Color.LightGray;
-            this.GsF.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GsF.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsF.Location = new System.Drawing.Point(3, 75);
-            this.GsF.Name = "GsF";
-            this.GsF.Size = new System.Drawing.Size(367, 66);
-            this.GsF.TabIndex = 33;
-            this.GsF.Text = "Gestion Filier";
-            this.GsF.UseVisualStyleBackColor = false;
-            this.GsF.Click += new System.EventHandler(this.GsF_Click);
-            // 
-            // GsT
-            // 
-            this.GsT.BackColor = System.Drawing.Color.LightGray;
-            this.GsT.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GsT.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsT.Location = new System.Drawing.Point(3, 147);
-            this.GsT.Name = "GsT";
-            this.GsT.Size = new System.Drawing.Size(367, 66);
-            this.GsT.TabIndex = 34;
-            this.GsT.Text = "Gestion Tarifs";
-            this.GsT.UseVisualStyleBackColor = false;
-            this.GsT.Click += new System.EventHandler(this.GsT_Click);
             // 
             // button1
             // 
@@ -124,6 +83,42 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // GsT
+            // 
+            this.GsT.BackColor = System.Drawing.Color.LightGray;
+            this.GsT.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GsT.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GsT.Location = new System.Drawing.Point(3, 147);
+            this.GsT.Name = "GsT";
+            this.GsT.Size = new System.Drawing.Size(367, 66);
+            this.GsT.TabIndex = 34;
+            this.GsT.Text = "Gestion Tarifs";
+            this.GsT.UseVisualStyleBackColor = false;
+            // 
+            // GsM
+            // 
+            this.GsM.BackColor = System.Drawing.Color.LightGray;
+            this.GsM.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GsM.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GsM.Location = new System.Drawing.Point(3, 3);
+            this.GsM.Name = "GsM";
+            this.GsM.Size = new System.Drawing.Size(367, 66);
+            this.GsM.TabIndex = 32;
+            this.GsM.Text = "Gestion Matiers";
+            this.GsM.UseVisualStyleBackColor = false;
+            // 
+            // GsF
+            // 
+            this.GsF.BackColor = System.Drawing.Color.LightGray;
+            this.GsF.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GsF.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GsF.Location = new System.Drawing.Point(3, 75);
+            this.GsF.Name = "GsF";
+            this.GsF.Size = new System.Drawing.Size(367, 66);
+            this.GsF.TabIndex = 33;
+            this.GsF.Text = "Gestion Filier";
+            this.GsF.UseVisualStyleBackColor = false;
+            // 
             // main
             // 
             this.main.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -131,10 +126,8 @@
             this.main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main.Location = new System.Drawing.Point(0, 0);
             this.main.Name = "main";
-            this.main.Size = new System.Drawing.Size(834, 561);
-            this.main.TabIndex = 36;
-            this.main.Paint += new System.Windows.Forms.PaintEventHandler(this.main_Paint);
-            this.main.Resize += new System.EventHandler(this.main_Resize);
+            this.main.Size = new System.Drawing.Size(749, 571);
+            this.main.TabIndex = 37;
             // 
             // splitContainer1
             // 
@@ -152,11 +145,10 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Panel2MinSize = 150;
-            this.splitContainer1.Size = new System.Drawing.Size(834, 561);
-            this.splitContainer1.SplitterDistance = 175;
+            this.splitContainer1.Size = new System.Drawing.Size(749, 571);
+            this.splitContainer1.SplitterDistance = 178;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 37;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // tableLayoutPanel2
             // 
@@ -165,8 +157,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -174,9 +166,8 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(834, 175);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(749, 178);
             this.tableLayoutPanel2.TabIndex = 2;
-            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
             // 
             // tableLayoutPanel1
             // 
@@ -198,20 +189,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(834, 385);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(749, 392);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
-            // Accueil
+            // mainUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 561);
             this.Controls.Add(this.main);
-            this.MinimumSize = new System.Drawing.Size(850, 600);
-            this.Name = "Accueil";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Accueil_Load);
+            this.Name = "mainUserControl";
+            this.Size = new System.Drawing.Size(749, 571);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.main.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -230,14 +217,13 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button GsT;
         private System.Windows.Forms.Button GsM;
         private System.Windows.Forms.Button GsF;
-        private System.Windows.Forms.Button GsT;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel main;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
-

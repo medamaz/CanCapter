@@ -19,9 +19,11 @@ namespace CanCapter
         DataTable gridViewDataSource;
         DataTable listBoxDataSource;
         DataTable FilierDataSource;
-        public UserControlForEtudient()
+        Panel pMain;
+        public UserControlForEtudient(Panel p)
         {
             InitializeComponent();
+            this.pMain = p;
         }
 
         public static DataTable ToDataTable<T>(List<T> items)
@@ -104,8 +106,8 @@ namespace CanCapter
 
         private async void Ajouter_Click_1(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
 
                 if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "" && Tel.Text != "" && Tel_M.Text != "" && Tel_p.Text != "")
                 {
@@ -140,12 +142,12 @@ namespace CanCapter
                 }
                 MessageBox.Show("Veuillez entrer une valeur valide");
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
         }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+}
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -165,6 +167,15 @@ namespace CanCapter
                 //ed.Paiements.Add(new Paiement());
                 //ed.Matiers += m.Id_M.ToString() + ",";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            mainUserControl MainUserControl = new mainUserControl();
+            this.pMain.Controls.Clear();
+            this.pMain.Controls.Add(MainUserControl);
+            MainUserControl.Height = pMain.Height;
+            MainUserControl.Width = pMain.Width;
         }
     }
 }

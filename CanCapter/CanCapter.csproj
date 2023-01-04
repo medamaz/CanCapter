@@ -114,6 +114,12 @@
     <Compile Include="FilierGs.Designer.cs">
       <DependentUpon>FilierGs.cs</DependentUpon>
     </Compile>
+    <Compile Include="mainUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="mainUserControl.Designer.cs">
+      <DependentUpon>mainUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Matiere.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
@@ -151,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FilierGs.resx">
       <DependentUpon>FilierGs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainUserControl.resx">
+      <DependentUpon>mainUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MatierGs.resx">
       <DependentUpon>MatierGs.cs</DependentUpon>

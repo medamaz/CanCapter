@@ -13,8 +13,6 @@ namespace CanCapter
     public partial class Accueil : Form
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
-        UserControlForEtudient userControlForEtudient = new UserControlForEtudient();
-
         public Accueil()
         {
             InitializeComponent();
@@ -22,8 +20,11 @@ namespace CanCapter
 
         private void Accueil_Load(object sender, EventArgs e)
         {
-            main.Anchor = AnchorStyles.Left | AnchorStyles.Top |
-                AnchorStyles.Right | AnchorStyles.Bottom;
+            mainUserControl MainUserControl = new mainUserControl();
+            this.main.Controls.Clear();
+            this.main.Controls.Add(MainUserControl);
+            MainUserControl.Height = main.Height;
+            MainUserControl.Width = main.Width;
         }
 
         private void GsF_Click(object sender, EventArgs e)
@@ -50,6 +51,7 @@ namespace CanCapter
 
         private void button1_Click(object sender, EventArgs e)
         {
+            UserControlForEtudient userControlForEtudient = new UserControlForEtudient(this.main);
             this.main.Controls.Clear();
             this.main.Controls.Add( userControlForEtudient);
             userControlForEtudient.Height = main.Height;
@@ -58,8 +60,37 @@ namespace CanCapter
 
         private void main_Resize(object sender, EventArgs e)
         {
-            userControlForEtudient.Height = main.Height;
-            userControlForEtudient.Width= main.Width;
+           
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void main_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
