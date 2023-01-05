@@ -51,5 +51,61 @@ namespace CanCapter
                 return null;
             }
         }
+
+        public static int chekcSpecificTarif(int M, int F)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                int t = -1;
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select count(*) from Tarif where id_M = @M and id_F = @F";
+                cmd.Parameters.AddWithValue("@F", F);
+                cmd.Parameters.AddWithValue("@M", M);
+                t = (int)cmd.ExecuteScalar();
+                cmd.Parameters.Clear();
+
+                return t;
+            }
+            catch
+            {
+                return -1;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        public static int getSpecificTarif(int M, int F)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                int t=-1;
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select id_T from Tarif where id_M = @M and id_F = @F";
+                cmd.Parameters.AddWithValue("@F", F);
+                cmd.Parameters.AddWithValue("@M", M);
+                t= (int)cmd.ExecuteScalar();
+                cmd.Parameters.Clear();
+
+                return t;
+            }
+            catch
+            {
+                return -1;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
     }
 }

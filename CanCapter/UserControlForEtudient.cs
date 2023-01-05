@@ -122,8 +122,6 @@ namespace CanCapter
                         ed.id_F = Convert.ToInt32(FilierBox.SelectedValue);
                         ed.date_I = DateTime.Now.Date;
                         cancapter.Etudiants.Add(ed);
-                        cancapter.SaveChanges();
-
 
                         foreach (DataRowView m in checkedListBox1.CheckedItems)
                         {
@@ -131,7 +129,24 @@ namespace CanCapter
                             etudiant_matiere.id_M = Convert.ToInt32(m.Row[0].ToString());
                             etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
                             cancapter.Etudiant_Matiere.Add(etudiant_matiere);
+                            Tarif.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+
+                            int t = Tarif.getSpecificTarif(Convert.ToInt32(m.Row[0].ToString()), Convert.ToInt32(ed.id_F));
+
+                            Paiement p = new Paiement();
+                            p.etat = false;
+                            p.id_E = Convert.ToInt32(ed.Id_E);
+                            p.date_E = DateTime.Now.Date;
+                            if (t < 0)
+                            {
+                                MessageBox.Show("le Tarif de la Filière : "+ ((DataRowView)FilierBox.SelectedItem).Row[1].ToString() + " et la Matière : " + m.Row[1].ToString() + " n'est pas foundu");
+                                return;
+                            }
+                            p.id_T = t;
+                            cancapter.Paiements.Add(p);
+
                         }
+                        
                         cancapter.SaveChanges();
                         await loadDataGridView();
                         dataGridView1.DataSource = gridViewDataSource;
@@ -142,12 +157,12 @@ namespace CanCapter
                 }
                 MessageBox.Show("Veuillez entrer une valeur valide");
 
-        }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-}
+        }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -156,22 +171,12 @@ namespace CanCapter
 
         private void Rechercher_Click(object sender, EventArgs e)
         {
-            foreach (DataRowView m in checkedListBox1.CheckedItems)
-            {
-                MessageBox.Show(m.Row[0].ToString());
-                
-                //Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
-                //etudiant_matiere.id_M = Convert.ToInt32(m..ToString());
-                //etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
-                //cancapter.Etudiant_Matiere.Add(etudiant_matiere);
-                //ed.Paiements.Add(new Paiement());
-                //ed.Matiers += m.Id_M.ToString() + ",";
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mainUserControl MainUserControl = new mainUserControl();
+            mainUserControl MainUserControl = new mainUserControl(pMain);
             this.pMain.Controls.Clear();
             this.pMain.Controls.Add(MainUserControl);
             MainUserControl.Height = pMain.Height;

@@ -12,18 +12,31 @@ namespace CanCapter
 {
     public partial class mainUserControl : UserControl
     {
-        public mainUserControl()
+        Panel pMain;
+        public mainUserControl(Panel p)
         {
             InitializeComponent();
+            this.pMain = p;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UserControlForEtudient userControlForEtudient = new UserControlForEtudient(this.main);
-            this.main.Controls.Clear();
-            this.main.Controls.Add(userControlForEtudient);
-            userControlForEtudient.Height = main.Height;
-            userControlForEtudient.Width = main.Width;
+            UserControlForEtudient userControlForEtudient = new UserControlForEtudient(pMain);
+            pMain.Controls.Clear();
+            pMain.Controls.Add(userControlForEtudient);
+            userControlForEtudient.Dock = DockStyle.Fill;
+        }
+
+        private void GsT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GsM_Click(object sender, EventArgs e)
+        {
+            Form f = new TarifGs();
+            f.Show();
         }
     }
 }

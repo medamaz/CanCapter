@@ -13,18 +13,21 @@ namespace CanCapter
     public partial class Accueil : Form
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
+        mainUserControl MainUserControl;
+
         public Accueil()
         {
             InitializeComponent();
+            MainUserControl = new mainUserControl(this.main);
         }
 
         private void Accueil_Load(object sender, EventArgs e)
         {
-            mainUserControl MainUserControl = new mainUserControl();
+            mainUserControl MainUserControl = new mainUserControl(this.main);
             this.main.Controls.Clear();
             this.main.Controls.Add(MainUserControl);
-            MainUserControl.Height = main.Height;
-            MainUserControl.Width = main.Width;
+            MainUserControl.Dock = DockStyle.Fill;
+
         }
 
         private void GsF_Click(object sender, EventArgs e)
@@ -44,51 +47,12 @@ namespace CanCapter
 
         private void GsT_Click(object sender, EventArgs e)
         {
-            Form f = new TarifGs(this);
+            Form f = new TarifGs();
             f.Show();
             this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UserControlForEtudient userControlForEtudient = new UserControlForEtudient(this.main);
-            this.main.Controls.Clear();
-            this.main.Controls.Add( userControlForEtudient);
-            userControlForEtudient.Height = main.Height;
-            userControlForEtudient.Width = main.Width;
-        }
-
-        private void main_Resize(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void main_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,11 @@ namespace CanCapter
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
 
-        Form Accueil;
-        public TarifGs(Form Accueil)
+        public TarifGs()
         {
             try
             {
                 InitializeComponent();
-                this.Accueil = Accueil;
             }
             catch (Exception ex)
             {
@@ -69,11 +68,11 @@ namespace CanCapter
             try
             {
                 Filier.DisplayMember = "nom";
-                Matiere.DisplayMember = "nom";
+                MatiereBox.DisplayMember = "nom";
                 Filier.ValueMember = "id_F";
-                Matiere.ValueMember = "id_M";
+                MatiereBox.ValueMember = "id_M";
                 Filier.DataSource = cancapter.Filiers.ToList();
-                Matiere.DataSource = cancapter.Matieres.ToList();
+                MatiereBox.DataSource = cancapter.Matieres.ToList();
                 loadData();
                 dataGridView1.Columns["id"].Visible = false;
                 dataGridView1.Columns["id_F"].Visible = false;
@@ -90,17 +89,18 @@ namespace CanCapter
         {
             try
             {
-                int mat = Convert.ToInt32(Matiere.SelectedValue.ToString());
-                int fl = Convert.ToInt32(Filier.SelectedValue.ToString());
-                var matier = cancapter.Tarifs.Where(b => b.id_M == mat).FirstOrDefault();
-                var filier = cancapter.Tarifs.Where(b => b.id_F == fl).FirstOrDefault();
-                if (matier == null || filier == null)
+                //int mat = Convert.ToInt32(MatiereBox.SelectedValue.ToString());
+                //int fl = Convert.ToInt32(Filier.SelectedValue.ToString());
+                //var matier = cancapter.Tarifs.Where(b => b.id_M == mat).FirstOrDefault();
+                //var filier = cancapter.Tarifs.Where(b => b.id_F == fl).FirstOrDefault();
+                Tarif.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+                if (Tarif.chekcSpecificTarif(Convert.ToInt32(MatiereBox.SelectedValue.ToString()), Convert.ToInt32(Filier.SelectedValue.ToString())) == 0)
                 {
                     if (Prix.Text != "")
                     {
                         Tarif t = new Tarif();
                         t.id_F = Convert.ToInt32(Filier.SelectedValue);
-                        t.id_M = Convert.ToInt32(Matiere.SelectedValue);
+                        t.id_M = Convert.ToInt32(MatiereBox.SelectedValue);
                         t.Prix = Convert.ToDouble(Prix.Text);
                         cancapter.Tarifs.Add(t);
                         cancapter.SaveChanges();
@@ -114,7 +114,7 @@ namespace CanCapter
                 {
                     if (Prix.Text != "")
                     {
-                        Tarif t = cancapter.Tarifs.Where(b => b.id_M == mat && b.id_F == fl).FirstOrDefault();
+                        Tarif t = cancapter.Tarifs.Where(b => b.id_M == Convert.ToInt32(MatiereBox.SelectedValue.ToString()) && b.id_F == Convert.ToInt32(Filier.SelectedValue.ToString())).FirstOrDefault();
                         t.Prix = Convert.ToDouble(Prix.Text);
                         cancapter.SaveChanges();
                         loadData();
@@ -134,7 +134,6 @@ namespace CanCapter
         {
             try
             {
-                Accueil.Show();
             }
             catch (Exception ex)
             {
@@ -167,7 +166,7 @@ namespace CanCapter
             {
                 Prix.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[5].Value.ToString();
                 Filier.SelectedValue = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString());
-                Matiere.SelectedValue = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString());
+                MatiereBox.SelectedValue = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString());
             }
             catch (Exception ex)
             {
@@ -184,6 +183,8 @@ namespace CanCapter
                     if (Prix.Text != "")
                     {
                         Tarif t = cancapter.Tarifs.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                        t.id_F = Convert.ToInt32(Filier.SelectedValue);
+                        t.id_M = Convert.ToInt32(MatiereBox.SelectedValue);
                         t.Prix = Convert.ToDouble(Prix.Text);
                         cancapter.SaveChanges();
                         loadData();

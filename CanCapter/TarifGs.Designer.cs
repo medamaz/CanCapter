@@ -31,7 +31,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Matiere = new System.Windows.Forms.ComboBox();
+            this.MatiereBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Filier = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Matiere);
+            this.panel1.Controls.Add(this.MatiereBox);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.Filier);
             this.panel1.Controls.Add(this.label1);
@@ -79,17 +79,17 @@
             this.panel1.Size = new System.Drawing.Size(466, 219);
             this.panel1.TabIndex = 35;
             // 
-            // Matiere
+            // MatiereBox
             // 
-            this.Matiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Matiere.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Matiere.FormattingEnabled = true;
-            this.Matiere.Items.AddRange(new object[] {
+            this.MatiereBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MatiereBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MatiereBox.FormattingEnabled = true;
+            this.MatiereBox.Items.AddRange(new object[] {
             ""});
-            this.Matiere.Location = new System.Drawing.Point(158, 66);
-            this.Matiere.Name = "Matiere";
-            this.Matiere.Size = new System.Drawing.Size(293, 28);
-            this.Matiere.TabIndex = 28;
+            this.MatiereBox.Location = new System.Drawing.Point(158, 66);
+            this.MatiereBox.Name = "MatiereBox";
+            this.MatiereBox.Size = new System.Drawing.Size(293, 28);
+            this.MatiereBox.TabIndex = 28;
             // 
             // label4
             // 
@@ -208,6 +208,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox Filier;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox Matiere;
+        private System.Windows.Forms.ComboBox MatiereBox;
     }
 }
