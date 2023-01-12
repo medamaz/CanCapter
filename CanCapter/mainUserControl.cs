@@ -30,13 +30,13 @@ namespace CanCapter
 
         private void GsT_Click(object sender, EventArgs e)
         {
-
+            Form f = new TarifGs();
+            f.Show();
         }
 
         private void GsM_Click(object sender, EventArgs e)
         {
-            Form f = new TarifGs();
-            f.Show();
+          
         }
     }
 }

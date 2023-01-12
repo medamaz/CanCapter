@@ -13,6 +13,7 @@ namespace CanCapter
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.IO;
 
     public partial class Filier
     {
@@ -25,7 +26,9 @@ namespace CanCapter
     
         public int Id_F { get; set; }
         public string nom { get; set; }
-        public static string cntStr { get; set; }
+
+        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Etudiant> Etudiants { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -49,5 +52,39 @@ namespace CanCapter
                 return null;
             }
         }
+
+        public static Filier getSpecificFilierId(string nom)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                Filier fl = new Filier();
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select * from Filier where nom = @nom";
+                cmd.Parameters.AddWithValue("@nom", nom);
+                SqlDataReader rd = cmd.ExecuteReader();
+                while (rd.Read())
+                {
+                    fl.Id_F = Convert.ToInt32(rd[0].ToString());
+                    fl.nom = rd[1].ToString();
+                }
+
+                cmd.Parameters.Clear();
+
+                return fl;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
     }
 }

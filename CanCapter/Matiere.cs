@@ -13,6 +13,7 @@ namespace CanCapter
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.IO;
 
     public partial class Matiere
     {
@@ -25,7 +26,9 @@ namespace CanCapter
     
         public int Id_M { get; set; }
         public string nom { get; set; }
-        public static string cntStr { get; set; }
+
+        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Etudiant_Matiere> Etudiant_Matiere { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,5 +53,8 @@ namespace CanCapter
                 return null;
             }
         }
+
+        
+
     }
 }

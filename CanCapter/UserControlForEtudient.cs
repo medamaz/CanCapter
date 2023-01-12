@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,66 +19,108 @@ namespace CanCapter
             this.pMain = p;
         }
 
-        public static DataTable ToDataTable<T>(List<T> items)
-        {
-            DataTable dataTable = new DataTable(typeof(T).Name);
-
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo prop in Props)
-            {
-                //Defining type of data column gives proper data table 
-                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
-                //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name, type);
-            }
-            foreach (T item in items)
-            {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
-                dataTable.Rows.Add(values);
-            }
-            //put a breakpoint here and check datatable
-            return dataTable;
-        }
-
         Task loadDataGridView()
         {
-            return Task.Run(() => {
-                Etudiant.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+ Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
-                this.gridViewDataSource = Etudiant.afficherAllEtudiant();
-            });
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = Etudiant.afficherAllEtudiant();
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
 
+        }
+
+        Task fakeData()
+        {
+            try
+            {
+                return Task.Run(() =>
+                {
+                   
+                    for (int i = 0; i < 50; i++)
+                    {
+                        Etudiant ed = new Etudiant();
+                        
+
+                        ed.nom = Faker.Name.Last();
+                        ed.prenom = Faker.Name.First();
+                        ed.telephone = Faker.RandomNumber.Next(1000000, 10000000);
+                        ed.telephone_M = Faker.RandomNumber.Next(1000000, 10000000);
+                        ed.telephone_P = Faker.RandomNumber.Next(1000000, 10000000);
+                        ed.id_F = Faker.RandomNumber.Next(1, 12);
+                        ed.date_I = DateTime.Now.Date;
+                        cancapter.Etudiants.Add(ed);
+                        int ran = Faker.RandomNumber.Next(1, 10);
+                        for (int j = 1; j < ran; j++)
+                        {
+                            Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
+                            etudiant_matiere.id_M = j;
+                            etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
+                            cancapter.Etudiant_Matiere.Add(etudiant_matiere);
+
+                            Paiement p = new Paiement();
+                            p.etat = Faker.Boolean.Random();
+                            p.id_E = Convert.ToInt32(ed.Id_E);
+                            p.date_E = DateTime.Now.Date;
+                            p.id_T = Tarif.getSpecificTarif(j,ed.id_F);
+
+                            cancapter.Paiements.Add(p);
+                        }
+                        cancapter.SaveChanges();
+
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         Task loadListBox()
         {
-            return Task.Run(() => {
-                Matiere.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
-                listBoxDataSource = Matiere.afficherAllMatiere();
-            });
+            try
+            {
+                return Task.Run(() =>
+                {
+                    listBoxDataSource = Matiere.afficherAllMatiere();
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         Task loadFilier()
         {
-
-            return Task.Run(() => {
-                Filier.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
-                FilierDataSource = Filier.afficherAllFilier();
+            try
+            {
+                return Task.Run(() =>
+                {
+                    FilierDataSource = Filier.afficherAllFilier();
                 });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         private async void UserControlForEtudient_Load(object sender, EventArgs e)
         {
             try
             {
-               
-                await loadDataGridView();
-                dataGridView1.DataSource = gridViewDataSource;
+                button2.Visible = false;
                 await loadListBox();
                 ((ListBox)checkedListBox1).DataSource = listBoxDataSource;
                 ((ListBox)checkedListBox1).DisplayMember = "nom";
@@ -94,8 +129,10 @@ namespace CanCapter
                 FilierBox.ValueMember = "id_F";
                 await loadFilier();
                 FilierBox.DataSource = FilierDataSource;
+                await fakeData();
+                await loadDataGridView();
+                dataGridView1.DataSource = gridViewDataSource;
                 dataGridView1.Columns["id_E"].Visible = false;
-
 
             }
             catch (Exception ex)
@@ -129,7 +166,6 @@ namespace CanCapter
                             etudiant_matiere.id_M = Convert.ToInt32(m.Row[0].ToString());
                             etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
                             cancapter.Etudiant_Matiere.Add(etudiant_matiere);
-                            Tarif.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
 
                             int t = Tarif.getSpecificTarif(Convert.ToInt32(m.Row[0].ToString()), Convert.ToInt32(ed.id_F));
 
@@ -139,15 +175,22 @@ namespace CanCapter
                             p.date_E = DateTime.Now.Date;
                             if (t < 0)
                             {
-                                MessageBox.Show("le Tarif de la Filière : "+ ((DataRowView)FilierBox.SelectedItem).Row[1].ToString() + " et la Matière : " + m.Row[1].ToString() + " n'est pas foundu");
-                                return;
+                                MessageBox.Show("le Tarif de la Filière : " + ((DataRowView)FilierBox.SelectedItem).Row[1].ToString() + " et la Matière : " + m.Row[1].ToString() + " n'est pas foundu");
+                                //return;
                             }
                             p.id_T = t;
                             cancapter.Paiements.Add(p);
 
                         }
-                        
+
                         cancapter.SaveChanges();
+
+                        Nom.Text = "";
+                        prenom.Text = "";
+                        Tel.Text = "";
+                        Tel_M.Text = "";
+                        Tel_p.Text = "";
+
                         await loadDataGridView();
                         dataGridView1.DataSource = gridViewDataSource;
                         return;
@@ -166,21 +209,78 @@ namespace CanCapter
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            try
+            {
+                EtudientGs edgs = new EtudientGs(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()), listBoxDataSource, FilierDataSource);
+                edgs.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-        }
+}
 
-        private void Rechercher_Click(object sender, EventArgs e)
+        private async void Rechercher_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+
+                if (Nom.Text != "" || prenom.Text != "")
+                {
+                    await Task.Run(() =>
+                    {
+                        this.gridViewDataSource = Etudiant.RechercherEtudiant(Nom.Text, prenom.Text);
+                    });
+                    dataGridView1.DataSource = gridViewDataSource;
+                    button2.Visible = true;
+                    return;
+                }
+                MessageBox.Show("entrer un nom ou prenom pour rechercher");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mainUserControl MainUserControl = new mainUserControl(pMain);
-            this.pMain.Controls.Clear();
-            this.pMain.Controls.Add(MainUserControl);
-            MainUserControl.Height = pMain.Height;
-            MainUserControl.Width = pMain.Width;
+            try
+            {
+                mainUserControl MainUserControl = new mainUserControl(pMain);
+                this.pMain.Controls.Clear();
+                this.pMain.Controls.Add(MainUserControl);
+                MainUserControl.Height = pMain.Height;
+                MainUserControl.Width = pMain.Width;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                button2.Visible = false;
+                await loadDataGridView();
+                dataGridView1.DataSource = gridViewDataSource;
+
+                Nom.Text = "";
+                prenom.Text = "";
+                Tel.Text = "";
+                Tel_M.Text = "";
+                Tel_p.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
+
+

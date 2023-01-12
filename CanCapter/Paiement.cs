@@ -11,7 +11,10 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IO;
+
     public partial class Paiement
     {
         public int Id { get; set; }
@@ -23,5 +26,30 @@ namespace CanCapter
     
         public virtual Etudiant Etudiant { get; set; }
         public virtual Tarif Tarif { get; set; }
+
+        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+
+        public static DataTable getPaiement(int ed)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                string rq = String.Format("select P.Id, P.date_E, M.nom as Matiere, P.date_P as 'Date de paiement', T.Prix, P.etat as payé from Paiement P, Tarif T, Matiere M where P.id_T = T.Id_T and P.id_E = {0} and M.Id_M = T.id_M ", ed);
+                adapter = new SqlDataAdapter(rq, cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
     }
 }

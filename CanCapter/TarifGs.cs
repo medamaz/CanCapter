@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Drawing.Printing;
 
 namespace CanCapter
 {
@@ -93,7 +94,6 @@ namespace CanCapter
                 //int fl = Convert.ToInt32(Filier.SelectedValue.ToString());
                 //var matier = cancapter.Tarifs.Where(b => b.id_M == mat).FirstOrDefault();
                 //var filier = cancapter.Tarifs.Where(b => b.id_F == fl).FirstOrDefault();
-                Tarif.cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
                 if (Tarif.chekcSpecificTarif(Convert.ToInt32(MatiereBox.SelectedValue.ToString()), Convert.ToInt32(Filier.SelectedValue.ToString())) == 0)
                 {
                     if (Prix.Text != "")
@@ -198,6 +198,29 @@ namespace CanCapter
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDoc;
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDoc.Print();
+            }
+
+           
+        }
+        void PrintPage(object sender, PrintPageEventArgs e)
+        {
+            string data = "This is some data that will be printed.";
+            e.Graphics.DrawString(data, new Font("Arial", 12), Brushes.Black, new PointF(10, 10));
         }
     }
 }

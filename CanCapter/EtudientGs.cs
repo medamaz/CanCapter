@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -12,89 +14,65 @@ namespace CanCapter
     public partial class EtudientGs : Form
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
+        Etudiant ed;
         DataTable gridViewDataSource;
-        List<Matiere> listBoxDataSource;
+        DataTable listBoxDataSource;
         DataTable FilierDataSource;
-        public EtudientGs()
+        public EtudientGs(int ed, DataTable listBoxDataSource, DataTable FilierDataSource)
         {
             InitializeComponent();
-        }
-
-        public static DataTable ToDataTable<T>(List<T> items)
-        {
-            DataTable dataTable = new DataTable(typeof(T).Name);
-
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo prop in Props)
-            {
-                //Defining type of data column gives proper data table 
-                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
-                //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name, type);
-            }
-            foreach (T item in items)
-            {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
-                dataTable.Rows.Add(values);
-            }
-            //put a breakpoint here and check datatable
-            return dataTable;
+            this.ed = cancapter.Etudiants.Find(ed);
+            this.listBoxDataSource = listBoxDataSource;
+            this.FilierDataSource = FilierDataSource;
         }
 
         Task loadDataGridView()
         {
-            return Task.Run(() => {
-                this.gridViewDataSource = ToDataTable(cancapter.Etudiants.ToList().Join(
-                       cancapter.Filiers,
-                       ed => ed.id_F,
-                       fl => fl.Id_F,
-                       (ed, fl) => new
-                       {
-                           id = ed.id_F,
-                           id_F = fl.Id_F,
-                           Nom = ed.nom,
-                           Prenom = ed.prenom,
-                           Telephone = ed.telephone,
-                           Telephone_Pere = ed.telephone_P,
-                           Telephone_Mere = ed.telephone_M,
-                           Filier = fl.nom,
-                       }).ToList());
-            });
-            
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = Paiement.getPaiement(ed.Id_E);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+
         }
 
-        Task loadListBox()
-        {
-            return Task.Run(() => { listBoxDataSource = cancapter.Matieres.ToList(); });
-        }
-
-        Task loadFilier()
-        {
-            
-            return Task.Run(() => { FilierDataSource = ToDataTable(cancapter.Filiers.ToList()); });
-        }
-        async private void EtudientGs_Load(object sender, EventArgs e)
+        private async void EtudientGs_Load(object sender, EventArgs e)
         {
             try
             {
-                await loadDataGridView();
-                dataGridView1.DataSource= gridViewDataSource;
-                await loadListBox();
+
+
                 ((ListBox)checkedListBox1).DataSource = listBoxDataSource;
                 ((ListBox)checkedListBox1).DisplayMember = "nom";
                 ((ListBox)checkedListBox1).ValueMember = "id_M";
-                Filier.DisplayMember = "nom";
-                Filier.ValueMember = "id_F";
-                await loadFilier();
-                Filier.DataSource = FilierDataSource;
+                FilierBox.DisplayMember = "nom";
+                FilierBox.ValueMember = "id_F";
+                FilierBox.DataSource = FilierDataSource;
+
+                Nom.Text = ed.nom.ToString();
+                prenom.Text = ed.prenom.ToString();
+                Tel.Text = ed.telephone.ToString();
+                Tel_M.Text = ed.telephone_M.ToString();
+                Tel_p.Text = ed.telephone_P.ToString();
+                FilierBox.SelectedValue = ed.id_F;
+                foreach (Etudiant_Matiere t in Etudiant_Matiere.getMatierByEtudiant(ed.Id_E))
+                {
+                    int index = checkedListBox1.FindStringExact(cancapter.Matieres.Find(t.id_M).nom);
+                    checkedListBox1.SetItemChecked(index, true);
+                }
+                await loadDataGridView();
+                dataGridView1.DataSource = gridViewDataSource;
+
                 dataGridView1.Columns["id"].Visible = false;
-                dataGridView1.Columns["id_F"].Visible = false;
+                dataGridView1.Columns["payé"].Visible = false;
+                this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
             }
             catch (Exception ex)
             {
@@ -102,49 +80,29 @@ namespace CanCapter
             }
         }
 
-        private async void Ajouter_Click(object sender, EventArgs e)
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try
             {
-
-                if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "" && Tel.Text != "" && Tel_M.Text != "" && Tel_p.Text != "")
+                if (e.RowIndex >= 0)
                 {
-                    if(checkedListBox1.CheckedItems.Count > 0)
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    bool booleanValue = Convert.ToBoolean(row.Cells["payé"].Value);
+                    if (booleanValue)
                     {
-                        Etudiant ed = new Etudiant();
-                        ed.nom = Nom.Text;
-                        ed.prenom = prenom.Text;
-                        ed.telephone = Convert.ToInt32(Tel.Text);
-                        ed.telephone_M = Convert.ToInt32(Tel_M.Text);
-                        ed.telephone_P = Convert.ToInt32(Tel_p.Text);
-                        ed.id_F = Convert.ToInt32(Filier.SelectedValue);
-                       
-                        cancapter.Etudiants.Add(ed);
-                        cancapter.SaveChanges();
-                        await loadDataGridView();
-                        dataGridView1.DataSource = gridViewDataSource;
-                        return;
+                        row.DefaultCellStyle.BackColor = Color.Green;
                     }
-                    MessageBox.Show("Selectione des Matier");
-                    return;
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    }
                 }
-                MessageBox.Show("Veuillez entrer une valeur valide");
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void EtudientGs_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
-        private void Enregistrer_Click(object sender, EventArgs e)
-        {
-           
         }
     }
 }

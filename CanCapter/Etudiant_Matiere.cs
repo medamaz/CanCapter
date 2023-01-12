@@ -11,7 +11,9 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data.SqlClient;
+    using System.IO;
+
     public partial class Etudiant_Matiere
     {
         public int Id_EM { get; set; }
@@ -20,5 +22,41 @@ namespace CanCapter
     
         public virtual Etudiant Etudiant { get; set; }
         public virtual Matiere Matiere { get; set; }
+
+        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
+
+        public static List<Etudiant_Matiere> getMatierByEtudiant(int id_E)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                List<Etudiant_Matiere> list = new List<Etudiant_Matiere>();
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select * from Etudiant_Matiere where id_E = @E";
+                cmd.Parameters.AddWithValue("@E", id_E);
+                SqlDataReader rd = cmd.ExecuteReader();
+                cmd.Parameters.Clear();
+                while (rd.Read())
+                {
+                    Etudiant_Matiere tarif = new Etudiant_Matiere();
+                    tarif.Id_EM = Convert.ToInt32(rd[0]);
+                    tarif.id_E = Convert.ToInt32(rd[1]);
+                    tarif.id_M = Convert.ToInt32(rd[2]);
+                    list.Add(tarif);
+                }
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
     }
 }

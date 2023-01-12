@@ -35,7 +35,7 @@
             // 
             this.main.AutoSize = true;
             this.main.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.main.BackColor = System.Drawing.Color.IndianRed;
+            this.main.BackColor = System.Drawing.SystemColors.Control;
             this.main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main.Location = new System.Drawing.Point(0, 0);
             this.main.Name = "main";
@@ -51,7 +51,7 @@
             this.Controls.Add(this.main);
             this.MinimumSize = new System.Drawing.Size(850, 600);
             this.Name = "Accueil";
-            this.Text = "Form1";
+            this.Text = "CanCapter";
             this.Load += new System.EventHandler(this.Accueil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

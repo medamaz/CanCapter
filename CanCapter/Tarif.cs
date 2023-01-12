@@ -13,6 +13,7 @@ namespace CanCapter
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.IO;
 
     public partial class Tarif
     {
@@ -26,9 +27,11 @@ namespace CanCapter
         public double Prix { get; set; }
         public int id_M { get; set; }
         public Nullable<int> id_F { get; set; }
-        public static string cntStr { get; set; }
+
+        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
         public virtual Filier Filier { get; set; }
         public virtual Matiere Matiere { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paiement> Paiements { get; set; }
 
