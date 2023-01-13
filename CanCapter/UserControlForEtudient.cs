@@ -62,7 +62,7 @@ namespace CanCapter
                             Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
                             etudiant_matiere.id_M = j;
                             etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
-                            cancapter.Etudiant_Matiere.Add(etudiant_matiere);
+                            ed.Etudiant_Matiere.Add(etudiant_matiere);
 
                             Paiement p = new Paiement();
                             p.etat = Faker.Boolean.Random();
@@ -211,15 +211,26 @@ namespace CanCapter
         {
             try
             {
-                EtudientGs edgs = new EtudientGs(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()), listBoxDataSource, FilierDataSource);
-                edgs.ShowDialog();
+                if (dataGridView1 != null && dataGridView1.Rows.Count > 0 && dataGridView1.CurrentRow.Index < gridViewDataSource.Rows.Count)
+                {
+                    EtudientGs edgs = new EtudientGs(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()), listBoxDataSource, FilierDataSource);
+                    edgs.FormClosing += MyForm_FormClosed;
+                    edgs.ShowDialog();
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-}
+        }
+
+        async void MyForm_FormClosed(object sender, FormClosingEventArgs e)
+        {
+            await loadDataGridView();
+            dataGridView1.DataSource = gridViewDataSource;
+        }
 
         private async void Rechercher_Click(object sender, EventArgs e)
         {

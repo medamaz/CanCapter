@@ -30,7 +30,6 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -47,10 +46,10 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Rechercher = new System.Windows.Forms.Button();
-            this.Sauvegarder = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Payé = new System.Windows.Forms.Button();
+            this.Enregistrer = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,7 +88,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
@@ -105,7 +104,6 @@
             this.tableLayoutPanel1.Controls.Add(this.FilierBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.checkedListBox1, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 50);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -122,18 +120,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(421, 436);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(176, 387);
-            this.button2.Margin = new System.Windows.Forms.Padding(8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(237, 41);
-            this.button2.TabIndex = 50;
-            this.button2.Text = "Effacer Le Filtre";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -262,6 +248,7 @@
             this.FilierBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FilierBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FilierBox.DropDownWidth = 300;
+            this.FilierBox.Enabled = false;
             this.FilierBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilierBox.FormattingEnabled = true;
             this.FilierBox.Items.AddRange(new object[] {
@@ -299,53 +286,44 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.99999F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.Rechercher, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.Sauvegarder, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Payé, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Enregistrer, 0, 0);
             this.tableLayoutPanel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(415, 61);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // Rechercher
+            // Payé
             // 
-            this.Rechercher.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Rechercher.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Rechercher.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Rechercher.Location = new System.Drawing.Point(215, 8);
-            this.Rechercher.Margin = new System.Windows.Forms.Padding(8);
-            this.Rechercher.Name = "Rechercher";
-            this.Rechercher.Size = new System.Drawing.Size(192, 45);
-            this.Rechercher.TabIndex = 25;
-            this.Rechercher.Text = "Rechercher";
-            this.Rechercher.UseVisualStyleBackColor = true;
+            this.Payé.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Payé.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Payé.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Payé.Location = new System.Drawing.Point(215, 8);
+            this.Payé.Margin = new System.Windows.Forms.Padding(8);
+            this.Payé.Name = "Payé";
+            this.Payé.Size = new System.Drawing.Size(192, 45);
+            this.Payé.TabIndex = 25;
+            this.Payé.Text = "Défini Comme Payé";
+            this.Payé.UseVisualStyleBackColor = true;
+            this.Payé.Click += new System.EventHandler(this.Payé_Click);
             // 
-            // Sauvegarder
+            // Enregistrer
             // 
-            this.Sauvegarder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Sauvegarder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Sauvegarder.Location = new System.Drawing.Point(8, 8);
-            this.Sauvegarder.Margin = new System.Windows.Forms.Padding(8);
-            this.Sauvegarder.Name = "Sauvegarder";
-            this.Sauvegarder.Size = new System.Drawing.Size(191, 45);
-            this.Sauvegarder.TabIndex = 23;
-            this.Sauvegarder.Text = " sauvegarder";
-            this.Sauvegarder.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(8, 387);
-            this.button1.Margin = new System.Windows.Forms.Padding(8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 41);
-            this.button1.TabIndex = 49;
-            this.button1.Text = "Retour";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Enregistrer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Enregistrer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Enregistrer.Location = new System.Drawing.Point(8, 8);
+            this.Enregistrer.Margin = new System.Windows.Forms.Padding(8);
+            this.Enregistrer.Name = "Enregistrer";
+            this.Enregistrer.Size = new System.Drawing.Size(191, 45);
+            this.Enregistrer.TabIndex = 23;
+            this.Enregistrer.Text = "Enregistrer";
+            this.Enregistrer.UseVisualStyleBackColor = true;
+            this.Enregistrer.Click += new System.EventHandler(this.Enregistrer_Click);
             // 
             // dataGridView1
             // 
@@ -359,6 +337,19 @@
             this.dataGridView1.TabIndex = 28;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(8, 383);
+            this.button1.Margin = new System.Windows.Forms.Padding(8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 45);
+            this.button1.TabIndex = 49;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // EtudientGs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,6 +358,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "EtudientGs";
             this.Text = "EtudientGs";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EtudientGs_FormClosing);
             this.Load += new System.EventHandler(this.EtudientGs_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -387,7 +379,6 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
@@ -404,9 +395,9 @@
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button Rechercher;
-        private System.Windows.Forms.Button Sauvegarder;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Payé;
+        private System.Windows.Forms.Button Enregistrer;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button button1;
     }
 }

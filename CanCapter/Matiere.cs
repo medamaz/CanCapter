@@ -48,13 +48,23 @@ namespace CanCapter
                 SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
                 return dt;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
+    }
+    public class MatiereComparer : IEqualityComparer<Matiere>
+    {
+        public bool Equals(Matiere x, Matiere y)
+        {
+            // Your custom comparison logic here
+            return x.Id_M == y.Id_M && x.nom == y.nom;
+        }
 
-        
-
+        public int GetHashCode(Matiere obj)
+        {
+            return obj.Id_M.GetHashCode() ^ obj.nom.GetHashCode();
+        }
     }
 }

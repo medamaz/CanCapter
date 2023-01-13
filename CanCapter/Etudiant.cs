@@ -55,9 +55,9 @@ namespace CanCapter
                 SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
                 return dt;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -84,9 +84,9 @@ namespace CanCapter
                 SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
                 return dt;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
     }
