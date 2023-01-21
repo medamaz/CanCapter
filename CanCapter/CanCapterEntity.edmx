@@ -17,6 +17,7 @@
           <Property Name="telephone_M" Type="int" Nullable="false" />
           <Property Name="date_I" Type="date" Nullable="false" />
           <Property Name="id_F" Type="int" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Etudiant_Matiere">
           <Key>
@@ -46,10 +47,22 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="etat" Type="bit" />
-          <Property Name="date_E" Type="datetime" />
-          <Property Name="date_P" Type="datetime" />
+          <Property Name="date_E" Type="date" />
+          <Property Name="date_P" Type="date" />
           <Property Name="id_T" Type="int" />
           <Property Name="id_E" Type="int" />
+        </EntityType>
+        <EntityType Name="Recu">
+          <Key>
+            <PropertyRef Name="Id_R" />
+          </Key>
+          <Property Name="Id_R" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_E" Type="int" Nullable="false" />
+          <Property Name="date_P" Type="date" Nullable="false" />
+          <Property Name="Paye" Type="float" Nullable="false" />
+          <Property Name="Rest" Type="float" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="Statut" Type="bit" />
         </EntityType>
         <EntityType Name="Tarif">
           <Key>
@@ -120,6 +133,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Recu__Id_E__4F47C5E3">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+          <End Role="Recu" Type="Self.Recu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="Id_E" />
+            </Principal>
+            <Dependent Role="Recu">
+              <PropertyRef Name="Id_E" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Tarif__id_F__70DDC3D8">
           <End Role="Filier" Type="Self.Filier" Multiplicity="0..1" />
           <End Role="Tarif" Type="Self.Tarif" Multiplicity="*" />
@@ -150,6 +175,7 @@
           <EntitySet Name="Filier" EntityType="Self.Filier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matiere" EntityType="Self.Matiere" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recu" EntityType="Self.Recu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarif" EntityType="Self.Tarif" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Etudiant__id_F__01142BA1" Association="Self.FK__Etudiant__id_F__01142BA1">
             <End Role="Filier" EntitySet="Filier" />
@@ -170,6 +196,10 @@
           <AssociationSet Name="FK__Paiement__id_T__5812160E" Association="Self.FK__Paiement__id_T__5812160E">
             <End Role="Tarif" EntitySet="Tarif" />
             <End Role="Paiement" EntitySet="Paiement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recu__Id_E__4F47C5E3" Association="Self.FK__Recu__Id_E__4F47C5E3">
+            <End Role="Etudiant" EntitySet="Etudiant" />
+            <End Role="Recu" EntitySet="Recu" />
           </AssociationSet>
           <AssociationSet Name="FK__Tarif__id_F__70DDC3D8" Association="Self.FK__Tarif__id_F__70DDC3D8">
             <End Role="Filier" EntitySet="Filier" />
@@ -197,9 +227,11 @@
           <Property Name="telephone_M" Type="Int32" Nullable="false" />
           <Property Name="date_I" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_F" Type="Int32" Nullable="false" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Filier" Relationship="Self.FK__Etudiant__id_F__01142BA1" FromRole="Etudiant" ToRole="Filier" />
           <NavigationProperty Name="Etudiant_Matiere" Relationship="Self.FK__Etudiant_M__id_E__3C34F16F" FromRole="Etudiant" ToRole="Etudiant_Matiere" />
           <NavigationProperty Name="Paiements" Relationship="Self.FK__Paiement__id_E__571DF1D5" FromRole="Etudiant" ToRole="Paiement" />
+          <NavigationProperty Name="Recus" Relationship="Self.FK__Recu__Id_E__4F47C5E3" FromRole="Etudiant" ToRole="Recu" />
         </EntityType>
         <EntityType Name="Etudiant_Matiere">
           <Key>
@@ -235,12 +267,25 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="etat" Type="Boolean" />
-          <Property Name="date_E" Type="DateTime" Precision="3" />
-          <Property Name="date_P" Type="DateTime" Precision="3" />
+          <Property Name="date_E" Type="DateTime" Precision="0" />
+          <Property Name="date_P" Type="DateTime" Precision="0" />
           <Property Name="id_T" Type="Int32" />
           <Property Name="id_E" Type="Int32" />
           <NavigationProperty Name="Etudiant" Relationship="Self.FK__Paiement__id_E__571DF1D5" FromRole="Paiement" ToRole="Etudiant" />
           <NavigationProperty Name="Tarif" Relationship="Self.FK__Paiement__id_T__5812160E" FromRole="Paiement" ToRole="Tarif" />
+        </EntityType>
+        <EntityType Name="Recu">
+          <Key>
+            <PropertyRef Name="Id_R" />
+          </Key>
+          <Property Name="Id_R" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_E" Type="Int32" Nullable="false" />
+          <Property Name="date_P" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Paye" Type="Double" Nullable="false" />
+          <Property Name="Rest" Type="Double" Nullable="false" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="Statut" Type="Boolean" />
+          <NavigationProperty Name="Etudiant" Relationship="Self.FK__Recu__Id_E__4F47C5E3" FromRole="Recu" ToRole="Etudiant" />
         </EntityType>
         <EntityType Name="Tarif">
           <Key>
@@ -287,6 +332,18 @@
             </Principal>
             <Dependent Role="Paiement">
               <PropertyRef Name="id_E" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recu__Id_E__4F47C5E3">
+          <End Role="Etudiant" Type="Self.Etudiant" Multiplicity="1" />
+          <End Role="Recu" Type="Self.Recu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etudiant">
+              <PropertyRef Name="Id_E" />
+            </Principal>
+            <Dependent Role="Recu">
+              <PropertyRef Name="Id_E" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -344,6 +401,7 @@
           <EntitySet Name="Filiers" EntityType="Self.Filier" />
           <EntitySet Name="Matieres" EntityType="Self.Matiere" />
           <EntitySet Name="Paiements" EntityType="Self.Paiement" />
+          <EntitySet Name="Recus" EntityType="Self.Recu" />
           <EntitySet Name="Tarifs" EntityType="Self.Tarif" />
           <AssociationSet Name="FK__Etudiant__id_F__01142BA1" Association="Self.FK__Etudiant__id_F__01142BA1">
             <End Role="Filier" EntitySet="Filiers" />
@@ -356,6 +414,10 @@
           <AssociationSet Name="FK__Paiement__id_E__571DF1D5" Association="Self.FK__Paiement__id_E__571DF1D5">
             <End Role="Etudiant" EntitySet="Etudiants" />
             <End Role="Paiement" EntitySet="Paiements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recu__Id_E__4F47C5E3" Association="Self.FK__Recu__Id_E__4F47C5E3">
+            <End Role="Etudiant" EntitySet="Etudiants" />
+            <End Role="Recu" EntitySet="Recus" />
           </AssociationSet>
           <AssociationSet Name="FK__Etudiant_M__id_M__3D2915A8" Association="Self.FK__Etudiant_M__id_M__3D2915A8">
             <End Role="Matiere" EntitySet="Matieres" />
@@ -391,6 +453,7 @@
                 <ScalarProperty Name="telephone_M" ColumnName="telephone_M" />
                 <ScalarProperty Name="date_I" ColumnName="date_I" />
                 <ScalarProperty Name="id_F" ColumnName="id_F" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -428,6 +491,19 @@
                 <ScalarProperty Name="date_P" ColumnName="date_P" />
                 <ScalarProperty Name="id_T" ColumnName="id_T" />
                 <ScalarProperty Name="id_E" ColumnName="id_E" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recus">
+            <EntityTypeMapping TypeName="CanCapterDataBaseModel.Recu">
+              <MappingFragment StoreEntitySet="Recu">
+                <ScalarProperty Name="Id_R" ColumnName="Id_R" />
+                <ScalarProperty Name="Id_E" ColumnName="Id_E" />
+                <ScalarProperty Name="date_P" ColumnName="date_P" />
+                <ScalarProperty Name="Paye" ColumnName="Paye" />
+                <ScalarProperty Name="Rest" ColumnName="Rest" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

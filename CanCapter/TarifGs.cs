@@ -94,7 +94,7 @@ namespace CanCapter
                 //int fl = Convert.ToInt32(Filier.SelectedValue.ToString());
                 //var matier = cancapter.Tarifs.Where(b => b.id_M == mat).FirstOrDefault();
                 //var filier = cancapter.Tarifs.Where(b => b.id_F == fl).FirstOrDefault();
-                if (Tarif.chekcSpecificTarif(Convert.ToInt32(MatiereBox.SelectedValue.ToString()), Convert.ToInt32(Filier.SelectedValue.ToString())) == 0)
+                if (TarifParent.chekcSpecificTarif(Convert.ToInt32(MatiereBox.SelectedValue.ToString()), Convert.ToInt32(Filier.SelectedValue.ToString())) == 0)
                 {
                     if (Prix.Text != "")
                     {

@@ -25,7 +25,7 @@ namespace CanCapter
             {
                 return Task.Run(() =>
                 {
-                    this.gridViewDataSource = Etudiant.afficherAllEtudiant();
+                    this.gridViewDataSource = EtudiantPaarent.afficherAllEtudiant();
                 });
             }
             catch (Exception ex)
@@ -55,6 +55,7 @@ namespace CanCapter
                         ed.telephone_P = Faker.RandomNumber.Next(1000000, 10000000);
                         ed.id_F = Faker.RandomNumber.Next(1, 12);
                         ed.date_I = DateTime.Now.Date;
+                        ed.Statut = true;
                         cancapter.Etudiants.Add(ed);
                         int ran = Faker.RandomNumber.Next(1, 10);
                         for (int j = 1; j < ran; j++)
@@ -68,12 +69,23 @@ namespace CanCapter
                             p.etat = Faker.Boolean.Random();
                             p.id_E = Convert.ToInt32(ed.Id_E);
                             p.date_E = DateTime.Now.Date;
-                            p.id_T = Tarif.getSpecificTarif(j,ed.id_F);
-
+                            p.id_T = TarifParent.getSpecificTarif(j,ed.id_F);
                             cancapter.Paiements.Add(p);
+
                         }
                         cancapter.SaveChanges();
 
+                        Recu r = new Recu();
+                        //r.Id_R = Convert.ToInt32(Faker.RandomNumber.Next(1, 200).ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString());
+                        r.date_P = DateTime.Now.Date;
+                        r.Paye = 0;
+                        r.Id_E = ed.Id_E;
+                        r.Rest = PaiementParent.getRestToPaiement(ed.Id_E);
+                        r.Total = PaiementParent.getRestToPaiement(ed.Id_E);
+                        r.Statut = false;
+                        cancapter.Recus.Add(r);
+
+                        cancapter.SaveChanges();
                     }
                 });
             }
@@ -90,7 +102,7 @@ namespace CanCapter
             {
                 return Task.Run(() =>
                 {
-                    listBoxDataSource = Matiere.afficherAllMatiere();
+                    listBoxDataSource = MatiereParent.afficherAllMatiere();
                 });
             }
             catch (Exception ex)
@@ -106,7 +118,7 @@ namespace CanCapter
             {
                 return Task.Run(() =>
                 {
-                    FilierDataSource = Filier.afficherAllFilier();
+                    FilierDataSource = FilierParent.afficherAllFilier();
                 });
             }
             catch (Exception ex)
@@ -167,7 +179,7 @@ namespace CanCapter
                             etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
                             cancapter.Etudiant_Matiere.Add(etudiant_matiere);
 
-                            int t = Tarif.getSpecificTarif(Convert.ToInt32(m.Row[0].ToString()), Convert.ToInt32(ed.id_F));
+                            int t = TarifParent.getSpecificTarif(Convert.ToInt32(m.Row[0].ToString()), Convert.ToInt32(ed.id_F));
 
                             Paiement p = new Paiement();
                             p.etat = false;
@@ -241,7 +253,7 @@ namespace CanCapter
                 {
                     await Task.Run(() =>
                     {
-                        this.gridViewDataSource = Etudiant.RechercherEtudiant(Nom.Text, prenom.Text);
+                        this.gridViewDataSource = EtudiantPaarent.RechercherEtudiant(Nom.Text, prenom.Text);
                     });
                     dataGridView1.DataSource = gridViewDataSource;
                     button2.Visible = true;

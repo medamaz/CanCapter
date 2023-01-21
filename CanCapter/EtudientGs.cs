@@ -19,6 +19,7 @@ namespace CanCapter
         DataTable gridViewDataSource;
         DataTable listBoxDataSource;
         DataTable FilierDataSource;
+        BindingSource bs = new BindingSource();
         public EtudientGs(int ed, DataTable listBoxDataSource, DataTable FilierDataSource)
         {
             InitializeComponent();
@@ -37,7 +38,24 @@ namespace CanCapter
             {
                 return Task.Run(() =>
                 {
-                    this.gridViewDataSource = Paiement.getPaiement(ed.Id_E);
+                    this.gridViewDataSource = PaiementParent.getPaiement(ed.Id_E);
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+
+        }
+
+        Task loadDataGridView1()
+        {
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = RecuParent.getRecu(ed.Id_E);
                 });
             }
             catch (Exception ex)
@@ -60,26 +78,30 @@ namespace CanCapter
                 FilierBox.DisplayMember = "nom";
                 FilierBox.ValueMember = "id_F";
                 FilierBox.DataSource = FilierDataSource;
-
                 Nom.Text = ed.nom.ToString();
                 prenom.Text = ed.prenom.ToString();
                 Tel.Text = ed.telephone.ToString();
                 Tel_M.Text = ed.telephone_M.ToString();
                 Tel_p.Text = ed.telephone_P.ToString();
                 FilierBox.SelectedValue = ed.id_F;
-                foreach (Etudiant_Matiere t in Etudiant_Matiere.getMatierByEtudiant(ed.Id_E))
+                if (ed.Statut)
+                    radioButton1.Checked = true;
+                else
+                    radioButton2.Checked = true;
+                foreach (Etudiant_Matiere t in Etudiant_MatiereParent.getMatierByEtudiant(ed.Id_E))
                 {
                     int index = checkedListBox1.FindStringExact(cancapter.Matieres.Find(t.id_M).nom);
                     checkedListBox1.SetItemChecked(index, true);
                 }
                 await loadDataGridView();
-                dataGridView1.DataSource = gridViewDataSource;
+                bs.DataSource = gridViewDataSource;
+                dataGridView1.DataSource = bs;
 
                 dataGridView1.Columns["id"].Visible = false;
                 dataGridView1.Columns["A Payé"].Visible = false;
-                dataGridView1.Sort(dataGridView1.Columns["A Payé"], ListSortDirection.Ascending);
-
                 this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.Sort(dataGridView1.Columns["A Payé"], ListSortDirection.Ascending);
+                Rpaye.Text = PaiementParent.getRestToPaiement(ed.Id_E).ToString();
             }
             catch (Exception ex)
             {
@@ -96,7 +118,22 @@ namespace CanCapter
                     if (e.RowIndex >= 0 && e.RowIndex < gridViewDataSource.Rows.Count)
                     {
                         DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                        bool booleanValue = Convert.ToBoolean(row.Cells["A Payé"].Value);
+                        bool booleanValue;
+                        if (radioButton3.Checked)
+                        {
+                            
+                            booleanValue = Convert.ToBoolean(row.Cells["A Payé"].Value);
+                            if (booleanValue)
+                            {
+                                row.DefaultCellStyle.BackColor = Color.Green;
+                            }
+                            else
+                            {
+                                row.DefaultCellStyle.BackColor = Color.Red;
+                            }
+                            return;
+                        }
+                        booleanValue = Convert.ToBoolean(row.Cells["Statut"].Value);
                         if (booleanValue)
                         {
                             row.DefaultCellStyle.BackColor = Color.Green;
@@ -105,6 +142,7 @@ namespace CanCapter
                         {
                             row.DefaultCellStyle.BackColor = Color.Red;
                         }
+
                     }
                 }
             }
@@ -139,7 +177,7 @@ namespace CanCapter
                                 mat.nom = m.Row[1].ToString();
                                 checkedItems.Add(mat);
                             }
-                            List<Matiere> lm = Etudiant_Matiere.getJsutMatierByEtudiant(ed.Id_E);
+                            List<Matiere> lm = Etudiant_MatiereParent.getJsutMatierByEtudiant(ed.Id_E);
 
                             if (!lm.SequenceEqual(checkedItems, new MatiereComparer()))
                             {
@@ -149,8 +187,8 @@ namespace CanCapter
                                 foreach (Matiere mat in matierSup)
                                 {
 
-                                    Etudiant_Matiere.removeEtudiant_MatiereByMatiereAndEtudiant(mat.Id_M, ed.Id_E);
-                                    Paiement.removePaiementWithMatiere(Tarif.getSpecificTarif(mat.Id_M, ed.Filier.Id_F), ed.Id_E);
+                                    Etudiant_MatiereParent.removeEtudiant_MatiereByMatiereAndEtudiant(mat.Id_M, ed.Id_E);
+                                    PaiementParent.removePaiementWithMatiere(TarifParent.getSpecificTarif(mat.Id_M, ed.Filier.Id_F), ed.Id_E);
                                 }
                                 foreach (Matiere mat in matierAdd)
                                 {
@@ -163,7 +201,7 @@ namespace CanCapter
                                     p.etat = false;
                                     p.date_E = DateTime.Now.Date;
                                     p.id_E = ed.Id_E;
-                                    p.id_T = Tarif.getSpecificTarif(mat.Id_M, ed.Filier.Id_F);
+                                    p.id_T = TarifParent.getSpecificTarif(mat.Id_M, ed.Filier.Id_F);
                                     cancapter.Paiements.Add(p);
                                 }
                             }
@@ -246,7 +284,7 @@ namespace CanCapter
                             paye += p.Tarif.Prix;
                             idp += p.Id.ToString();
                         }
-                        Payment__Receipt.print(ed.Filier.nom, matiere, mounth, paye.ToString(), Paiement.getRestToPaiement(ed.Id_E).ToString(), idp + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
+                        Payment__Receipt.print(ed.Filier.nom, matiere, mounth, paye.ToString(), PaiementParent.getRestToPaiement(ed.Id_E).ToString(), idp + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
                     }
                     return;
                 }
@@ -254,9 +292,72 @@ namespace CanCapter
             MessageBox.Show("Sélectionnez D'Abord Ine Ligne à Modifier");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            Payment__Receipt.print(ed.Filier.nom,ed.Etudiant_Matiere.ToString(),DateTime.Now.Month.ToString(),"500","500","50084848",ed.nom);
+            try
+            {
+                if (radioButton1.Checked)
+                    ed.Statut = true;
+                else
+                    ed.Statut = false;
+                cancapter.SaveChanges();
+            }
+             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
+                {
+
+                    if (MessageBox.Show(this, "Etes-vous sûr de cette modification ?", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    {
+                        Paiement p = cancapter.Paiements.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                        p.etat = true;
+                        p.date_P = DateTime.Now;
+                        cancapter.SaveChanges();
+                        await loadDataGridView();
+                        dataGridView1.DataSource = gridViewDataSource;
+                        dataGridView1.Sort(dataGridView1.Columns["A Payé"], ListSortDirection.Ascending);
+                        if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            Payment__Receipt.print(ed.Filier.nom, p.Tarif.Matiere.nom, Convert.ToDateTime(p.date_E).Month.ToString(), p.Tarif.Prix.ToString(), PaiementParent.getRestToPaiement(ed.Id_E).ToString(), p.Id.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private async void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton3.Checked)
+            {
+                await loadDataGridView();
+                bs.DataSource = gridViewDataSource;
+                dataGridView1.Columns["id"].Visible = false;
+                dataGridView1.Columns["A Payé"].Visible = false;
+                dataGridView1.Sort(dataGridView1.Columns["A Payé"], ListSortDirection.Ascending);
+            }
+            else
+            {
+                await loadDataGridView1();
+                bs.DataSource = gridViewDataSource;
+                dataGridView1.Columns["id_R"].Visible = false;
+                dataGridView1.Columns["id_E"].Visible = false;
+                dataGridView1.Columns["Statut"].Visible = false;
+                dataGridView1.Sort(dataGridView1.Columns["Statut"], ListSortDirection.Ascending);
+
+            }
         }
     }
 }

@@ -106,28 +106,25 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CanCapterEntity.Context.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CanCapterEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="CanCapterEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CanCapterEntity.edmx</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Etudiant.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="EtudiantPaarent.cs" />
     <Compile Include="Etudiant_Matiere.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Etudiant_MatiereParent.cs" />
     <Compile Include="EtudientGs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,7 +133,6 @@
     </Compile>
     <Compile Include="Filier.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="FilierGs.cs">
       <SubType>Form</SubType>
@@ -144,6 +140,7 @@
     <Compile Include="FilierGs.Designer.cs">
       <DependentUpon>FilierGs.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilierParent.cs" />
     <Compile Include="mainUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,8 +149,8 @@
     </Compile>
     <Compile Include="Matiere.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="MatiereParent.cs" />
     <Compile Include="MatierGs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,14 +159,17 @@
     </Compile>
     <Compile Include="Paiement.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="PaiementParent.cs" />
     <Compile Include="Payment _Receipt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recu.cs">
+      <DependentUpon>CanCapterEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecuParent.cs" />
     <Compile Include="Tarif.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TarifGs.cs">
       <SubType>Form</SubType>
@@ -177,11 +177,30 @@
     <Compile Include="TarifGs.Designer.cs">
       <DependentUpon>TarifGs.cs</DependentUpon>
     </Compile>
+    <Compile Include="TarifParent.cs" />
     <Compile Include="UserControlForEtudient.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControlForEtudient.Designer.cs">
       <DependentUpon>UserControlForEtudient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlForFilier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlForFilier.Designer.cs">
+      <DependentUpon>UserControlForFilier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlForMatiere.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlForMatiere.Designer.cs">
+      <DependentUpon>UserControlForMatiere.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlForTarif.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlForTarif.Designer.cs">
+      <DependentUpon>UserControlForTarif.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
@@ -213,14 +232,21 @@
     <EmbeddedResource Include="UserControlForEtudient.resx">
       <DependentUpon>UserControlForEtudient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControlForFilier.resx">
+      <DependentUpon>UserControlForFilier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlForMatiere.resx">
+      <DependentUpon>UserControlForMatiere.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlForTarif.resx">
+      <DependentUpon>UserControlForTarif.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="CanCapterEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CanCapterEntity.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EntityDeploy>
     <None Include="CanCapterEntity.edmx.diagram">
       <DependentUpon>CanCapterEntity.edmx</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -263,13 +289,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CanCapterEntity.edmx</DependentUpon>
       <LastGenOutput>CanCapterEntity.Context.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CanCapterEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CanCapterEntity.edmx</DependentUpon>
       <LastGenOutput>CanCapterEntity.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

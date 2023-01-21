@@ -181,6 +181,7 @@
             this.GsF.TabIndex = 33;
             this.GsF.Text = "Gestion Filier";
             this.GsF.UseVisualStyleBackColor = false;
+            this.GsF.Click += new System.EventHandler(this.GsF_Click);
             // 
             // mainUserControl
             // 

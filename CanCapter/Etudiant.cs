@@ -11,10 +11,7 @@ namespace CanCapter
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.IO;
-
+    
     public partial class Etudiant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +19,7 @@ namespace CanCapter
         {
             this.Etudiant_Matiere = new HashSet<Etudiant_Matiere>();
             this.Paiements = new HashSet<Paiement>();
+            this.Recus = new HashSet<Recu>();
         }
     
         public int Id_E { get; set; }
@@ -32,62 +30,14 @@ namespace CanCapter
         public int telephone_M { get; set; }
         public System.DateTime date_I { get; set; }
         public int id_F { get; set; }
-
-        public static readonly string cntStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetCurrentDirectory() + @"\CanCapterDataBase.mdf;Integrated Security=True";
-
+        public bool Statut { get; set; }
+    
         public virtual Filier Filier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Etudiant_Matiere> Etudiant_Matiere { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paiement> Paiements { get; set; }
-
-        public static DataTable afficherAllEtudiant()
-        {
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-            try
-            {
-                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P, E.telephone_M, E.date_I, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
-                {
-                    MissingSchemaAction = MissingSchemaAction.AddWithKey
-                };
-                adapter.Fill(dt);
-                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public static DataTable RechercherEtudiant(string nom, string prenom)
-        {
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-            try
-            {
-                string rq = String.Format("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P, E.telephone_M, E.date_I, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F ");
-                if(nom != "")
-                {
-                    rq = String.Format(rq + "and E.nom like '%{0}%' ", nom);
-                }
-                if (prenom != "")
-                {
-                    rq = String.Format(rq + "and E.prenom like '%{0}%' ", prenom);
-                }
-                adapter = new SqlDataAdapter(rq, cntStr)
-                {
-                    MissingSchemaAction = MissingSchemaAction.AddWithKey
-                };
-                adapter.Fill(dt);
-                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recu> Recus { get; set; }
     }
 }

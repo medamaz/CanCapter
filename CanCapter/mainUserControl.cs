@@ -30,13 +30,26 @@ namespace CanCapter
 
         private void GsT_Click(object sender, EventArgs e)
         {
-            Form f = new TarifGs();
-            f.Show();
+            UserControlForTarif userControlForEtudient = new UserControlForTarif(pMain);
+            pMain.Controls.Clear();
+            pMain.Controls.Add(userControlForEtudient);
+            userControlForEtudient.Dock = DockStyle.Fill;
         }
 
         private void GsM_Click(object sender, EventArgs e)
         {
-          
+            UserControlForMatiere userControlForEtudient = new UserControlForMatiere(pMain);
+            pMain.Controls.Clear();
+            pMain.Controls.Add(userControlForEtudient);
+            userControlForEtudient.Dock = DockStyle.Fill;
+        }
+
+        private void GsF_Click(object sender, EventArgs e)
+        {
+            UserControlForFilier userControlForEtudient = new UserControlForFilier(pMain);
+            pMain.Controls.Clear();
+            pMain.Controls.Add(userControlForEtudient);
+            userControlForEtudient.Dock = DockStyle.Fill;
         }
     }
 }
