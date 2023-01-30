@@ -206,15 +206,21 @@ namespace CanCapter
                         f.ShowDialog();
                         c.Paye = c.Paye + f.resault;
                         c.Rest = c.Rest - f.resault;
+                        c.date_E = DateTime.Now;
+                        c.filename = Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
                         cancapter.SaveChanges();
                         await loadDataGridViewWithRecu();
                         bs.DataSource = gridViewDataSource;
                         Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
                         PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
-                        MessageBox.Show(Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom));
                         if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-
+                            if (c.filename != null)
+                            {
+                                await Task.Run(()=> { Payment__Receipt.printWordfile(c.filename); });
+                                return;
+                            }
+                            MessageBox.Show("Auccun Refu Fondu");
                         }
                         return;
                     }
@@ -322,13 +328,24 @@ namespace CanCapter
                         PrixForm f = new PrixForm();
                         f.ShowDialog();
                         c.Paye = c.Paye + f.resault;
-                        c.Rest = c.Rest - f.resault;
+                        c.Rest = c.Rest - f.resault; 
+                        c.date_E = DateTime.Now;
+                        c.filename = Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
                         cancapter.SaveChanges();
                         await loadDataGridViewWithRecu();
                         bs.DataSource = gridViewDataSource;
                         Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
                         PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
-                        Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
+                        if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            if (c.filename != null)
+                            {
+                                await Task.Run(() => { Payment__Receipt.printWordfile(c.filename); });
+
+                                return;
+                            }
+                            MessageBox.Show("Auccun Refu Fondu");
+                        }
                         return;
                     }
                     MessageBox.Show("C'est Deja Payé");
@@ -341,6 +358,27 @@ namespace CanCapter
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                if (c.filename != null)
+                {
+                    await Task.Run(() => { Payment__Receipt.printWordfile(c.filename); });
+
+                    return;
+
+                }
+                MessageBox.Show("Auccun Refu Fondu");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

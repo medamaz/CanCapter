@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace CanCapter
         //            for (int i = 0; i < 50; i++)
         //            {
         //                Etudiant ed = new Etudiant();
-                        
+
 
         //                ed.nom = Faker.Name.Last();
         //                ed.prenom = Faker.Name.First();
@@ -56,7 +57,7 @@ namespace CanCapter
         //                ed.id_F = Faker.RandomNumber.Next(1, 12);
         //                ed.date_I = DateTime.Now.Date;
         //                ed.Statut = true;
-        //                ed.Remis = Faker.RandomNumber.Next(0, 100);
+        //                ed.Remis = 0;
         //                ed.Next_P = DateTime.Now.Date.AddDays(30);
         //                cancapter.Etudiants.Add(ed);
         //                int ran = Faker.RandomNumber.Next(1, 10);
@@ -66,31 +67,22 @@ namespace CanCapter
         //                    etudiant_matiere.id_M = j;
         //                    etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
         //                    ed.Etudiant_Matiere.Add(etudiant_matiere);
-
-        //                    Paiement p = new Paiement();
-        //                    p.etat = false;
-        //                    p.id_E = Convert.ToInt32(ed.Id_E);
-        //                    p.date_E = DateTime.Now.Date;
-        //                    p.id_T = TarifParent.getSpecificTarif(j,ed.id_F);
-        //                    cancapter.Paiements.Add(p);
-
         //                }
         //                cancapter.SaveChanges();
 
         //                Recu r = new Recu();
-        //                //r.Id_R = Convert.ToInt32(Faker.RandomNumber.Next(1, 200).ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString());
         //                r.date_P = DateTime.Now.Date;
         //                r.Paye = 0;
         //                r.Id_E = ed.Id_E;
-        //                r.Rest = PaiementParent.getRestToPaiement(ed.Id_E) - (double)ed.Remis;
-        //                r.Total = PaiementParent.getRestToPaiement(ed.Id_E) - (double)ed.Remis;
+        //                r.Rest = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
+        //                r.Total = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
         //                r.Statut = false;
         //                cancapter.Recus.Add(r);
 
         //                cancapter.SaveChanges();
         //            }
-        //    });
-        //}
+        //        });
+        //    }
         //    catch (Exception ex)
         //    {
         //        MessageBox.Show(ex.Message);
@@ -147,6 +139,7 @@ namespace CanCapter
                 await loadDataGridView();
                 dataGridView1.DataSource = gridViewDataSource;
                 dataGridView1.Columns["id_E"].Visible = false;
+                dataGridView1.Sort(dataGridView1.Columns["nom"], ListSortDirection.Ascending);
 
             }
             catch (Exception ex)
@@ -176,14 +169,6 @@ namespace CanCapter
                         ed.Next_P = DateTime.Now.Date.AddDays(30);
                         cancapter.Etudiants.Add(ed);
 
-                        Recu r = new Recu();
-                        r.Id_E = ed.Id_E;
-                        r.date_P = DateTime.Now;
-                        r.Paye = 0;
-                        r.Total = 0;
-                        r.Rest = 0;
-                        r.Statut = false;
-
                         foreach (DataRowView m in checkedListBox1.CheckedItems)
                         {
                             Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
@@ -198,6 +183,11 @@ namespace CanCapter
                                 return;
                             }
                         }
+                        Recu r = new Recu();
+                        r.Id_E = ed.Id_E;
+                        r.date_P = DateTime.Now;
+                        r.Paye = 0;
+                        r.Statut = false;
                         r.Rest = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
                         r.Total = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
                         cancapter.Recus.Add(r);

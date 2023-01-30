@@ -45,7 +45,7 @@ namespace CanCapter
                 cn.Open();
                 cmd.Connection = cn;
                 cmd.CommandText = "select * From Etudiant where Next_P = @D";
-                cmd.Parameters.Add("@D", DateTime.Now);
+                cmd.Parameters.AddWithValue("@D", DateTime.Now);
                 SqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())
                 {

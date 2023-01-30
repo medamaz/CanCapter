@@ -22,6 +22,7 @@ namespace CanCapter
         public double Total { get; set; }
         public bool Statut { get; set; }
         public Nullable<System.DateTime> date_E { get; set; }
+        public string filename { get; set; }
     
         public virtual Etudiant Etudiant { get; set; }
     }

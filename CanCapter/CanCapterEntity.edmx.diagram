@@ -4,13 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="952672f2050e4a45a04093b6693f03fd" Name="Diagram1">
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant_Matiere" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Filier" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Paiement" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+      <Diagram DiagramId="a1b54b99298d4ab3802079fff9549ca2" Name="Diagram1">
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant_Matiere" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Filier" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Paiement" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Recu" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Tarif" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant__id_F__01142BA1" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant_M__id_E__3C34F16F" ManuallyRouted="false" />

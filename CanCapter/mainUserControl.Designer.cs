@@ -111,23 +111,24 @@
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.GsT, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.GsM, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.GsF, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(749, 392);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -136,7 +137,7 @@
             this.button1.BackColor = System.Drawing.Color.LightGray;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(377, 3);
+            this.button1.Location = new System.Drawing.Point(191, 219);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(367, 66);
             this.button1.TabIndex = 35;
@@ -149,7 +150,7 @@
             this.GsT.BackColor = System.Drawing.Color.LightGray;
             this.GsT.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GsT.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsT.Location = new System.Drawing.Point(4, 147);
+            this.GsT.Location = new System.Drawing.Point(191, 147);
             this.GsT.Name = "GsT";
             this.GsT.Size = new System.Drawing.Size(367, 66);
             this.GsT.TabIndex = 34;
@@ -162,7 +163,7 @@
             this.GsM.BackColor = System.Drawing.Color.LightGray;
             this.GsM.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GsM.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsM.Location = new System.Drawing.Point(4, 3);
+            this.GsM.Location = new System.Drawing.Point(191, 3);
             this.GsM.Name = "GsM";
             this.GsM.Size = new System.Drawing.Size(367, 66);
             this.GsM.TabIndex = 32;
@@ -175,7 +176,7 @@
             this.GsF.BackColor = System.Drawing.Color.LightGray;
             this.GsF.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GsF.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GsF.Location = new System.Drawing.Point(4, 75);
+            this.GsF.Location = new System.Drawing.Point(191, 75);
             this.GsF.Name = "GsF";
             this.GsF.Size = new System.Drawing.Size(367, 66);
             this.GsF.TabIndex = 33;

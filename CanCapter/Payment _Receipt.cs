@@ -63,7 +63,7 @@ namespace CanCapter
             doc.Bookmarks["RecuNumber"].Range.Text = recuN;
 
             // Save the receipt as a new Word document in a folder
-            string folderPath = Directory.GetCurrentDirectory() + @"\Recus";
+            string folderPath = Directory.GetCurrentDirectory() + @"\Recus\";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -77,6 +77,22 @@ namespace CanCapter
             wordApp.Quit();
 
             return folderPath + fileName;
+        }
+
+        public static void printWordfile(string filename)
+        {
+
+            Application wordApp = new Application();
+
+            Document wordDoc = wordApp.Documents.Open(filename);
+
+            wordDoc.PrintOut();
+
+            wordDoc.Close();
+
+            wordApp.Quit();
+
+
         }
 
     }
