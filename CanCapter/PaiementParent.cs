@@ -34,6 +34,28 @@ namespace CanCapter
             }
         }
 
+        public static DataTable getPaiementByMounth(int ed, int m, int year)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                string rq = String.Format("select P.Id, P.date_E as 'Date De Début', M.nom as Matiere, P.date_P as 'Date de Paiement', T.Prix, P.etat as 'A Payé' from Paiement P, Tarif T, Matiere M where P.id_T = T.Id_T and P.id_E = {0} and M.Id_M = T.id_M and MONTH(P.date_P) = {1} and Year(P.date_P) = {2} ", ed, m,year);
+                adapter = new SqlDataAdapter(rq, cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
         public static double getRestToPaiement(int ed)
         {
             SqlConnection cn = new SqlConnection();
@@ -41,6 +63,36 @@ namespace CanCapter
             try
             {
                 string rq = String.Format("select SUM(T.Prix) From Paiement P, Tarif T where P.id_T = T.Id_T and etat = 0 and id_E = {0}", ed);
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = rq;
+
+                object sum = cmd.ExecuteScalar();
+                if (sum != DBNull.Value)
+                {
+                    double result = Convert.ToDouble(sum);
+                    return result;
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        public static double getMantantPaye(int ed)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                string rq = String.Format("select SUM(T.Prix) From Paiement P, Tarif T where P.id_T = T.Id_T and etat = 1 and id_E = {0}", ed);
                 cn.ConnectionString = cntStr;
                 cn.Open();
                 cmd.Connection = cn;

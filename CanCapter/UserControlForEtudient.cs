@@ -36,65 +36,67 @@ namespace CanCapter
 
         }
 
-        Task fakeData()
-        {
-            try
-            {
-                return Task.Run(() =>
-                {
-                   
-                    for (int i = 0; i < 50; i++)
-                    {
-                        Etudiant ed = new Etudiant();
+        //Task fakeData()
+        //{
+        //    try
+        //    {
+        //        return Task.Run(() =>
+        //        {
+
+        //            for (int i = 0; i < 50; i++)
+        //            {
+        //                Etudiant ed = new Etudiant();
                         
 
-                        ed.nom = Faker.Name.Last();
-                        ed.prenom = Faker.Name.First();
-                        ed.telephone = Faker.RandomNumber.Next(1000000, 10000000);
-                        ed.telephone_M = Faker.RandomNumber.Next(1000000, 10000000);
-                        ed.telephone_P = Faker.RandomNumber.Next(1000000, 10000000);
-                        ed.id_F = Faker.RandomNumber.Next(1, 12);
-                        ed.date_I = DateTime.Now.Date;
-                        ed.Statut = true;
-                        cancapter.Etudiants.Add(ed);
-                        int ran = Faker.RandomNumber.Next(1, 10);
-                        for (int j = 1; j < ran; j++)
-                        {
-                            Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
-                            etudiant_matiere.id_M = j;
-                            etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
-                            ed.Etudiant_Matiere.Add(etudiant_matiere);
+        //                ed.nom = Faker.Name.Last();
+        //                ed.prenom = Faker.Name.First();
+        //                ed.telephone = Faker.RandomNumber.Next(1000000, 10000000);
+        //                ed.telephone_M = Faker.RandomNumber.Next(1000000, 10000000);
+        //                ed.telephone_P = Faker.RandomNumber.Next(1000000, 10000000);
+        //                ed.id_F = Faker.RandomNumber.Next(1, 12);
+        //                ed.date_I = DateTime.Now.Date;
+        //                ed.Statut = true;
+        //                ed.Remis = Faker.RandomNumber.Next(0, 100);
+        //                ed.Next_P = DateTime.Now.Date.AddDays(30);
+        //                cancapter.Etudiants.Add(ed);
+        //                int ran = Faker.RandomNumber.Next(1, 10);
+        //                for (int j = 1; j < ran; j++)
+        //                {
+        //                    Etudiant_Matiere etudiant_matiere = new Etudiant_Matiere();
+        //                    etudiant_matiere.id_M = j;
+        //                    etudiant_matiere.id_E = Convert.ToInt32(ed.Id_E);
+        //                    ed.Etudiant_Matiere.Add(etudiant_matiere);
 
-                            Paiement p = new Paiement();
-                            p.etat = Faker.Boolean.Random();
-                            p.id_E = Convert.ToInt32(ed.Id_E);
-                            p.date_E = DateTime.Now.Date;
-                            p.id_T = TarifParent.getSpecificTarif(j,ed.id_F);
-                            cancapter.Paiements.Add(p);
+        //                    Paiement p = new Paiement();
+        //                    p.etat = false;
+        //                    p.id_E = Convert.ToInt32(ed.Id_E);
+        //                    p.date_E = DateTime.Now.Date;
+        //                    p.id_T = TarifParent.getSpecificTarif(j,ed.id_F);
+        //                    cancapter.Paiements.Add(p);
 
-                        }
-                        cancapter.SaveChanges();
+        //                }
+        //                cancapter.SaveChanges();
 
-                        Recu r = new Recu();
-                        //r.Id_R = Convert.ToInt32(Faker.RandomNumber.Next(1, 200).ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString());
-                        r.date_P = DateTime.Now.Date;
-                        r.Paye = 0;
-                        r.Id_E = ed.Id_E;
-                        r.Rest = PaiementParent.getRestToPaiement(ed.Id_E);
-                        r.Total = PaiementParent.getRestToPaiement(ed.Id_E);
-                        r.Statut = false;
-                        cancapter.Recus.Add(r);
+        //                Recu r = new Recu();
+        //                //r.Id_R = Convert.ToInt32(Faker.RandomNumber.Next(1, 200).ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString());
+        //                r.date_P = DateTime.Now.Date;
+        //                r.Paye = 0;
+        //                r.Id_E = ed.Id_E;
+        //                r.Rest = PaiementParent.getRestToPaiement(ed.Id_E) - (double)ed.Remis;
+        //                r.Total = PaiementParent.getRestToPaiement(ed.Id_E) - (double)ed.Remis;
+        //                r.Statut = false;
+        //                cancapter.Recus.Add(r);
 
-                        cancapter.SaveChanges();
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return null;
-            }
-        }
+        //                cancapter.SaveChanges();
+        //            }
+        //    });
+        //}
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return null;
+        //    }
+        //}
 
         Task loadListBox()
         {
@@ -141,7 +143,7 @@ namespace CanCapter
                 FilierBox.ValueMember = "id_F";
                 await loadFilier();
                 FilierBox.DataSource = FilierDataSource;
-                await fakeData();
+                //await fakeData();
                 await loadDataGridView();
                 dataGridView1.DataSource = gridViewDataSource;
                 dataGridView1.Columns["id_E"].Visible = false;
@@ -158,7 +160,7 @@ namespace CanCapter
             try
             {
 
-                if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "" && Tel.Text != "" && Tel_M.Text != "" && Tel_p.Text != "")
+                if (Nom.Text != "" && prenom.Text != "" && prenom.Text != "")
                 {
                     if (checkedListBox1.CheckedItems.Count > 0)
                     {
@@ -170,7 +172,17 @@ namespace CanCapter
                         ed.telephone_P = Convert.ToInt32(Tel_p.Text);
                         ed.id_F = Convert.ToInt32(FilierBox.SelectedValue);
                         ed.date_I = DateTime.Now.Date;
+                        ed.Remis = Convert.ToDouble(RemisE.Text);
+                        ed.Next_P = DateTime.Now.Date.AddDays(30);
                         cancapter.Etudiants.Add(ed);
+
+                        Recu r = new Recu();
+                        r.Id_E = ed.Id_E;
+                        r.date_P = DateTime.Now;
+                        r.Paye = 0;
+                        r.Total = 0;
+                        r.Rest = 0;
+                        r.Statut = false;
 
                         foreach (DataRowView m in checkedListBox1.CheckedItems)
                         {
@@ -180,21 +192,15 @@ namespace CanCapter
                             cancapter.Etudiant_Matiere.Add(etudiant_matiere);
 
                             int t = TarifParent.getSpecificTarif(Convert.ToInt32(m.Row[0].ToString()), Convert.ToInt32(ed.id_F));
-
-                            Paiement p = new Paiement();
-                            p.etat = false;
-                            p.id_E = Convert.ToInt32(ed.Id_E);
-                            p.date_E = DateTime.Now.Date;
                             if (t < 0)
                             {
                                 MessageBox.Show("le Tarif de la Filière : " + ((DataRowView)FilierBox.SelectedItem).Row[1].ToString() + " et la Matière : " + m.Row[1].ToString() + " n'est pas foundu");
-                                //return;
+                                return;
                             }
-                            p.id_T = t;
-                            cancapter.Paiements.Add(p);
-
                         }
-
+                        r.Rest = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
+                        r.Total = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
+                        cancapter.Recus.Add(r);
                         cancapter.SaveChanges();
 
                         Nom.Text = "";
@@ -302,6 +308,11 @@ namespace CanCapter
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

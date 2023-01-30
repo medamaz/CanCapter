@@ -25,12 +25,14 @@ namespace CanCapter
         public int Id_E { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
-        public int telephone { get; set; }
-        public int telephone_P { get; set; }
-        public int telephone_M { get; set; }
+        public Nullable<int> telephone { get; set; }
+        public Nullable<int> telephone_P { get; set; }
+        public Nullable<int> telephone_M { get; set; }
         public System.DateTime date_I { get; set; }
         public int id_F { get; set; }
         public bool Statut { get; set; }
+        public Nullable<double> Remis { get; set; }
+        public Nullable<System.DateTime> Next_P { get; set; }
     
         public virtual Filier Filier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

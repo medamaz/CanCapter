@@ -20,7 +20,8 @@ namespace CanCapter
         public double Paye { get; set; }
         public double Rest { get; set; }
         public double Total { get; set; }
-        public Nullable<bool> Statut { get; set; }
+        public bool Statut { get; set; }
+        public Nullable<System.DateTime> date_E { get; set; }
     
         public virtual Etudiant Etudiant { get; set; }
     }

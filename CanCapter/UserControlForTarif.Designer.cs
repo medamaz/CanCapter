@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Enregistrer = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Supprimer = new System.Windows.Forms.Button();
-            this.Prix = new System.Windows.Forms.TextBox();
             this.Ajouter = new System.Windows.Forms.Button();
+            this.Enregistrer = new System.Windows.Forms.Button();
+            this.Supprimer = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Prix = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -81,6 +81,18 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(470, 509);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // Ajouter
+            // 
+            this.Ajouter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Ajouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Ajouter.Location = new System.Drawing.Point(18, 215);
+            this.Ajouter.Name = "Ajouter";
+            this.Ajouter.Size = new System.Drawing.Size(140, 38);
+            this.Ajouter.TabIndex = 20;
+            this.Ajouter.Text = "Ajouter";
+            this.Ajouter.UseVisualStyleBackColor = true;
+            this.Ajouter.Click += new System.EventHandler(this.Ajouter_Click);
+            // 
             // Enregistrer
             // 
             this.Enregistrer.Cursor = System.Windows.Forms.Cursors.Default;
@@ -94,18 +106,6 @@
             this.Enregistrer.UseVisualStyleBackColor = true;
             this.Enregistrer.Click += new System.EventHandler(this.Enregistrer_Click);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(23, 429);
-            this.button1.Margin = new System.Windows.Forms.Padding(8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 41);
-            this.button1.TabIndex = 50;
-            this.button1.Text = "Retour";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Supprimer
             // 
             this.Supprimer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -118,6 +118,18 @@
             this.Supprimer.UseVisualStyleBackColor = true;
             this.Supprimer.Click += new System.EventHandler(this.Supprimer_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(23, 429);
+            this.button1.Margin = new System.Windows.Forms.Padding(8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(130, 41);
+            this.button1.TabIndex = 50;
+            this.button1.Text = "Retour";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Prix
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.Prix, 2);
@@ -127,18 +139,6 @@
             this.Prix.Name = "Prix";
             this.Prix.Size = new System.Drawing.Size(288, 26);
             this.Prix.TabIndex = 5;
-            // 
-            // Ajouter
-            // 
-            this.Ajouter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Ajouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Ajouter.Location = new System.Drawing.Point(18, 215);
-            this.Ajouter.Name = "Ajouter";
-            this.Ajouter.Size = new System.Drawing.Size(140, 38);
-            this.Ajouter.TabIndex = 20;
-            this.Ajouter.Text = "Ajouter";
-            this.Ajouter.UseVisualStyleBackColor = true;
-            this.Ajouter.Click += new System.EventHandler(this.Ajouter_Click);
             // 
             // label1
             // 
@@ -201,6 +201,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(15, 30);

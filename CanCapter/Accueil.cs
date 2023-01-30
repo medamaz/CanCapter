@@ -21,8 +21,9 @@ namespace CanCapter
             MainUserControl = new mainUserControl(this.main);
         }
 
-        private void Accueil_Load(object sender, EventArgs e)
+        private async void Accueil_Load(object sender, EventArgs e)
         {
+            await AddPaiment();
             mainUserControl MainUserControl = new mainUserControl(this.main);
             this.main.Controls.Clear();
             this.main.Controls.Add(MainUserControl);
@@ -55,6 +56,27 @@ namespace CanCapter
         private void main_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        Task AddPaiment()
+        {
+            return Task.Run(() => {
+                CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
+                foreach (Etudiant e in EtudiantPaarent.GetAllEtudientForDateNow())
+                {
+                    cancapter.Etudiants.Find(e.Id_E).Next_P = Convert.ToDateTime(cancapter.Etudiants.Find(e.Id_E).Next_P).AddDays(30);
+                    Recu r = new Recu();
+                    double t = TarifParent.getTotalPayeForEtudient(e.Id_E);
+                    r.Id_E = e.Id_E;
+                    r.date_P = DateTime.Now;
+                    r.Paye = 0;
+                    r.Rest = t -(double) e.Remis;
+                    r.Total = t - (double)e.Remis;
+                    r.Statut = false;
+
+                    cancapter.Recus.Add(r);
+                    cancapter.SaveChanges();
+                }
+            });
         }
     }
 }

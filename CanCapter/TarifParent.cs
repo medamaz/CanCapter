@@ -88,5 +88,31 @@ namespace CanCapter
                 cn.Close();
             }
         }
+
+        public static double getTotalPayeForEtudient(int e)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select SUM(T.Prix) From Tarif T, Etudiant_Matiere EM where EM.id_M = T.id_M and EM.Id_E = @E and T.id_F = (Select id_F From Etudiant where id_E = @E);";
+                cmd.Parameters.AddWithValue("@E", e);
+                return (double) cmd.ExecuteScalar();
+               
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                cn.Close();
+                cmd.Parameters.Clear();
+            }
+        }
+
     }
 }
