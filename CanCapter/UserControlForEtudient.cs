@@ -183,6 +183,9 @@ namespace CanCapter
                                 return;
                             }
                         }
+                        
+                        cancapter.SaveChanges();
+
                         Recu r = new Recu();
                         r.Id_E = ed.Id_E;
                         r.date_P = DateTime.Now;
@@ -191,8 +194,8 @@ namespace CanCapter
                         r.Rest = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
                         r.Total = TarifParent.getTotalPayeForEtudient(ed.Id_E) - (double)ed.Remis;
                         cancapter.Recus.Add(r);
-                        cancapter.SaveChanges();
 
+                        cancapter.SaveChanges();
                         Nom.Text = "";
                         prenom.Text = "";
                         Tel.Text = "";

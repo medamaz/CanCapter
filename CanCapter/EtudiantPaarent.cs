@@ -19,7 +19,7 @@ namespace CanCapter
             DataTable dt = new DataTable();
             try
             {
-                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P, E.telephone_M, E.date_I, E.Remis, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
+                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P as 'Tel de Pére', E.telephone_M as 'Tel de Mére', E.date_I as 'Date inscription', E.Remis, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
                 {
                     MissingSchemaAction = MissingSchemaAction.AddWithKey
                 };
@@ -44,7 +44,7 @@ namespace CanCapter
                 cn.ConnectionString = cntStr;
                 cn.Open();
                 cmd.Connection = cn;
-                cmd.CommandText = "select * From Etudiant where Next_P = @D";
+                cmd.CommandText = "select * From Etudiant where Next_P = @D and Statut = 1";
                 cmd.Parameters.AddWithValue("@D", DateTime.Now);
                 SqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())

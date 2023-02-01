@@ -112,6 +112,8 @@ namespace CanCapter
             dataGridView1.Columns["id_M"].Visible = false;
             dataGridView1.Columns["id_M"].Visible = false;
             dataGridView1.Columns["Tarifs"].Visible = false;
+            dataGridView1.Columns["Etudiant_Matiere"].Visible = false;
+
 
         }
 

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Office.Interop.Word;
+using System;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Office.Interop.Word;
 
 namespace CanCapter
 {
     internal class Payment__Receipt
     {
-        public static void print(string filier, string matiere, string mois, string montantPaye, string montantRester, string recuN, string fullName )
+        public static void print(string filier, string matiere, string mois, string montantPaye, string montantRester, string recuN, string fullName)
         {
             //...
 
@@ -18,15 +19,15 @@ namespace CanCapter
             Application wordApp = new Application();
 
             // Open the existing receipt template
-            string receiptTemplate = Directory.GetCurrentDirectory()+@"\Template\Payment_Receipt_Template.docx";
-            Document doc = wordApp.Documents.Open(receiptTemplate);
+            string receiptTemplate = Directory.GetCurrentDirectory() + @"\Template\Payment_Receipt_Template.docx";
+            Microsoft.Office.Interop.Word.Document doc = wordApp.Documents.Open(receiptTemplate);
 
             // Add custom information to the receipt
             doc.Bookmarks["Filier"].Range.Text = filier;
             doc.Bookmarks["Date"].Range.Text = DateTime.Now.ToShortDateString();
             doc.Bookmarks["Matiere"].Range.Text = matiere;
             doc.Bookmarks["Mois"].Range.Text = mois;
-            doc.Bookmarks["MontantP"].Range.Text = montantPaye ;
+            doc.Bookmarks["MontantP"].Range.Text = montantPaye;
             doc.Bookmarks["MontantR"].Range.Text = montantRester;
             doc.Bookmarks["Name"].Range.Text = fullName;
             doc.Bookmarks["RecuNumber"].Range.Text = recuN;
@@ -42,58 +43,136 @@ namespace CanCapter
 
 
         }
+
         public static string printRecu(string filier, string mois, string montantPaye, string montantRester, string recuN, string fullName)
         {
-            //...
-
-            // Create a new Microsoft Word application
-            Application wordApp = new Application();
-
-            // Open the existing receipt template
-            string receiptTemplate = Directory.GetCurrentDirectory() + @"\Template\Payment_Receipt_Template_Recu.docx";
-            Document doc = wordApp.Documents.Open(receiptTemplate);
-
-            // Add custom information to the receipt
-            doc.Bookmarks["Filier"].Range.Text = filier;
-            doc.Bookmarks["Date"].Range.Text = DateTime.Now.ToShortDateString();
-            doc.Bookmarks["Mois"].Range.Text = mois;
-            doc.Bookmarks["MontantP"].Range.Text = montantPaye;
-            doc.Bookmarks["MontantR"].Range.Text = montantRester;
-            doc.Bookmarks["Name"].Range.Text = fullName;
-            doc.Bookmarks["RecuNumber"].Range.Text = recuN;
-
-            // Save the receipt as a new Word document in a folder
+            Guid guid = Guid.NewGuid();
             string folderPath = Directory.GetCurrentDirectory() + @"\Recus\";
+            string fileName = "Receipt_" + guid.ToString() + DateTime.Now.ToString("yyyyMMddHH") + ".docx";
+            string receiptTemplate = Directory.GetCurrentDirectory() + @"\Template\Payment_Receipt_Template_Recu.docx";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
             }
-            
-            string fileName = "Receipt_" + DateTime.Now.ToString("yyyyMMddHH") + ".docx";
-            doc.SaveAs2(folderPath + fileName);
-            
-            // Close the document and the Word application
-            doc.Close();
-            wordApp.Quit();
 
-            return folderPath + fileName;
+            try
+            {
+                //...
+
+                // Create a new Microsoft Word application
+                Application wordApp = new Application();
+
+                // Open the existing receipt template
+                Microsoft.Office.Interop.Word.Document doc = wordApp.Documents.Open(receiptTemplate);
+
+                // Add custom information to the receipt
+                doc.Bookmarks["Filier"].Range.Text = filier;
+                doc.Bookmarks["Date"].Range.Text = DateTime.Now.ToShortDateString();
+                doc.Bookmarks["Mois"].Range.Text = mois;
+                doc.Bookmarks["MontantP"].Range.Text = montantPaye;
+                doc.Bookmarks["MontantR"].Range.Text = montantRester;
+                doc.Bookmarks["Name"].Range.Text = fullName;
+                doc.Bookmarks["RecuNumber"].Range.Text = recuN;
+
+                // Save the receipt as a new Word document in a folder
+
+                doc.SaveAs2(folderPath + fileName);
+
+                // Close the document and the Word application
+                doc.Close();
+                wordApp.Quit();
+
+                return folderPath + fileName;
+            }
+            catch
+            {
+                try
+                {
+                    File.Copy(receiptTemplate ,folderPath + fileName, true);
+
+                    using (var doc = WordprocessingDocument.Open(folderPath + fileName, true))
+                    {
+                        MainDocumentPart mainPart = doc.MainDocumentPart;
+                        var bookmarks = mainPart.Document.Body.Descendants<BookmarkStart>();
+                        foreach (var bookmark in bookmarks)
+                        {
+                            if (bookmark.Name == "Filier")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + filier;
+                                }
+                            }
+                            else if (bookmark.Name == "Date")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = DateTime.Now.ToShortDateString();
+                                }
+                            }
+                            else if (bookmark.Name == "Mois")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + mois;
+                                }
+                            }
+                            else if (bookmark.Name == "MontantP")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + montantPaye;
+                                }
+                            }
+                            else if (bookmark.Name == "MontantR")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + montantRester;
+                                }
+                            }
+                            else if (bookmark.Name == "Name")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + fullName;
+                                }
+                            }
+                            else if (bookmark.Name == "RecuNumber")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text+ recuN;
+                                }
+                            }
+                        }
+                        mainPart.Document.Save();
+                    }
+                    return folderPath + fileName;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
         }
 
-        public static void printWordfile(string filename)
+        public static void printWordfile(string printername , string filepath)
         {
-
-            Application wordApp = new Application();
-
-            Document wordDoc = wordApp.Documents.Open(filename);
-
-            wordDoc.PrintOut();
-
-            wordDoc.Close();
-
-            wordApp.Quit();
-
-
+           
+                PrintDocument printDoc = new PrintDocument();
+                printDoc.PrinterSettings.PrinterName = printername;
+                printDoc.DocumentName = filepath;
+                printDoc.Print();
         }
-
+      
     }
 }

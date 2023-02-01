@@ -7,17 +7,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanCapter", "CanCapter\CanC
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
+		All|x64 = All|x64
 		Debug|Any CPU = Debug|Any CPU
-		idk|Any CPU = idk|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.All|Any CPU.Build.0 = Release|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.All|x64.ActiveCfg = Debug|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.All|x64.Build.0 = Debug|Any CPU
 		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.idk|Any CPU.ActiveCfg = idk|Any CPU
-		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.idk|Any CPU.Build.0 = idk|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D86F370-3A0D-4079-87E5-588D5844C3FA}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

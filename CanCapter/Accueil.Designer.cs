@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Accueil));
             this.main = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -39,7 +40,7 @@
             this.main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main.Location = new System.Drawing.Point(0, 0);
             this.main.Name = "main";
-            this.main.Size = new System.Drawing.Size(834, 561);
+            this.main.Size = new System.Drawing.Size(984, 761);
             this.main.TabIndex = 36;
             this.main.Paint += new System.Windows.Forms.PaintEventHandler(this.main_Paint);
             // 
@@ -47,9 +48,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 561);
+            this.ClientSize = new System.Drawing.Size(984, 761);
             this.Controls.Add(this.main);
-            this.MinimumSize = new System.Drawing.Size(850, 600);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1000, 800);
             this.Name = "Accueil";
             this.Text = "CanCapter";
             this.Load += new System.EventHandler(this.Accueil_Load);

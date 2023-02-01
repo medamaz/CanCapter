@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -217,10 +218,16 @@ namespace CanCapter
                         {
                             if (c.filename != null)
                             {
-                                await Task.Run(()=> { Payment__Receipt.printWordfile(c.filename); });
+                                PrintDialog printDialog = new PrintDialog();
+
+                                if (printDialog.ShowDialog() == DialogResult.OK)
+                                {
+                                    string selectedPrinter = printDialog.PrinterSettings.PrinterName;
+                                    await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
+                                }
                                 return;
                             }
-                            MessageBox.Show("Auccun Refu Fondu");
+                            MessageBox.Show("Auccun Recu Fondu");
                         }
                         return;
                     }
@@ -231,7 +238,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Stack trace: " + ex.StackTrace);
             }
         }
 
@@ -340,11 +347,16 @@ namespace CanCapter
                         {
                             if (c.filename != null)
                             {
-                                await Task.Run(() => { Payment__Receipt.printWordfile(c.filename); });
+                                PrintDialog printDialog = new PrintDialog();
 
+                                if (printDialog.ShowDialog() == DialogResult.OK)
+                                {
+                                    string selectedPrinter = printDialog.PrinterSettings.PrinterName;
+                                    await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
+                                }
                                 return;
                             }
-                            MessageBox.Show("Auccun Refu Fondu");
+                            MessageBox.Show("Auccun Recu Fondu");
                         }
                         return;
                     }
@@ -368,12 +380,18 @@ namespace CanCapter
                 Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
                 if (c.filename != null)
                 {
-                    await Task.Run(() => { Payment__Receipt.printWordfile(c.filename); });
+                    PrintDialog printDialog = new PrintDialog();
+
+                    if (printDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedPrinter = printDialog.PrinterSettings.PrinterName;
+                        await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
+                    }
 
                     return;
 
                 }
-                MessageBox.Show("Auccun Refu Fondu");
+                MessageBox.Show("Auccun Recu Fondu");
             }
             catch (Exception ex)
             {

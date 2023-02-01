@@ -32,7 +32,11 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show(ex.InnerException.Message + "01");
+                }
+                MessageBox.Show(ex.Message + "1");
                 return null;
             }
         }
@@ -56,7 +60,11 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    MessageBox.Show(ex.InnerException.Message + "|" + ex.StackTrace);
+                }
+                MessageBox.Show(ex.Message + "|" + ex.StackTrace);
             }
         }
 
@@ -113,7 +121,7 @@ namespace CanCapter
                 await loadData();
                 dataGridView1.DataSource = datasourcefl;
                 dataGridView1.Columns["id_F"].Visible = false;
-                //dataGridView1.Columns["Etudiant_Matiere"].Visible = false;
+                dataGridView1.Columns["Etudiants"].Visible = false;
                 dataGridView1.Columns["Tarifs"].Visible = false;
             }
             catch (Exception ex)

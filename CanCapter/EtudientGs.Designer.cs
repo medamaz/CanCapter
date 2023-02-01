@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EtudientGs));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.RemisE = new System.Windows.Forms.TextBox();
@@ -99,8 +100,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(15);
-            this.splitContainer1.Size = new System.Drawing.Size(902, 716);
-            this.splitContainer1.SplitterDistance = 451;
+            this.splitContainer1.Size = new System.Drawing.Size(984, 761);
+            this.splitContainer1.SplitterDistance = 492;
             this.splitContainer1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -152,16 +153,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(421, 656);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 701);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // RemisE
             // 
             this.RemisE.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RemisE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemisE.Location = new System.Drawing.Point(171, 327);
+            this.RemisE.Location = new System.Drawing.Point(187, 327);
             this.RemisE.Name = "RemisE";
-            this.RemisE.Size = new System.Drawing.Size(247, 26);
+            this.RemisE.Size = new System.Drawing.Size(272, 26);
             this.RemisE.TabIndex = 36;
             // 
             // label10
@@ -256,45 +257,45 @@
             // 
             this.Nom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Nom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Nom.Location = new System.Drawing.Point(171, 3);
+            this.Nom.Location = new System.Drawing.Point(187, 3);
             this.Nom.Name = "Nom";
-            this.Nom.Size = new System.Drawing.Size(247, 26);
+            this.Nom.Size = new System.Drawing.Size(272, 26);
             this.Nom.TabIndex = 6;
             // 
             // prenom
             // 
             this.prenom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.prenom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prenom.Location = new System.Drawing.Point(171, 35);
+            this.prenom.Location = new System.Drawing.Point(187, 35);
             this.prenom.Name = "prenom";
-            this.prenom.Size = new System.Drawing.Size(247, 26);
+            this.prenom.Size = new System.Drawing.Size(272, 26);
             this.prenom.TabIndex = 32;
             // 
             // Tel
             // 
             this.Tel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tel.Location = new System.Drawing.Point(171, 67);
+            this.Tel.Location = new System.Drawing.Point(187, 67);
             this.Tel.Name = "Tel";
-            this.Tel.Size = new System.Drawing.Size(247, 26);
+            this.Tel.Size = new System.Drawing.Size(272, 26);
             this.Tel.TabIndex = 33;
             // 
             // Tel_p
             // 
             this.Tel_p.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tel_p.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tel_p.Location = new System.Drawing.Point(171, 99);
+            this.Tel_p.Location = new System.Drawing.Point(187, 99);
             this.Tel_p.Name = "Tel_p";
-            this.Tel_p.Size = new System.Drawing.Size(247, 26);
+            this.Tel_p.Size = new System.Drawing.Size(272, 26);
             this.Tel_p.TabIndex = 34;
             // 
             // Tel_M
             // 
             this.Tel_M.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tel_M.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tel_M.Location = new System.Drawing.Point(171, 131);
+            this.Tel_M.Location = new System.Drawing.Point(187, 131);
             this.Tel_M.Name = "Tel_M";
-            this.Tel_M.Size = new System.Drawing.Size(247, 26);
+            this.Tel_M.Size = new System.Drawing.Size(272, 26);
             this.Tel_M.TabIndex = 35;
             // 
             // FilierBox
@@ -307,9 +308,9 @@
             this.FilierBox.FormattingEnabled = true;
             this.FilierBox.Items.AddRange(new object[] {
             ""});
-            this.FilierBox.Location = new System.Drawing.Point(171, 163);
+            this.FilierBox.Location = new System.Drawing.Point(187, 163);
             this.FilierBox.Name = "FilierBox";
-            this.FilierBox.Size = new System.Drawing.Size(247, 28);
+            this.FilierBox.Size = new System.Drawing.Size(272, 28);
             this.FilierBox.TabIndex = 36;
             // 
             // checkedListBox1
@@ -317,9 +318,9 @@
             this.checkedListBox1.CheckOnClick = true;
             this.checkedListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(171, 197);
+            this.checkedListBox1.Location = new System.Drawing.Point(187, 197);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(247, 124);
+            this.checkedListBox1.Size = new System.Drawing.Size(272, 124);
             this.checkedListBox1.TabIndex = 40;
             // 
             // panel2
@@ -329,7 +330,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 359);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(415, 44);
+            this.panel2.Size = new System.Drawing.Size(456, 44);
             this.panel2.TabIndex = 49;
             // 
             // groupBox1
@@ -339,7 +340,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(415, 44);
+            this.groupBox1.Size = new System.Drawing.Size(456, 44);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Statut";
@@ -374,7 +375,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 579);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(415, 74);
+            this.panel1.Size = new System.Drawing.Size(456, 74);
             this.panel1.TabIndex = 41;
             // 
             // tableLayoutPanel2
@@ -394,7 +395,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(415, 74);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(456, 74);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // button1
@@ -402,10 +403,10 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Default;
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(284, 8);
+            this.button1.Location = new System.Drawing.Point(311, 8);
             this.button1.Margin = new System.Windows.Forms.Padding(8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 58);
+            this.button1.Size = new System.Drawing.Size(137, 58);
             this.button1.TabIndex = 26;
             this.button1.Text = "Imprimer le Recu";
             this.button1.UseVisualStyleBackColor = true;
@@ -416,10 +417,10 @@
             this.Payé.Cursor = System.Windows.Forms.Cursors.Default;
             this.Payé.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Payé.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Payé.Location = new System.Drawing.Point(146, 8);
+            this.Payé.Location = new System.Drawing.Point(159, 8);
             this.Payé.Margin = new System.Windows.Forms.Padding(8);
             this.Payé.Name = "Payé";
-            this.Payé.Size = new System.Drawing.Size(122, 58);
+            this.Payé.Size = new System.Drawing.Size(136, 58);
             this.Payé.TabIndex = 25;
             this.Payé.Text = "Défini Comme Payé";
             this.Payé.UseVisualStyleBackColor = true;
@@ -432,7 +433,7 @@
             this.Enregistrer.Location = new System.Drawing.Point(8, 8);
             this.Enregistrer.Margin = new System.Windows.Forms.Padding(8);
             this.Enregistrer.Name = "Enregistrer";
-            this.Enregistrer.Size = new System.Drawing.Size(122, 58);
+            this.Enregistrer.Size = new System.Drawing.Size(135, 58);
             this.Enregistrer.TabIndex = 23;
             this.Enregistrer.Text = "Enregistrer";
             this.Enregistrer.UseVisualStyleBackColor = true;
@@ -442,10 +443,10 @@
             // 
             this.PayeM.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PayeM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PayeM.Location = new System.Drawing.Point(171, 547);
+            this.PayeM.Location = new System.Drawing.Point(187, 547);
             this.PayeM.Name = "PayeM";
             this.PayeM.ReadOnly = true;
-            this.PayeM.Size = new System.Drawing.Size(247, 26);
+            this.PayeM.Size = new System.Drawing.Size(272, 26);
             this.PayeM.TabIndex = 53;
             // 
             // label9
@@ -463,10 +464,10 @@
             // 
             this.Rpaye.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Rpaye.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Rpaye.Location = new System.Drawing.Point(171, 515);
+            this.Rpaye.Location = new System.Drawing.Point(187, 515);
             this.Rpaye.Name = "Rpaye";
             this.Rpaye.ReadOnly = true;
-            this.Rpaye.Size = new System.Drawing.Size(247, 26);
+            this.Rpaye.Size = new System.Drawing.Size(272, 26);
             this.Rpaye.TabIndex = 51;
             // 
             // label8
@@ -495,7 +496,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dateTimePicker1);
-            this.splitContainer3.Size = new System.Drawing.Size(415, 100);
+            this.splitContainer3.Size = new System.Drawing.Size(456, 100);
             this.splitContainer3.TabIndex = 55;
             // 
             // groupBox3
@@ -505,7 +506,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(415, 50);
+            this.groupBox3.Size = new System.Drawing.Size(456, 50);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             // 
@@ -538,7 +539,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dateTimePicker1.Size = new System.Drawing.Size(415, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(456, 20);
             this.dateTimePicker1.TabIndex = 54;
             this.dateTimePicker1.Visible = false;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
@@ -552,7 +553,7 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(30);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(417, 686);
+            this.dataGridView1.Size = new System.Drawing.Size(458, 731);
             this.dataGridView1.TabIndex = 29;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -561,8 +562,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 716);
+            this.ClientSize = new System.Drawing.Size(984, 761);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EtudientGs";
             this.Text = "EtudientGs";
             this.Load += new System.EventHandler(this.EtudientGs_Load);

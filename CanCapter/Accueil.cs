@@ -23,12 +23,22 @@ namespace CanCapter
 
         private async void Accueil_Load(object sender, EventArgs e)
         {
-            await AddPaiment();
-            mainUserControl MainUserControl = new mainUserControl(this.main);
-            this.main.Controls.Clear();
-            this.main.Controls.Add(MainUserControl);
-            MainUserControl.Dock = DockStyle.Fill;
-
+            try
+            {
+                await AddPaiment();
+            }
+            catch (Exception ex)
+            {
+                MessageBox
+                    .Show(ex.Message);
+            }
+            finally
+            {
+                mainUserControl MainUserControl = new mainUserControl(this.main);
+                this.main.Controls.Clear();
+                this.main.Controls.Add(MainUserControl);
+                MainUserControl.Dock = DockStyle.Fill;
+            }
         }
 
         private void GsF_Click(object sender, EventArgs e)

@@ -53,7 +53,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(15, 30);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(15, 30, 15, 30);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(462, 502);
+            this.dataGridView1.Size = new System.Drawing.Size(486, 740);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -62,9 +62,9 @@
             this.Enregistrer.Cursor = System.Windows.Forms.Cursors.Default;
             this.Enregistrer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Enregistrer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Enregistrer.Location = new System.Drawing.Point(302, 188);
+            this.Enregistrer.Location = new System.Drawing.Point(317, 267);
             this.Enregistrer.Name = "Enregistrer";
-            this.Enregistrer.Size = new System.Drawing.Size(138, 38);
+            this.Enregistrer.Size = new System.Drawing.Size(145, 38);
             this.Enregistrer.TabIndex = 22;
             this.Enregistrer.Text = "Enregistrer";
             this.Enregistrer.UseVisualStyleBackColor = true;
@@ -74,9 +74,9 @@
             // 
             this.Supprimer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Supprimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Supprimer.Location = new System.Drawing.Point(160, 188);
+            this.Supprimer.Location = new System.Drawing.Point(167, 267);
             this.Supprimer.Name = "Supprimer";
-            this.Supprimer.Size = new System.Drawing.Size(136, 38);
+            this.Supprimer.Size = new System.Drawing.Size(144, 38);
             this.Supprimer.TabIndex = 21;
             this.Supprimer.Text = "Supprimer";
             this.Supprimer.UseVisualStyleBackColor = true;
@@ -86,9 +86,9 @@
             // 
             this.Ajouter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Ajouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Ajouter.Location = new System.Drawing.Point(18, 188);
+            this.Ajouter.Location = new System.Drawing.Point(18, 267);
             this.Ajouter.Name = "Ajouter";
-            this.Ajouter.Size = new System.Drawing.Size(136, 38);
+            this.Ajouter.Size = new System.Drawing.Size(143, 38);
             this.Ajouter.TabIndex = 20;
             this.Ajouter.Text = "Ajouter";
             this.Ajouter.UseVisualStyleBackColor = true;
@@ -109,15 +109,15 @@
             this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(160, 33);
+            this.textBox1.Location = new System.Drawing.Point(167, 33);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 26);
+            this.textBox1.Size = new System.Drawing.Size(295, 26);
             this.textBox1.TabIndex = 5;
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(23, 483);
+            this.button1.Location = new System.Drawing.Point(23, 720);
             this.button1.Margin = new System.Windows.Forms.Padding(8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 41);
@@ -141,8 +141,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(15, 30, 15, 30);
-            this.splitContainer1.Size = new System.Drawing.Size(954, 562);
-            this.splitContainer1.SplitterDistance = 458;
+            this.splitContainer1.Size = new System.Drawing.Size(1000, 800);
+            this.splitContainer1.SplitterDistance = 480;
             this.splitContainer1.TabIndex = 51;
             // 
             // tableLayoutPanel1
@@ -168,7 +168,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 562);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(480, 800);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // UserControlForFilier
@@ -177,7 +177,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "UserControlForFilier";
-            this.Size = new System.Drawing.Size(954, 562);
+            this.Size = new System.Drawing.Size(1000, 800);
             this.Load += new System.EventHandler(this.UserControlForFilier_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -68,7 +68,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(433, 564);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(478, 800);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Enregistrer
@@ -76,9 +76,9 @@
             this.Enregistrer.Cursor = System.Windows.Forms.Cursors.Default;
             this.Enregistrer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Enregistrer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Enregistrer.Location = new System.Drawing.Point(286, 188);
+            this.Enregistrer.Location = new System.Drawing.Point(316, 267);
             this.Enregistrer.Name = "Enregistrer";
-            this.Enregistrer.Size = new System.Drawing.Size(129, 38);
+            this.Enregistrer.Size = new System.Drawing.Size(144, 38);
             this.Enregistrer.TabIndex = 22;
             this.Enregistrer.Text = "Enregistrer";
             this.Enregistrer.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(23, 484);
+            this.button1.Location = new System.Drawing.Point(23, 720);
             this.button1.Margin = new System.Windows.Forms.Padding(8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 41);
@@ -110,9 +110,9 @@
             // 
             this.Supprimer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Supprimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Supprimer.Location = new System.Drawing.Point(152, 188);
+            this.Supprimer.Location = new System.Drawing.Point(167, 267);
             this.Supprimer.Name = "Supprimer";
-            this.Supprimer.Size = new System.Drawing.Size(128, 38);
+            this.Supprimer.Size = new System.Drawing.Size(143, 38);
             this.Supprimer.TabIndex = 21;
             this.Supprimer.Text = "Supprimer";
             this.Supprimer.UseVisualStyleBackColor = true;
@@ -123,18 +123,18 @@
             this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 2);
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(152, 33);
+            this.textBox1.Location = new System.Drawing.Point(167, 33);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(263, 26);
+            this.textBox1.Size = new System.Drawing.Size(293, 26);
             this.textBox1.TabIndex = 5;
             // 
             // Ajouter
             // 
             this.Ajouter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Ajouter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Ajouter.Location = new System.Drawing.Point(18, 188);
+            this.Ajouter.Location = new System.Drawing.Point(18, 267);
             this.Ajouter.Name = "Ajouter";
-            this.Ajouter.Size = new System.Drawing.Size(128, 38);
+            this.Ajouter.Size = new System.Drawing.Size(143, 38);
             this.Ajouter.TabIndex = 20;
             this.Ajouter.Text = "Ajouter";
             this.Ajouter.UseVisualStyleBackColor = true;
@@ -148,7 +148,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(15, 30);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(15, 30, 15, 30);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(437, 504);
+            this.dataGridView1.Size = new System.Drawing.Size(488, 740);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -167,8 +167,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(15, 30, 15, 30);
-            this.splitContainer1.Size = new System.Drawing.Size(904, 564);
-            this.splitContainer1.SplitterDistance = 433;
+            this.splitContainer1.Size = new System.Drawing.Size(1000, 800);
+            this.splitContainer1.SplitterDistance = 478;
             this.splitContainer1.TabIndex = 52;
             // 
             // UserControlForMatiere
@@ -177,7 +177,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "UserControlForMatiere";
-            this.Size = new System.Drawing.Size(904, 564);
+            this.Size = new System.Drawing.Size(1000, 800);
             this.Load += new System.EventHandler(this.UserControlForMatiere_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
