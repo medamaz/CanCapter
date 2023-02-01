@@ -157,9 +157,9 @@ namespace CanCapter
                     }
                     return folderPath + fileName;
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return null;
+                    throw ex;
                 }
             }
 
