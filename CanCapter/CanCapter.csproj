@@ -362,6 +362,9 @@
     <Content Include="Logger\Log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="programs_Installer\SQL2022-SSEI-Expr.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Recus\Reademe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

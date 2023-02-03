@@ -327,7 +327,7 @@ namespace CanCapter
             {
                 LogHandler.WriteToLog(ex);
 
-                MessageBox.Show(ex.Message + "Stack trace: " + ex.StackTrace);
+                MessageBox.Show(ex.Message + "Stack trace: ");
             }
         }
 
@@ -484,7 +484,7 @@ namespace CanCapter
             {
                 LogHandler.WriteToLog(ex);
 
-                MessageBox.Show(ex.Message + "Stack trace: " + ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
 
         }

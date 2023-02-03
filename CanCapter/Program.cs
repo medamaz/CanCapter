@@ -9,6 +9,8 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
+using System.Data.SqlClient;
+
 namespace CanCapter
 {
     internal static class Program
@@ -23,26 +25,32 @@ namespace CanCapter
             {
                 FileIOPermission f = new FileIOPermission(FileIOPermissionAccess.Read | FileIOPermissionAccess.Write, Directory.GetCurrentDirectory());
                 f.Demand();
-                string directoryPath = AppDomain.CurrentDomain.BaseDirectory;
-                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
-                DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-                PrincipalContext principalContext = new PrincipalContext(ContextType.Machine);
-                UserPrincipal userPrincipal = new UserPrincipal(principalContext);
-                PrincipalSearcher principalSearcher = new PrincipalSearcher(userPrincipal);
-                foreach (UserPrincipal foundUser in principalSearcher.FindAll())
-                {
-                    NTAccount userAccount = new NTAccount(foundUser.Name);
-                    SecurityIdentifier userSID = (SecurityIdentifier)userAccount.Translate(typeof(SecurityIdentifier));
 
-                    directorySecurity.AddAccessRule(new FileSystemAccessRule(userSID, FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                GrantAccess(Directory.GetCurrentDirectory());
 
-                    directoryInfo.SetAccessControl(directorySecurity);
-                }
+
+                //bool isSqlExpressInstalled = false;
+                //try
+                //{
+                //    using (SqlConnection connection = new SqlConnection("Server=localhost\\SQLExpress;Integrated Security=true"))
+                //    {
+                //        connection.Open();
+                //        isSqlExpressInstalled = true;
+                //    }
+                //}
+                //catch (SqlException)
+                //{
+                //    isSqlExpressInstalled = false;
+                //}
+
+                //if (!isSqlExpressInstalled)
+                //{
+                //    System.Diagnostics.Process.Start(@"programs_Installer\SQL2022-SSEI-Expr.exe", "/q");
+                //}
             }
             catch (Exception ex)
             {
                 LogHandler.WriteToLog(ex);
-                Console.WriteLine("Permission to access the system folder was not granted: " + ex.Message);
             }
             finally
             {
@@ -52,6 +60,14 @@ namespace CanCapter
             }
           
             
+        }
+
+        private static void GrantAccess(string fullPath)
+        {
+            DirectoryInfo dInfo = new DirectoryInfo(fullPath);
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+            dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            dInfo.SetAccessControl(dSecurity);
         }
     }
 }
