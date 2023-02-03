@@ -54,6 +54,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 800);
             this.Name = "Accueil";
             this.Text = "CanCapter";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Accueil_FormClosing);
             this.Load += new System.EventHandler(this.Accueil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

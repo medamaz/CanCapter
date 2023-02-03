@@ -19,7 +19,7 @@ namespace CanCapter
             DataTable dt = new DataTable();
             try
             {
-                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, E.telephone, E.telephone_P as 'Tel de Pére', E.telephone_M as 'Tel de Mére', E.date_I as 'Date inscription', E.Remis, F.nom as Filier From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
+                adapter = new SqlDataAdapter("select E.id_E, E.nom, E.prenom, F.nom as Filier, E.telephone, E.telephone_P as 'Tel de Pére', E.telephone_M as 'Tel de Mére', E.date_I as 'Date inscription', E.Remis From Etudiant E, Filier F where F.id_F = E.id_F", cntStr)
                 {
                     MissingSchemaAction = MissingSchemaAction.AddWithKey
                 };
@@ -44,7 +44,7 @@ namespace CanCapter
                 cn.ConnectionString = cntStr;
                 cn.Open();
                 cmd.Connection = cn;
-                cmd.CommandText = "select * From Etudiant where Next_P = @D and Statut = 1";
+                cmd.CommandText = "select * From Etudiant where Statut = 1";
                 cmd.Parameters.AddWithValue("@D", DateTime.Now);
                 SqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())
@@ -60,7 +60,7 @@ namespace CanCapter
                     e.id_F = Convert.ToInt32(rd[7].ToString());
                     e.Statut = Convert.ToBoolean(rd[8].ToString());
                     e.Remis = Convert.ToDouble(rd[9].ToString());
-                    e.Next_P = Convert.ToDateTime(rd[10].ToString());
+                    
                     list.Add(e);
                 }
 
@@ -79,7 +79,6 @@ namespace CanCapter
 
 
         }
-
 
         public static DataTable RechercherEtudiant(string nom, string prenom)
         {

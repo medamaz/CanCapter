@@ -24,13 +24,16 @@ namespace CanCapter
 
         private void button1_Click(object sender, EventArgs e)
         {
-            resault = Convert.ToDouble(textBox1.Text);
+            if(textBox1.Text != "" && textBox1.Text != null)
+            {
+                resault = Convert.ToDouble(textBox1.Text);
+                
+            }
             this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            resault = 0;
             this.Close();
         }
     }

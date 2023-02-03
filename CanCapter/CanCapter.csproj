@@ -103,6 +103,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -113,6 +114,9 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -146,6 +150,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CanCapterEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DirectoryEntry.cs" />
     <Compile Include="Etudiant.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
@@ -170,6 +175,7 @@
       <DependentUpon>FilierGs.cs</DependentUpon>
     </Compile>
     <Compile Include="FilierParent.cs" />
+    <Compile Include="LogHandler.cs" />
     <Compile Include="mainUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,6 +209,9 @@
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="RecuParent.cs" />
+    <Compile Include="Rrecu_Paiment.cs">
+      <DependentUpon>CanCapterEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>CanCapterEntity.tt</DependentUpon>
     </Compile>
@@ -306,10 +315,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Template\Payment_Receipt_Template_Recu.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Template\Payment_Receipt_Template.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Template\Payment_Receipt_Template_Recu.docx">
+    <None Include="Template\Payment_Receipt_Template_Recu%281%29.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -330,11 +342,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CanCapterDataBase.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="CanCapterDataBase_log.ldf">
       <DependentUpon>CanCapterDataBase.mdf</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="CanCapterEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -347,13 +359,17 @@
       <LastGenOutput>CanCapterEntity.cs</LastGenOutput>
     </Content>
     <Content Include="CanCApterIcon.ico" />
+    <Content Include="Logger\Log.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recus\Reademe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Recus\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -19,7 +19,51 @@ namespace CanCapter
             DataTable dt = new DataTable();
             try
             {
-                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0}", ed);
+                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut, R.observation from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0}", ed);
+                adapter = new SqlDataAdapter(rq, cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static DataTable getRecuNonPaye(int ed)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut, R.observation from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0} and R.Statut = 0", ed);
+                adapter = new SqlDataAdapter(rq, cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static DataTable getRecuPaye(int ed)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut, R.observation from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0} and R.Statut = 1", ed);
                 adapter = new SqlDataAdapter(rq, cntStr)
                 {
                     MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -41,7 +85,53 @@ namespace CanCapter
             DataTable dt = new DataTable();
             try
             {
-                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0} and MONTH(R.date_P) = {1} and Year(R.date_P) = {2}", ed,m,year);
+                string rq = String.Format("select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut, R.observation from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = {0} and MONTH(R.date_P) = {1} and Year(R.date_P) = {2}", ed,m,year);
+                adapter = new SqlDataAdapter(rq, cntStr)
+                {
+                    MissingSchemaAction = MissingSchemaAction.AddWithKey
+                };
+                adapter.Fill(dt);
+                SqlCommandBuilder cmd = new SqlCommandBuilder(adapter);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static int checkIfExistRecuByMouth(int ed, int m, int year)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+                cn.ConnectionString = cntStr;
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.CommandText = "select count(*) from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = @E and MONTH(R.date_P) = @M and Year(R.date_P) = @Y";
+                cmd.Parameters.AddWithValue("@E", ed);
+                cmd.Parameters.AddWithValue("@M", m);
+                cmd.Parameters.AddWithValue("@Y", year);
+                return (int) cmd.ExecuteScalar();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
+        public static DataTable getRecuPaimentByMouth(int R, int m, int year)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+                string rq = String.Format("select * from Rrecu_Paiment R where  Id_R = {0} and MONTH(R.date_E) = {1} and Year(R.date_E) = {2}", R, m, year);
                 adapter = new SqlDataAdapter(rq, cntStr)
                 {
                     MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -128,7 +218,7 @@ namespace CanCapter
                 cn.ConnectionString = cntStr;
                 cn.Open();
                 cmd.Connection = cn;
-                cmd.CommandText = "select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = @E and MONTH(R.date_P) = @M and Year(R.date_P) = @Y";
+                cmd.CommandText = "select R.id_R, E.Id_E, R.date_P, R.Paye, R.Rest, R.Total, R.Statut, R.observation from Recu R, Etudiant E where R.Id_E = E.Id_E and R.Id_E = @E and MONTH(R.date_P) = @M and Year(R.date_P) = @Y";
                 cmd.Parameters.AddWithValue("@E", ed);
                 cmd.Parameters.AddWithValue("@M", m);
                 cmd.Parameters.AddWithValue("@Y", year);
@@ -142,6 +232,7 @@ namespace CanCapter
                     rc.Total = Convert.ToDouble(rd[4].ToString());
                     rc.Rest = Convert.ToDouble(rd[5].ToString());
                     rc.Statut = Convert.ToBoolean(rd[6].ToString());
+                    rc.observation = rd[7].ToString();
                 }
 
                 cmd.Parameters.Clear();

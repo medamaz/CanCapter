@@ -4,15 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a1b54b99298d4ab3802079fff9549ca2" Name="Diagram1">
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant_Matiere" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Filier" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="3d1486d906624197881bee4ff7f240f2" Name="Diagram1">
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Etudiant_Matiere" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Filier" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Matiere" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Paiement" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.Recu" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Rrecu_Paiment" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CanCapterDataBaseModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CanCapterDataBaseModel.Tarif" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CanCapterDataBaseModel.Tarif" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant__id_F__01142BA1" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Etudiant_M__id_E__3C34F16F" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Paiement__id_E__571DF1D5" ManuallyRouted="false" />
@@ -21,6 +22,7 @@
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Tarif__id_F__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Tarif__id_M__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="CanCapterDataBaseModel.FK__Paiement__id_T__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="CanCapterDataBaseModel.FK__Rrecu_Paim__Id_R__1B9317B3" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

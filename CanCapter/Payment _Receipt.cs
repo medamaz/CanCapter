@@ -1,9 +1,8 @@
-﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Office.Interop.Word;
 using System;
-using System.Drawing.Printing;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -44,7 +43,7 @@ namespace CanCapter
 
         }
 
-        public static string printRecu(string filier, string mois, string montantPaye, string montantRester, string recuN, string fullName)
+        public static string printRecu(string filier, string matiere, string mois, string montantPaye, string montantRester, string recuN, string fullName,string mtTotal)
         {
             Guid guid = Guid.NewGuid();
             string folderPath = Directory.GetCurrentDirectory() + @"\Recus\";
@@ -64,7 +63,6 @@ namespace CanCapter
 
                 // Open the existing receipt template
                 Microsoft.Office.Interop.Word.Document doc = wordApp.Documents.Open(receiptTemplate);
-
                 // Add custom information to the receipt
                 doc.Bookmarks["Filier"].Range.Text = filier;
                 doc.Bookmarks["Date"].Range.Text = DateTime.Now.ToShortDateString();
@@ -73,11 +71,12 @@ namespace CanCapter
                 doc.Bookmarks["MontantR"].Range.Text = montantRester;
                 doc.Bookmarks["Name"].Range.Text = fullName;
                 doc.Bookmarks["RecuNumber"].Range.Text = recuN;
+                doc.Bookmarks["MontantTotal"].Range.Text = mtTotal;
+                doc.Bookmarks["Matiere"].Range.Text = matiere;
 
                 // Save the receipt as a new Word document in a folder
 
                 doc.SaveAs2(folderPath + fileName);
-
                 // Close the document and the Word application
                 doc.Close();
                 wordApp.Quit();
@@ -88,7 +87,7 @@ namespace CanCapter
             {
                 try
                 {
-                    File.Copy(receiptTemplate ,folderPath + fileName, true);
+                    File.Copy(receiptTemplate, folderPath + fileName, true);
 
                     using (var doc = WordprocessingDocument.Open(folderPath + fileName, true))
                     {
@@ -102,6 +101,14 @@ namespace CanCapter
                                 if (text != null)
                                 {
                                     text.Text = text.Text + filier;
+                                }
+                            }
+                            if (bookmark.Name == "Matiere")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + matiere;
                                 }
                             }
                             else if (bookmark.Name == "Date")
@@ -149,7 +156,15 @@ namespace CanCapter
                                 var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
                                 if (text != null)
                                 {
-                                    text.Text = text.Text+ recuN;
+                                    text.Text = text.Text + recuN;
+                                }
+                            }
+                            else if (bookmark.Name == "MontantTotal")
+                            {
+                                var text = bookmark.Parent.Descendants<Text>().FirstOrDefault();
+                                if (text != null)
+                                {
+                                    text.Text = text.Text + mtTotal;
                                 }
                             }
                         }
@@ -157,7 +172,7 @@ namespace CanCapter
                     }
                     return folderPath + fileName;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw ex;
                 }
@@ -165,14 +180,30 @@ namespace CanCapter
 
         }
 
-        public static void printWordfile(string printername , string filepath)
+        public static void printWordfile(string filepath)
         {
-           
-                PrintDocument printDoc = new PrintDocument();
-                printDoc.PrinterSettings.PrinterName = printername;
-                printDoc.DocumentName = filepath;
-                printDoc.Print();
+
+
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = "WINWORD.EXE";
+                startInfo.Arguments = string.Format("/p {0}", filepath);
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-      
+
+
+
     }
 }

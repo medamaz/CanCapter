@@ -65,7 +65,18 @@
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.OBS = new System.Windows.Forms.TextBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ToutNP = new System.Windows.Forms.RadioButton();
+            this.ToutP = new System.Windows.Forms.RadioButton();
+            this.ToutF = new System.Windows.Forms.RadioButton();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.Imprimer = new System.Windows.Forms.Button();
+            this.Retourner = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,7 +91,17 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -98,9 +119,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(15);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 761);
+            this.splitContainer1.Size = new System.Drawing.Size(984, 791);
             this.splitContainer1.SplitterDistance = 492;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -111,8 +132,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.Controls.Add(this.RemisE, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.RemisE, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
@@ -127,17 +148,21 @@
             this.tableLayoutPanel1.Controls.Add(this.Tel_M, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.FilierBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.checkedListBox1, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 12);
-            this.tableLayoutPanel1.Controls.Add(this.PayeM, 1, 11);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.Rpaye, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.splitContainer3, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.PayeM, 1, 13);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.Rpaye, 1, 12);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.splitContainer3, 1, 11);
+            this.tableLayoutPanel1.Controls.Add(this.label11, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.OBS, 1, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 15;
+            this.tableLayoutPanel1.RowCount = 17;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -153,14 +178,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 701);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 731);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // RemisE
             // 
             this.RemisE.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RemisE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemisE.Location = new System.Drawing.Point(187, 327);
+            this.RemisE.Location = new System.Drawing.Point(187, 359);
             this.RemisE.Name = "RemisE";
             this.RemisE.Size = new System.Drawing.Size(272, 26);
             this.RemisE.TabIndex = 36;
@@ -169,7 +194,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(0, 324);
+            this.label10.Location = new System.Drawing.Point(0, 356);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(62, 20);
@@ -328,7 +353,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.panel2, 2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 359);
+            this.panel2.Location = new System.Drawing.Point(3, 391);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(456, 44);
             this.panel2.TabIndex = 49;
@@ -373,7 +398,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
             this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 579);
+            this.panel1.Location = new System.Drawing.Point(3, 611);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(456, 74);
             this.panel1.TabIndex = 41;
@@ -408,7 +433,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(137, 58);
             this.button1.TabIndex = 26;
-            this.button1.Text = "Imprimer le Recu";
+            this.button1.Text = "Afficher Les Détails";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -443,7 +468,7 @@
             // 
             this.PayeM.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PayeM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PayeM.Location = new System.Drawing.Point(187, 547);
+            this.PayeM.Location = new System.Drawing.Point(187, 579);
             this.PayeM.Name = "PayeM";
             this.PayeM.ReadOnly = true;
             this.PayeM.Size = new System.Drawing.Size(272, 26);
@@ -453,7 +478,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(0, 544);
+            this.label9.Location = new System.Drawing.Point(0, 576);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 20);
@@ -464,7 +489,7 @@
             // 
             this.Rpaye.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Rpaye.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Rpaye.Location = new System.Drawing.Point(187, 515);
+            this.Rpaye.Location = new System.Drawing.Point(187, 547);
             this.Rpaye.Name = "Rpaye";
             this.Rpaye.ReadOnly = true;
             this.Rpaye.Size = new System.Drawing.Size(272, 26);
@@ -474,7 +499,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(0, 512);
+            this.label8.Location = new System.Drawing.Point(0, 544);
             this.label8.Margin = new System.Windows.Forms.Padding(0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 20);
@@ -485,7 +510,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.splitContainer3, 2);
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(3, 409);
+            this.splitContainer3.Location = new System.Drawing.Point(3, 441);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -532,6 +557,7 @@
             this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Afficher Tout";
             this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 
             // dateTimePicker1
             // 
@@ -544,25 +570,181 @@
             this.dateTimePicker1.Visible = false;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(0, 324);
+            this.label11.Margin = new System.Windows.Forms.Padding(0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(102, 20);
+            this.label11.TabIndex = 56;
+            this.label11.Text = "Observation :";
+            // 
+            // OBS
+            // 
+            this.OBS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OBS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OBS.Location = new System.Drawing.Point(187, 327);
+            this.OBS.Name = "OBS";
+            this.OBS.Size = new System.Drawing.Size(272, 26);
+            this.OBS.TabIndex = 58;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(15, 15);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
+            this.splitContainer2.Panel2MinSize = 425;
+            this.splitContainer2.Size = new System.Drawing.Size(458, 761);
+            this.splitContainer2.SplitterDistance = 41;
+            this.splitContainer2.SplitterWidth = 1;
+            this.splitContainer2.TabIndex = 30;
+            this.splitContainer2.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ToutNP);
+            this.groupBox2.Controls.Add(this.ToutP);
+            this.groupBox2.Controls.Add(this.ToutF);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(458, 41);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Filter";
+            // 
+            // ToutNP
+            // 
+            this.ToutNP.AutoSize = true;
+            this.ToutNP.Location = new System.Drawing.Point(311, 15);
+            this.ToutNP.Name = "ToutNP";
+            this.ToutNP.Size = new System.Drawing.Size(125, 17);
+            this.ToutNP.TabIndex = 2;
+            this.ToutNP.Text = "Afficher les non Payé";
+            this.ToutNP.UseVisualStyleBackColor = true;
+            this.ToutNP.CheckedChanged += new System.EventHandler(this.ToutNP_CheckedChanged);
+            // 
+            // ToutP
+            // 
+            this.ToutP.AutoSize = true;
+            this.ToutP.Location = new System.Drawing.Point(179, 15);
+            this.ToutP.Name = "ToutP";
+            this.ToutP.Size = new System.Drawing.Size(101, 17);
+            this.ToutP.TabIndex = 1;
+            this.ToutP.Text = "Aficher les Payé";
+            this.ToutP.UseVisualStyleBackColor = true;
+            this.ToutP.CheckedChanged += new System.EventHandler(this.ToutP_CheckedChanged);
+            // 
+            // ToutF
+            // 
+            this.ToutF.AutoSize = true;
+            this.ToutF.Checked = true;
+            this.ToutF.Location = new System.Drawing.Point(43, 15);
+            this.ToutF.Name = "ToutF";
+            this.ToutF.Size = new System.Drawing.Size(86, 17);
+            this.ToutF.TabIndex = 0;
+            this.ToutF.TabStop = true;
+            this.ToutF.Text = "Afficher Tout";
+            this.ToutF.UseVisualStyleBackColor = true;
+            this.ToutF.CheckedChanged += new System.EventHandler(this.ToutF_CheckedChanged);
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.dataGridView1);
+            this.splitContainer4.Panel1MinSize = 420;
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.tableLayoutPanel3);
+            this.splitContainer4.Panel2Collapsed = true;
+            this.splitContainer4.Size = new System.Drawing.Size(458, 719);
+            this.splitContainer4.SplitterDistance = 662;
+            this.splitContainer4.SplitterWidth = 1;
+            this.splitContainer4.TabIndex = 30;
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 15);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(30);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(458, 731);
+            this.dataGridView1.Size = new System.Drawing.Size(458, 719);
             this.dataGridView1.TabIndex = 29;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.AutoSize = true;
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.Imprimer, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.Retourner, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(150, 46);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // Imprimer
+            // 
+            this.Imprimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Imprimer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Imprimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Imprimer.Location = new System.Drawing.Point(57, 8);
+            this.Imprimer.Margin = new System.Windows.Forms.Padding(8);
+            this.Imprimer.Name = "Imprimer";
+            this.Imprimer.Size = new System.Drawing.Size(33, 30);
+            this.Imprimer.TabIndex = 26;
+            this.Imprimer.Text = "Imprimer";
+            this.Imprimer.UseVisualStyleBackColor = true;
+            this.Imprimer.Click += new System.EventHandler(this.Imprimer_Click);
+            // 
+            // Retourner
+            // 
+            this.Retourner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Retourner.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Retourner.Location = new System.Drawing.Point(8, 8);
+            this.Retourner.Margin = new System.Windows.Forms.Padding(8);
+            this.Retourner.Name = "Retourner";
+            this.Retourner.Size = new System.Drawing.Size(33, 30);
+            this.Retourner.TabIndex = 24;
+            this.Retourner.Text = "Retourner";
+            this.Retourner.UseVisualStyleBackColor = true;
+            this.Retourner.Click += new System.EventHandler(this.Retourner_Click);
             // 
             // EtudientGs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 761);
+            this.ClientSize = new System.Drawing.Size(984, 791);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EtudientGs";
@@ -587,7 +769,19 @@
             this.splitContainer3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            this.splitContainer4.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -631,5 +825,16 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox OBS;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton ToutNP;
+        private System.Windows.Forms.RadioButton ToutP;
+        private System.Windows.Forms.RadioButton ToutF;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button Imprimer;
+        private System.Windows.Forms.Button Retourner;
     }
 }

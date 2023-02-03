@@ -32,11 +32,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null)
-                {
-                    MessageBox.Show(ex.InnerException.Message + "01");
-                }
-                MessageBox.Show(ex.Message + "1");
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
                 return null;
             }
         }
@@ -60,11 +57,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null)
-                {
-                    MessageBox.Show(ex.InnerException.Message + "|" + ex.StackTrace);
-                }
-                MessageBox.Show(ex.Message + "|" + ex.StackTrace);
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -84,6 +78,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -110,6 +105,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -126,6 +122,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -138,6 +135,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -154,6 +152,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }

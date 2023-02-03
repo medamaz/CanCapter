@@ -32,7 +32,6 @@ namespace CanCapter
         public int id_F { get; set; }
         public bool Statut { get; set; }
         public Nullable<double> Remis { get; set; }
-        public Nullable<System.DateTime> Next_P { get; set; }
     
         public virtual Filier Filier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

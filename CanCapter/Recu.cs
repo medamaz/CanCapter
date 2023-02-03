@@ -14,6 +14,12 @@ namespace CanCapter
     
     public partial class Recu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Recu()
+        {
+            this.Rrecu_Paiment = new HashSet<Rrecu_Paiment>();
+        }
+    
         public int Id_R { get; set; }
         public int Id_E { get; set; }
         public System.DateTime date_P { get; set; }
@@ -22,8 +28,10 @@ namespace CanCapter
         public double Total { get; set; }
         public bool Statut { get; set; }
         public Nullable<System.DateTime> date_E { get; set; }
-        public string filename { get; set; }
+        public string observation { get; set; }
     
         public virtual Etudiant Etudiant { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rrecu_Paiment> Rrecu_Paiment { get; set; }
     }
 }

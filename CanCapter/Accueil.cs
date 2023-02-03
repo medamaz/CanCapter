@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace CanCapter
@@ -14,6 +9,7 @@ namespace CanCapter
     {
         CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
         mainUserControl MainUserControl;
+        private static System.Timers.Timer _timer;
 
         public Accueil()
         {
@@ -21,16 +17,16 @@ namespace CanCapter
             MainUserControl = new mainUserControl(this.main);
         }
 
-        private async void Accueil_Load(object sender, EventArgs e)
+        private void Accueil_Load(object sender, EventArgs e)
         {
             try
             {
-                await AddPaiment();
+                AddPaiment();
             }
             catch (Exception ex)
             {
-                MessageBox
-                    .Show(ex.Message);
+                MessageBox.Show(ex.Message);
+                LogHandler.WriteToLog(ex);
             }
             finally
             {
@@ -67,26 +63,56 @@ namespace CanCapter
         {
 
         }
-        Task AddPaiment()
+        void AddPaiment()
         {
-            return Task.Run(() => {
-                CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
-                foreach (Etudiant e in EtudiantPaarent.GetAllEtudientForDateNow())
-                {
-                    cancapter.Etudiants.Find(e.Id_E).Next_P = Convert.ToDateTime(cancapter.Etudiants.Find(e.Id_E).Next_P).AddDays(30);
-                    Recu r = new Recu();
-                    double t = TarifParent.getTotalPayeForEtudient(e.Id_E);
-                    r.Id_E = e.Id_E;
-                    r.date_P = DateTime.Now;
-                    r.Paye = 0;
-                    r.Rest = t -(double) e.Remis;
-                    r.Total = t - (double)e.Remis;
-                    r.Statut = false;
+            // Set the timer to trigger every 24 hours
+            _timer = new System.Timers.Timer(24 * 60 * 60 * 1000);
 
-                    cancapter.Recus.Add(r);
-                    cancapter.SaveChanges();
-                }
-            });
+            // Attach the timer's Elapsed event to the TimerElapsed delegate
+            _timer.Elapsed += TimerElapsed;
+
+            // Start the timer
+            _timer.Start();
+
+
+        }
+        private static void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            // Check if today is the first day of the month
+            if (DateTime.Now.Day == 1 || DateTime.Now.Day == 2 || DateTime.Now.Day == 3)
+            {
+                Task.Run(() =>
+                {
+                    CanCapterDataBaseEntities cancapter = new CanCapterDataBaseEntities();
+                    foreach (Etudiant ed in EtudiantPaarent.GetAllEtudientForDateNow())
+                    {
+
+                        if (RecuParent.checkIfExistRecuByMouth(ed.Id_E, DateTime.Now.Month, DateTime.Now.Year) < 0)
+                        {
+
+                            cancapter.Etudiants.Find(ed.Id_E);
+                            Recu r = new Recu();
+                            double t = TarifParent.getTotalPayeForEtudient(ed.Id_E);
+                            r.Id_E = ed.Id_E;
+                            r.date_P = DateTime.Now;
+                            r.Paye = 0;
+                            r.Rest = t - (double)ed.Remis;
+                            r.Total = t - (double)ed.Remis;
+                            r.Statut = false;
+
+                            cancapter.Recus.Add(r);
+                            cancapter.SaveChanges();
+
+                        }
+                    }
+                });
+            }
+        }
+
+        private void Accueil_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop the timer
+            _timer.Stop();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +17,7 @@ namespace CanCapter
         DataTable listBoxDataSource;
         DataTable FilierDataSource;
         BindingSource bs = new BindingSource();
+        bool dt = true;
         public EtudientGs(int ed, DataTable listBoxDataSource, DataTable FilierDataSource)
         {
             InitializeComponent();
@@ -30,7 +30,6 @@ namespace CanCapter
         {
         }
 
-
         Task loadDataGridViewWithRecu()
         {
             try
@@ -42,6 +41,46 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+
+        }
+
+        Task loadDataGridViewWithRecuNonPaye()
+        {
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = RecuParent.getRecuNonPaye(ed.Id_E);
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+
+        }
+
+        Task loadDataGridViewWithRecuPaye()
+        {
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = RecuParent.getRecuPaye(ed.Id_E);
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
                 return null;
             }
@@ -59,12 +98,32 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
                 return null;
             }
 
         }
 
+        Task loadDataGridViewWithRecuPaimentByMonth(int R, int m, int y)
+        {
+            try
+            {
+                return Task.Run(() =>
+                {
+                    this.gridViewDataSource = RecuParent.getRecuPaimentByMouth(R, m, y);
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+
+        }
 
         private async void EtudientGs_Load(object sender, EventArgs e)
         {
@@ -108,6 +167,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -166,6 +227,13 @@ namespace CanCapter
 
                                 }
                             }
+
+                            if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
+                            {
+                                Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                                c.observation = OBS.Text;
+                            }
+
                             cancapter.SaveChanges();
 
 
@@ -190,6 +258,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -198,46 +268,65 @@ namespace CanCapter
         {
             try
             {
-                if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
+                if (dt)
                 {
-                    Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
-                    if (!c.Statut)
+                    if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
                     {
-                        PrixForm f = new PrixForm();
-                        f.ShowDialog();
-                        c.Paye = c.Paye + f.resault;
-                        c.Rest = c.Rest - f.resault;
-                        c.date_E = DateTime.Now;
-                        c.filename = Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
-                        cancapter.SaveChanges();
-                        await loadDataGridViewWithRecu();
-                        bs.DataSource = gridViewDataSource;
-                        Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
-                        PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
-                        if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                        if (!c.Statut)
                         {
-                            if (c.filename != null)
+                            string filename = "";
+                            PrixForm f = new PrixForm();
+                            Rrecu_Paiment rp = new Rrecu_Paiment();
+                            f.ShowDialog();
+                            if (f.resault != 0)
                             {
-                                PrintDialog printDialog = new PrintDialog();
-
-                                if (printDialog.ShowDialog() == DialogResult.OK)
+                                c.Paye = c.Paye + f.resault;
+                                c.Rest = c.Rest - f.resault;
+                                c.date_E = DateTime.Now;
+                                string Matiere = "";
+                                foreach (Matiere m in Etudiant_MatiereParent.getJsutMatierByEtudiant(ed.Id_E))
                                 {
-                                    string selectedPrinter = printDialog.PrinterSettings.PrinterName;
-                                    await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
+                                    Matiere = Matiere + "," + m.nom;
+                                }
+                                await Task.Run(() =>
+                                {
+
+                                    filename = Payment__Receipt.printRecu(ed.Filier.nom, Matiere, DateTime.Now.Month.ToString(), f.resault.ToString(), (RecuParent.getRestToPaye(ed.Id_E) - f.resault).ToString(), c.Id_R.ToString() + rp.Id.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom, TarifParent.getTotalPayeForEtudient(ed.Id_E).ToString());
+                                });
+                                rp.Url_Recu = filename;
+                                rp.date_E = DateTime.Now;
+                                rp.Id_R = c.Id_R;
+                                rp.Paye = f.resault;
+                                cancapter.Rrecu_Paiment.Add(rp);
+                                cancapter.SaveChanges();
+                                await loadDataGridViewWithRecu();
+                                bs.DataSource = gridViewDataSource;
+                                Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
+                                PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
+                                if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                                {
+                                    if (filename != null)
+                                    {
+                                        await Task.Run(() => { Payment__Receipt.printWordfile(filename); });
+                                        return;
+                                    }
+                                    MessageBox.Show("Auccun Recu Fondu");
                                 }
                                 return;
                             }
-                            MessageBox.Show("Auccun Recu Fondu");
+                            return;
                         }
+                        MessageBox.Show("C'est Deja Payé");
                         return;
                     }
-                    MessageBox.Show("C'est Deja Payé");
-                    return;
+                    MessageBox.Show("Sélectionnez D'Abord Une Ligne à Modifier");
                 }
-                MessageBox.Show("Sélectionnez D'Abord Ine Ligne à Modifier");
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message + "Stack trace: " + ex.StackTrace);
             }
         }
@@ -246,14 +335,19 @@ namespace CanCapter
         {
             try
             {
-                if (radioButton1.Checked)
-                    ed.Statut = true;
-                else
-                    ed.Statut = false;
-                cancapter.SaveChanges();
+                if (dt)
+                {
+                    if (radioButton1.Checked)
+                        ed.Statut = true;
+                    else
+                        ed.Statut = false;
+                    cancapter.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -262,12 +356,17 @@ namespace CanCapter
         {
             try
             {
-                await loadDataGridViewWithRecuByMonth();
-                bs.DataSource = gridViewDataSource;
+                if (dt)
+                {
+                    await loadDataGridViewWithRecuByMonth();
+                    bs.DataSource = gridViewDataSource;
+                }
 
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -277,17 +376,17 @@ namespace CanCapter
             try
             {
 
-                if (radioButton6.Checked)
+                if (radioButton6.Checked && dt)
                 {
-                    await loadDataGridViewWithRecu();
+                    await loadDataGridViewWithRecuByMonth();
                     bs.DataSource = gridViewDataSource;
                     dateTimePicker1.Visible = true;
-                    return;
                 }
-                dateTimePicker1.Visible = false;
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -296,7 +395,7 @@ namespace CanCapter
         {
             try
             {
-                if (dataGridView1 != null && dataGridView1.Rows.Count > 0)
+                if (dataGridView1 != null && dataGridView1.Rows.Count > 0 && dt)
                 {
                     if (e.RowIndex >= 0 && e.RowIndex < gridViewDataSource.Rows.Count)
                     {
@@ -317,7 +416,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogHandler.WriteToLog(ex);
             }
         }
 
@@ -326,48 +425,66 @@ namespace CanCapter
 
             try
             {
-                if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
+                if (dt)
                 {
-                    Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
-
-                    if (!c.Statut)
+                    if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
                     {
-                        PrixForm f = new PrixForm();
-                        f.ShowDialog();
-                        c.Paye = c.Paye + f.resault;
-                        c.Rest = c.Rest - f.resault; 
-                        c.date_E = DateTime.Now;
-                        c.filename = Payment__Receipt.printRecu(ed.Filier.nom, DateTime.Now.Month.ToString(), f.resault.ToString(), RecuParent.getRestToPaye(ed.Id_E).ToString(), c.Id_R.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom);
-                        cancapter.SaveChanges();
-                        await loadDataGridViewWithRecu();
-                        bs.DataSource = gridViewDataSource;
-                        Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
-                        PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
-                        if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                        if (!c.Statut)
                         {
-                            if (c.filename != null)
+                            string filename = "";
+                            PrixForm f = new PrixForm();
+                            Rrecu_Paiment rp = new Rrecu_Paiment();
+                            f.ShowDialog();
+                            if (f.resault != 0)
                             {
-                                PrintDialog printDialog = new PrintDialog();
-
-                                if (printDialog.ShowDialog() == DialogResult.OK)
+                                c.Paye = c.Paye + f.resault;
+                                c.Rest = c.Rest - f.resault;
+                                c.date_E = DateTime.Now;
+                                string Matiere = "";
+                                foreach (Matiere m in Etudiant_MatiereParent.getJsutMatierByEtudiant(ed.Id_E))
                                 {
-                                    string selectedPrinter = printDialog.PrinterSettings.PrinterName;
-                                    await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
+                                    Matiere = Matiere + "," + m.nom;
+                                }
+                                await Task.Run(() =>
+                                {
+
+                                    filename = Payment__Receipt.printRecu(ed.Filier.nom, Matiere, DateTime.Now.Month.ToString(), f.resault.ToString(), (RecuParent.getRestToPaye(ed.Id_E) - f.resault).ToString(), c.Id_R.ToString() + rp.Id.ToString() + c.Id_E.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString(), ed.nom + " " + ed.prenom, TarifParent.getTotalPayeForEtudient(ed.Id_E).ToString());
+                                });
+                                rp.Url_Recu = filename;
+                                rp.date_E = DateTime.Now;
+                                rp.Id_R = c.Id_R;
+                                rp.Paye = f.resault;
+                                cancapter.Rrecu_Paiment.Add(rp);
+                                cancapter.SaveChanges();
+                                await loadDataGridViewWithRecu();
+                                bs.DataSource = gridViewDataSource;
+                                Rpaye.Text = RecuParent.getRestToPaye(ed.Id_E).ToString();
+                                PayeM.Text = RecuParent.getPaye(ed.Id_E).ToString();
+                                if (MessageBox.Show(this, "voulez-vous imprimer un reçu", "ATTENTION !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                                {
+                                    if (filename != null)
+                                    {
+                                        await Task.Run(() => { Payment__Receipt.printWordfile(filename); });
+                                        return;
+                                    }
+                                    MessageBox.Show("Auccun Recu Fondu");
                                 }
                                 return;
                             }
-                            MessageBox.Show("Auccun Recu Fondu");
+                            return;
                         }
+                        MessageBox.Show("C'est Deja Payé");
                         return;
                     }
-                    MessageBox.Show("C'est Deja Payé");
-                    return;
+                    MessageBox.Show("Sélectionnez D'Abord Une Ligne à Modifier");
                 }
-                MessageBox.Show("Sélectionnez D'Abord Ine Ligne à Modifier");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message + "Stack trace: " + ex.StackTrace);
             }
 
         }
@@ -377,26 +494,194 @@ namespace CanCapter
 
             try
             {
-                Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
-                if (c.filename != null)
+                if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
                 {
-                    PrintDialog printDialog = new PrintDialog();
-
-                    if (printDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        string selectedPrinter = printDialog.PrinterSettings.PrinterName;
-                        await Task.Run(() => { Payment__Receipt.printWordfile(selectedPrinter, c.filename); });
-                    }
-
+                    Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                    await loadDataGridViewWithRecuPaimentByMonth(c.Id_R, Convert.ToDateTime(c.date_P).Month, Convert.ToDateTime(c.date_P).Year);
+                    bs.DataSource = gridViewDataSource;
+                    dataGridView1.Columns["id"].Visible = false;
+                    this.dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
+                    dataGridView1.Sort(dataGridView1.Columns["date_E"], ListSortDirection.Ascending);
+                    dt = false;
+                    splitContainer4.Panel2Collapsed = false;
                     return;
-
                 }
-                MessageBox.Show("Auccun Recu Fondu");
+                MessageBox.Show("Sélectionnez D'Abord Une Ligne à Modifier");
+
+
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private async void ToutF_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ToutF.Checked && dt)
+                {
+                    await loadDataGridViewWithRecu();
+                    bs.DataSource = gridViewDataSource;
+                    dataGridView1.DataSource = bs;
+                    this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                    dataGridView1.Columns["id_R"].Visible = false;
+                    dataGridView1.Columns["id_E"].Visible = false;
+                    dataGridView1.Columns["Statut"].Visible = false;
+                    dataGridView1.Sort(dataGridView1.Columns["Statut"], ListSortDirection.Ascending);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void ToutP_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ToutP.Checked && dt)
+                {
+                    await loadDataGridViewWithRecuPaye();
+                    bs.DataSource = gridViewDataSource;
+                    dataGridView1.DataSource = bs;
+                    this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                    dataGridView1.Columns["id_R"].Visible = false;
+                    dataGridView1.Columns["id_E"].Visible = false;
+                    dataGridView1.Columns["Statut"].Visible = false;
+                    dataGridView1.Sort(dataGridView1.Columns["Statut"], ListSortDirection.Ascending);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void ToutNP_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ToutNP.Checked && dt)
+                {
+                    await loadDataGridViewWithRecuNonPaye();
+                    bs.DataSource = gridViewDataSource;
+                    dataGridView1.DataSource = bs;
+                    this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                    dataGridView1.Columns["id_R"].Visible = false;
+                    dataGridView1.Columns["id_E"].Visible = false;
+                    dataGridView1.Columns["Statut"].Visible = false;
+                    dataGridView1.Sort(dataGridView1.Columns["Statut"], ListSortDirection.Ascending);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dt)
+                {
+                    if (radioButton5.Checked)
+                    {
+                        await loadDataGridViewWithRecu();
+                        bs.DataSource = gridViewDataSource;
+                        dateTimePicker1.Visible = false;
+                        return;
+                    }
+                    dateTimePicker1.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dt)
+                {
+                    if (dataGridView1 != null && dataGridView1.SelectedCells.Count > 0)
+                    {
+                        Recu c = cancapter.Recus.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                        OBS.Text = c.observation;
+                        return;
+                    }
+                    MessageBox.Show("Sélectionnez D'Abord Une Ligne à Modifier");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
+
+            }
+        }
+
+        private async void Retourner_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await loadDataGridViewWithRecu();
+                bs.DataSource = gridViewDataSource;
+                this.dataGridView1.DefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.Columns["id_R"].Visible = false;
+                dataGridView1.Columns["id_E"].Visible = false;
+                dataGridView1.Columns["Statut"].Visible = false;
+                dataGridView1.Sort(dataGridView1.Columns["Statut"], ListSortDirection.Ascending);
+                splitContainer4.Panel2Collapsed = true;
+                dt = true;
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
+
+            }
+        }
+
+        private async void Imprimer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!dt)
+                {
+                    Rrecu_Paiment c = cancapter.Rrecu_Paiment.Find(Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value.ToString()));
+                    string filename = c.Url_Recu;
+                    if (filename != null)
+                    {
+                        await Task.Run(() => { Payment__Receipt.printWordfile(filename); });
+                        return;
+                    }
+                    MessageBox.Show("Auccun Recu Fondu");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
+
+            }
+        }
+
+       
     }
 }

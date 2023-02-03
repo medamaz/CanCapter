@@ -33,6 +33,7 @@ namespace CanCapter
         public virtual DbSet<Matiere> Matieres { get; set; }
         public virtual DbSet<Paiement> Paiements { get; set; }
         public virtual DbSet<Recu> Recus { get; set; }
+        public virtual DbSet<Rrecu_Paiment> Rrecu_Paiment { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tarif> Tarifs { get; set; }
     

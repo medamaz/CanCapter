@@ -54,6 +54,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -74,6 +75,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -101,6 +103,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -125,6 +128,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -141,6 +145,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }

@@ -31,6 +31,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
                 return null;
             }
@@ -101,6 +102,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
                 return null;
             }
@@ -117,6 +120,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
                 return null;
             }
@@ -144,6 +149,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -166,7 +172,7 @@ namespace CanCapter
                         ed.id_F = Convert.ToInt32(FilierBox.SelectedValue);
                         ed.date_I = DateTime.Now.Date;
                         ed.Remis = Convert.ToDouble(RemisE.Text);
-                        ed.Next_P = DateTime.Now.Date.AddDays(30);
+                        ed.Statut = true;
                         cancapter.Etudiants.Add(ed);
 
                         foreach (DataRowView m in checkedListBox1.CheckedItems)
@@ -214,6 +220,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -232,6 +239,7 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
                 MessageBox.Show(ex.Message);
             }
 
@@ -239,8 +247,18 @@ namespace CanCapter
 
         async void MyForm_FormClosed(object sender, FormClosingEventArgs e)
         {
-            await loadDataGridView();
-            dataGridView1.DataSource = gridViewDataSource;
+            try
+            {
+                await loadDataGridView();
+                dataGridView1.DataSource = gridViewDataSource;
+            }
+            catch(Exception ex)
+            {
+                LogHandler.WriteToLog(ex);
+                MessageBox.Show(ex.Message);
+
+            }
+           
         }
 
         private async void Rechercher_Click(object sender, EventArgs e)
@@ -262,6 +280,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
 
@@ -279,6 +299,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -299,6 +321,8 @@ namespace CanCapter
             }
             catch (Exception ex)
             {
+                LogHandler.WriteToLog(ex);
+
                 MessageBox.Show(ex.Message);
             }
         }
